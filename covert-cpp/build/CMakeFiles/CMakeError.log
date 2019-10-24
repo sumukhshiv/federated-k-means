@@ -1,0 +1,54 @@
+Performing C++ SOURCE FILE Test CXX_SUPPORTS_COVERT_CXX failed with the following output:
+Change Dir: /home/shiv/Research/cs294-proj/federated-k-means/covert-cpp/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_9f927/fast"
+/usr/bin/make -f CMakeFiles/cmTC_9f927.dir/build.make CMakeFiles/cmTC_9f927.dir/build
+make[1]: Entering directory '/home/shiv/Research/cs294-proj/federated-k-means/covert-cpp/build/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_9f927.dir/src.cxx.o
+/usr/bin/c++   -I/home/shiv/Research/cs294-proj/federated-k-means/covert-cpp/include/Covert  -DCXX_SUPPORTS_COVERT_CXX -std=c++17   -o CMakeFiles/cmTC_9f927.dir/src.cxx.o -c /home/shiv/Research/cs294-proj/federated-k-means/covert-cpp/build/CMakeFiles/CMakeTmp/src.cxx
+/home/shiv/Research/cs294-proj/federated-k-means/covert-cpp/build/CMakeFiles/CMakeTmp/src.cxx: In function ‘int main()’:
+/home/shiv/Research/cs294-proj/federated-k-means/covert-cpp/build/CMakeFiles/CMakeTmp/src.cxx:6:5: error: no match for ‘operator+=’ (operand types are ‘covert::se::SE<int*, (covert::se::SLabel)0, (covert::se::SLabel)1> {aka covert::Covert<covert::se::SLabel, int*, (covert::se::SLabel)0, (covert::se::SLabel)1>}’ and ‘int’)
+   p += 8;
+   ~~^~~~
+In file included from /home/shiv/Research/cs294-proj/federated-k-means/covert-cpp/include/Covert/Covert.h:209:0,
+                 from /home/shiv/Research/cs294-proj/federated-k-means/covert-cpp/include/Covert/SE.h:13,
+                 from /home/shiv/Research/cs294-proj/federated-k-means/covert-cpp/build/CMakeFiles/CMakeTmp/src.cxx:2:
+/home/shiv/Research/cs294-proj/federated-k-means/covert-cpp/include/Covert/__covert_impl.h:196:18: note: candidate: template<class _ArgT1, class _ArgT2, class _LabelT1, class _LabelT2, class _LabelT, class _CanonicalArgT1, class _CanonicalArgT2, class _ArgT1_traits, class _ArgT2_traits, class _ArgT1_ValueT, class _ArgT2_ValueT, class _RetValueT, _LabelT _ArgT1_L, _LabelT _ArgT2_L, class> _ArgT1& covert::__covert_impl__::operator+=(_ArgT1&, const _ArgT2&)
+   inline _ArgT1 &operator op(_ArgT1 &_x, const _ArgT2 &_y) {                   \
+                  ^
+/home/shiv/Research/cs294-proj/federated-k-means/covert-cpp/include/Covert/__covert_impl.h:238:1: note: in expansion of macro ‘COVERT_ARITH_BINARY_ASSIGN’
+ COVERT_ARITH_BINARY_ASSIGN(+=);
+ ^~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/shiv/Research/cs294-proj/federated-k-means/covert-cpp/include/Covert/__covert_impl.h:196:18: note:   template argument deduction/substitution failed:
+   inline _ArgT1 &operator op(_ArgT1 &_x, const _ArgT2 &_y) {                   \
+                  ^
+/home/shiv/Research/cs294-proj/federated-k-means/covert-cpp/include/Covert/__covert_impl.h:238:1: note: in expansion of macro ‘COVERT_ARITH_BINARY_ASSIGN’
+ COVERT_ARITH_BINARY_ASSIGN(+=);
+ ^~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/shiv/Research/cs294-proj/federated-k-means/covert-cpp/include/Covert/__covert_impl.h:195:56: error: no matching function for call to ‘covert::Lattice<covert::se::SLabel>::leq(_LabelT, _LabelT)’
+       typename = std::enable_if_t<Lattice<_LabelT>::leq(_ArgT2_L, _ArgT1_L)>>  \
+                                   ~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~
+/home/shiv/Research/cs294-proj/federated-k-means/covert-cpp/include/Covert/__covert_impl.h:238:1: note: in expansion of macro ‘COVERT_ARITH_BINARY_ASSIGN’
+ COVERT_ARITH_BINARY_ASSIGN(+=);
+ ^~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from /home/shiv/Research/cs294-proj/federated-k-means/covert-cpp/build/CMakeFiles/CMakeTmp/src.cxx:2:0:
+/home/shiv/Research/cs294-proj/federated-k-means/covert-cpp/include/Covert/SE.h:95:25: note: candidate: static constexpr bool covert::Lattice<covert::se::SLabel>::leq(covert::Lattice<covert::se::SLabel>::__label_type, covert::Lattice<covert::se::SLabel>::__label_type)
+   static constexpr bool leq(__label_type l1, __label_type l2) {
+                         ^~~
+/home/shiv/Research/cs294-proj/federated-k-means/covert-cpp/include/Covert/SE.h:95:25: note:   no known conversion for argument 1 from ‘_LabelT’ to ‘covert::Lattice<covert::se::SLabel>::__label_type {aka covert::se::SLabel}’
+CMakeFiles/cmTC_9f927.dir/build.make:65: recipe for target 'CMakeFiles/cmTC_9f927.dir/src.cxx.o' failed
+make[1]: *** [CMakeFiles/cmTC_9f927.dir/src.cxx.o] Error 1
+make[1]: Leaving directory '/home/shiv/Research/cs294-proj/federated-k-means/covert-cpp/build/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_9f927/fast' failed
+make: *** [cmTC_9f927/fast] Error 2
+
+Source file was:
+
+#include "SE.h"
+int main() {
+  SE<int, H> arr[64] = {0};
+  SE<int *, L, H> p = arr;
+  p += 8;
+  auto _p = se_static_cast<int *, H, H>(p);
+}
+

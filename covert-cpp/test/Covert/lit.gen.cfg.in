@@ -1,0 +1,1 @@
+config.Oblivious = "$<TARGET_FILE:Oblivious>"

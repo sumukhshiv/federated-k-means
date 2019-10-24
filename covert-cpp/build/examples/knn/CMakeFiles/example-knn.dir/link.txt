@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC -g  -shared -Wl,-soname,libKNN.so -o ../../lib/examples/libKNN.so CMakeFiles/example-knn.dir/knn.cpp.o -Wl,-rpath,/home/shiv/Research/cs294-proj/federated-k-means/covert-cpp/build/lib ../../lib/libOblivious.so 

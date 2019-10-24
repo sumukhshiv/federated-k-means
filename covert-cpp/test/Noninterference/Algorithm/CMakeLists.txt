@@ -1,0 +1,5 @@
+add_ni_test (find_if.cpp CREATE_UNIT_TEST LINK_LIBRARIES Covert)
+add_ni_test (find.cpp CREATE_UNIT_TEST LINK_LIBRARIES Covert)
+add_ni_test (any_of.cpp CREATE_UNIT_TEST LINK_LIBRARIES Covert)
+add_ni_test (sort.cpp LINK_LIBRARIES Covert)
+add_ni_test (max_element.cpp LINK_LIBRARIES Covert)

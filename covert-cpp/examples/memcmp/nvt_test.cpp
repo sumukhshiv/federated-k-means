@@ -1,0 +1,152 @@
+//===- examples/memcmp/nvt_test.cpp - Covert C++ memcmp() NVT test example ===//
+//
+//                           Covert C++ Extensions
+//
+// This file is distributed under the University of Illinois Open Source
+// License. See LICENSE.TXT for details.
+//
+//===----------------------------------------------------------------------===//
+
+#include "memcmp.h"
+#include <NVT.h>
+#include <cassert>
+
+/**
+ * \defgroup EXAMPLES_MEMCMP_NVT Noninterference Testing
+ * \ingroup EXAMPLES
+ * \brief Example demonstrating use of the NVT to verify `memcmp()` as
+ * shown in the \ref EXAMPLES_MEMCMP example.
+ *
+ * Introduction
+ * ------------
+ *
+ * The noninterference property of program execution can be summarized as
+ * follows. To each object (value) in the program, assign either a low (`L`) or
+ * high (`H`) label. Assume that the adversary has some observational power *O*
+ * which allows him or her to observe some aspect(s) of program
+ * execution, e.g. outputs. A program *P* has noninterference with respect to
+ * `O` if, for all values of high program inputs, the adversary's view of
+ * program execution through *O* does not vary.
+ *
+ * The Covert C++ type system provides protections against an attacker whose
+ * observational power is to view some aspect of the program *trace*, including
+ * memory access patterns and instruction fetches. For pure Covert C++, these
+ * protections apply at fine granulary, i.e. exact memory addresses. For
+ * Covert C++ with libOblivious, the protections apply to cache line granulary.
+ * This example uses pure Covert C++, so the program trace for the secure
+ * `memcmp()` function should be identical for each pair of inputs of a given
+ * size. More details on the Covert C++ type system can be found in Part 1 of
+ * the [Tutorial](docs/Tutorial.md) and in the
+ * [Language Reference](docs/LanguageReference.md).
+ *
+ * However, C++ is a weakly-typed language. Thus Covert C++ is also weakly
+ * typed. So it is possible to write a program in Covert C++ which type checks,
+ * and yet accidentally leaks some high data (see the
+ * [Language Reference](docs/LanguageReference.md) for an example of how this
+ * can happen). To provide additional assurance to secure program developers,
+ * the Covert C++ toolchain includes a dynamic Noninterference Verification
+ * Tool (NVT). In essence, the NVT repeatedly runs the target program thousands
+ * or millions of times, each time with a slight variation on the high program
+ * input(s). For each program run, the NVT records the trace of the program and
+ * compares it to the trace of the prior run. If two traces ever differ for the
+ * same program, the test fails. More details on the behavior and usage of the
+ * NVT can be found in the [NVT](docs/NVT.md) documentation. Details of the NVT
+ * implementation can be found in the \ref NVT module.
+ *
+ * Using the NVT to verify memcmp()
+ * --------------------------------
+ *
+ * An NVT test module must identify itself to the NVT, to distinguish itself
+ * from other dynamically loaded modules and libraries:
+ *
+ * \snippet this module_decl
+ *
+ * Each test is divided into two steps:
+ * 1. Use fuzzed data from the NVT to initialize the high inputs for the
+ *    function(s) to be tested.
+ * 2. Run the target function(s) with the high inputs initialized in the first
+ *    step and fixed low inputs.
+ *
+ * The `NVT_TEST_INIT(1)()` function performs step 1, and `NVT_TEST_BEGIN(1)()`
+ * performs step 2 (these macros expand to NVT_test_init1() and
+ * NVT_test_init2(), respectively).
+ *
+ * \snippet this test
+ *
+ * Program traces are only recorded while an `NVT_TEST_BEGIN(*)()` function is
+ * executing. So the initialization functions do not need to be written to
+ * respect noninterference. The easiest way to make the input data accessible
+ * to both functions is to define it at the global scope:
+ *
+ * \snippet this data
+ *
+ * If `LABEL` is `L`, then the compiler will select the performance-optimized
+ * implementation of memcmp(). If `LABEL` is `H`, then it will select the safe
+ * implementation of memcmp() which does not leak the contents of the input
+ * buffers. Thus, when the NVT test is run with `LABEL := L` it will fail, and
+ * with `LABEL := H` it will succeed. You can run both tests by building the
+ * `example-memcmp-test` target.
+ */
+
+/**
+ * \addtogroup EXAMPLES_MEMCMP_NVT
+ * @{
+ */
+
+#define MAX_TEST_SIZE 1024
+
+#ifndef __HIGH__
+#define LABEL L
+#else
+#define LABEL H
+#endif
+
+//! [data]
+SE<uint8_t, LABEL> buf1[MAX_TEST_SIZE];
+SE<uint8_t, LABEL> buf2[MAX_TEST_SIZE];
+SE<const uint8_t *, L, LABEL> b1 = buf1;
+SE<const uint8_t *, L, LABEL> b2 = buf2;
+SE<unsigned, L> buf_size;
+SE<bool, LABEL> ret;
+//! [data]
+
+extern "C" {
+
+/**
+ * \brief Initialize the program inputs.
+ *
+ * This NVT test initialization function splits the fuzzed data in half,
+ * copying the first half to buf1 and the second half to buf2.
+ * \param data A buffer of fuzzed data generated by the NVT
+ * \param size The size of \p data, in bytes.
+ */
+//! [test]
+NVT_EXPORT void NVT_TEST_INIT(1)(unsigned char *data, unsigned size) {
+  assert(size % 2 == 0); // input size must be an even number
+  buf_size = size / 2;
+  assert(buf_size <= MAX_TEST_SIZE); // input size is too large
+
+  unsigned char *src = data;
+  for (int i = 0; i < buf_size; ++i) {
+    buf1[i] = src[i];
+  }
+  src = data + buf_size;
+  for (int i = 0; i < buf_size; ++i) {
+    buf2[i] = src[i];
+  }
+}
+
+/**
+ * \brief Run the NVT test for memcmp().
+ */
+NVT_EXPORT void NVT_TEST_BEGIN(1)(void) { ret = memcmp(b1, b2, buf_size); }
+//! [test]
+}
+
+/**
+ * @}
+ */
+
+//! [module_decl]
+NVT_TEST_MODULE;
+//! [module_decl]

@@ -1,0 +1,1 @@
+/usr/bin/c++  -g   CMakeFiles/example-memcmp.dir/memcmp.cpp.o CMakeFiles/example-memcmp.dir/main.cpp.o  -o ../../bin/examples/example-memcmp -Wl,-rpath,/home/shiv/Research/cs294-proj/federated-k-means/covert-cpp/build/lib ../../lib/libOblivious.so 

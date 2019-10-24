@@ -1,0 +1,5 @@
+add_subdirectory (Covert)
+add_subdirectory (Oblivious)
+if (${BUILD_NVT})
+  add_subdirectory (NVT)
+endif (${BUILD_NVT})

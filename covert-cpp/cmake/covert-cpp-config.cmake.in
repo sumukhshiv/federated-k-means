@@ -1,0 +1,11 @@
+@PACKAGE_INIT@
+
+set_and_check (COVERTCPP_MODULE_DIR "@PACKAGE_COVERTCPP_MODULE_DIR@")
+set_and_check (COVERTCPP_BINARY_DIR "@PACKAGE_COVERTCPP_BINARY_DIR@")
+
+if (@BUILD_NVT@)
+  include (${COVERTCPP_MODULE_DIR}/NVTTargets.cmake)
+endif (@BUILD_NVT@)
+include (${COVERTCPP_MODULE_DIR}/ObliviousTargets.cmake)
+include (${COVERTCPP_MODULE_DIR}/CovertTargets.cmake)
+include (${COVERTCPP_MODULE_DIR}/CovertCXXCompilerTests.cmake)

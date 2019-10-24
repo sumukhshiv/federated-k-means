@@ -1,0 +1,48 @@
+gen_cfg_file = "@CMAKE_CURRENT_BINARY_DIR@"
+build_mode = lit_config.params.get('build_mode', None)
+if build_mode is not None:
+    gen_cfg_file += ("/" + build_mode)
+gen_cfg_file += "/lit.gen.cfg"
+
+gen_cfg = None
+f = open(gen_cfg_file)
+try:
+    gen_cfg = f.read()
+except:
+    lit_config.fatal('unable to load gen config file: %r' % (gen_cfg_file,))
+f.close()
+
+try:
+    exec(compile(gen_cfg, gen_cfg_file, 'exec'), dict(globals()), None)
+    if lit_config.debug:
+        lit_config.note('... loaded config %r' % gen_cfg_file)
+except SystemExit:
+    e = sys.exc_info()[1]
+    # We allow normal system exit inside a config file to just
+    # return control without error.
+    if e.args:
+        raise
+except:
+    import traceback
+    lit_config.fatal('unable to parse config file %r, traceback: %s' % (gen_cfg_file, traceback.format_exc()))
+
+config.covert_tools_dir = "@COVERT_TOOLS_BINARY_DIR@"
+config.covert_include_dir = "@PROJECT_SOURCE_DIR@/include"
+config.check_refactor_tool = "@CHECK_REFACTOR_TOOL@"
+config.libcxx_include_dir = "@LIBCXX_INCLUDES_DIR@"
+config.llvm_tools_dir = "@LLVM_TOOLS_BINARY_DIR@"
+config.cpp_std = "@TEST_CPLUSPLUS_STD@"
+config.module_dir = "@TESTSUITE_MODULES_DIR@"
+config.test_exec_root = "@CMAKE_CURRENT_BINARY_DIR@"
+
+# Support substitution of the tools and libs dirs with user parameters. This is
+# used when we can't determine the tool dir at configuration time.
+try:
+    config.covert_tools_dir = config.covert_tools_dir % lit_config.params
+except KeyError:
+    e = sys.exc_info()[1]
+    key, = e.args
+    lit_config.fatal("unable to find %r parameter, use '--param=%s=VALUE'" % (key,key))
+
+# Let the main config do the real work.
+lit_config.load_config(config, "@PROJECT_SOURCE_DIR@/test/Tools/lit.cfg")

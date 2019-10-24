@@ -1,0 +1,2 @@
+config.c2cpp = "$<TARGET_FILE:c2cpp>"
+config.cpp2covert = "$<TARGET_FILE:cpp2covert>"

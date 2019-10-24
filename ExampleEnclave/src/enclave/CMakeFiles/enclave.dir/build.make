@@ -146,6 +146,7 @@ enclave.so: src/enclave/CMakeFiles/enclave.dir/enclave.cpp.o
 enclave.so: src/enclave/CMakeFiles/enclave.dir/enclave_t.c.o
 enclave.so: src/enclave/CMakeFiles/enclave.dir/sealing/sealing.cpp.o
 enclave.so: src/enclave/CMakeFiles/enclave.dir/build.make
+enclave.so: src/enclave/libOblivious.so
 enclave.so: src/enclave/CMakeFiles/enclave.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/shiv/Research/cs294-proj/federated-k-means/ExampleEnclave/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX shared library ../../enclave.so"
 	cd /home/shiv/Research/cs294-proj/federated-k-means/ExampleEnclave/src/enclave && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/enclave.dir/link.txt --verbose=$(VERBOSE)

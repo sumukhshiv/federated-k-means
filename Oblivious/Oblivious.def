@@ -1,0 +1,9 @@
+LIBRARY Oblivious
+EXPORTS __o_copy_i8
+        __o_copy_i16
+        __o_copy_i32
+        __o_copy_i64
+        __o_swap_i8
+        __o_swap_i16
+        __o_swap_i32
+        __o_swap_i64

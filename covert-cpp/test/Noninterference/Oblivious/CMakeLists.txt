@@ -1,0 +1,7 @@
+add_ni_test (o_copy.cpp LINK_LIBRARIES ObliviousCXX)
+add_ni_test (o_swap.cpp LINK_LIBRARIES ObliviousCXX)
+add_ni_test (o_read.cpp LINK_LIBRARIES ObliviousCXX)
+add_ni_test (o_write.cpp LINK_LIBRARIES ObliviousCXX)
+add_ni_test (ofind_if.cpp CREATE_UNIT_TEST LINK_LIBRARIES ObliviousCXX)
+add_ni_test (osort.cpp CREATE_UNIT_TEST LINK_LIBRARIES ObliviousCXX)
+add_ni_test (omax_element.cpp LINK_LIBRARIES ObliviousCXX)

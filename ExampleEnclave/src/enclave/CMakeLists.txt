@@ -26,6 +26,8 @@ include_directories(
         ${SGX_SDK}/include
         ${SGX_SDK}/include/tlibc
         ${SGX_SDK}/include/stlport
+	${CMAKE_CURRENT_SOURCE_DIR}/Oblivious
+	
 )
 
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${SGX_COMMON_CFLAGS} -nostdinc -fvisibility=hidden -fpie -fstack-protector")
@@ -33,7 +35,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CMAKE_C_FLAGS} -std=c++03 -nostdinc++"
 
 set_target_properties(enclave PROPERTIES PREFIX "")
 
-target_link_libraries(enclave "${SGX_COMMON_CFLAGS} \
+target_link_libraries(enclave ${CMAKE_CURRENT_SOURCE_DIR}/libOblivious.so "${SGX_COMMON_CFLAGS} \
     -Wl,--no-undefined -nostdlib -nodefaultlibs -nostartfiles -L${SGX_LIBRARY_PATH} \
     -Wl,--whole-archive -l${SGX_TRTS_LIB} -Wl,--no-whole-archive \
     -Wl,--start-group -lsgx_tstdc -l${SGX_CRYPTO_LIB} -l${SGX_TSVC_LIB} -Wl,--end-group \

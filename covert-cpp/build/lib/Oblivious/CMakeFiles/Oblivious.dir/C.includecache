@@ -1,0 +1,40 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../include/Oblivious/Oblivious.h
+__oblivious_impl.h
+../include/Oblivious/__oblivious_impl.h
+utility
+-
+type_traits
+-
+type_traits
+-
+
+../include/Oblivious/__oblivious_impl.h
+stddef.h
+-
+stdbool.h
+-
+stdint.h
+-
+ObliviousDefs.h
+../include/Oblivious/ObliviousDefs.h
+
+/home/shiv/Research/cs294-proj/federated-k-means/covert-cpp/lib/Oblivious/Oblivious.c
+__oblivious_impl.h
+/home/shiv/Research/cs294-proj/federated-k-means/covert-cpp/lib/Oblivious/__oblivious_impl.h
+Oblivious.h
+/home/shiv/Research/cs294-proj/federated-k-means/covert-cpp/lib/Oblivious/Oblivious.h
+assert.h
+-
+
+include/Oblivious/ObliviousDefs.h
+immintrin.h
+-
+

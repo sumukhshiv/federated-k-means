@@ -1,0 +1,12 @@
+# vim swap files
+.*.sw?
+.sw?
+
+# other swap files
+*~
+
+# python compiled objects
+*.pyc
+
+# git merge files
+*.orig

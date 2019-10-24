@@ -1,0 +1,36 @@
+gen_cfg_file = "@CMAKE_CURRENT_BINARY_DIR@"
+build_mode = lit_config.params.get('build_mode', None)
+if build_mode is not None:
+    gen_cfg_file.append("/" + build_mode)
+gen_cfg_file += "/lit.gen.cfg"
+
+gen_cfg = None
+f = open(gen_cfg_file)
+try:
+    gen_cfg = f.read()
+except:
+    lit_config.fatal('unable to load gen config file: %r' % (gen_cfg_file,))
+f.close()
+
+try:
+    exec(compile(gen_cfg, gen_cfg_file, 'exec'), dict(globals()), None)
+    if lit_config.debug:
+        lit_config.note('... loaded config %r' % gen_cfg_file)
+except SystemExit:
+    e = sys.exc_info()[1]
+    # We allow normal system exit inside a config file to just
+    # return control without error.
+    if e.args:
+        raise
+except:
+    import traceback
+    lit_config.fatal('unable to parse config file %r, traceback: %s' % (gen_cfg_file, traceback.format_exc()))
+
+config.covert_tools_dir = "@COVERT_TOOLS_BINARY_DIR@"
+config.drrun = "@DRRUN_EXECUTABLE@"
+config.test_exec_root = "@CMAKE_CURRENT_BINARY_DIR@"
+config.memory_mask_bits = "@MEMORY_SIDECHANNEL_BITS@"
+config.module_dir = "@TESTSUITE_MODULES_DIR@"
+
+# Let the main config do the real work.
+lit_config.load_config(config, "@CMAKE_CURRENT_SOURCE_DIR@/lit.cfg")

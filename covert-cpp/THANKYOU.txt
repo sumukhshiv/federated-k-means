@@ -1,0 +1,4 @@
+The first prototype of Covert C++ was developed at Intel Labs in Hillsboro, OR.
+
+The work done through v0.1.0.0 (the initial beta) was done in the EECS
+department at Syracuse University under the direction of Dr. Steve Chapin.

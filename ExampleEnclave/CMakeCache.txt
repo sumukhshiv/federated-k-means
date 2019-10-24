@@ -203,7 +203,7 @@ SGX_BUILD:STRING=DEBUG
 SGX_MODE:STRING=SIM
 
 //Dependencies for the target
-enclave_LIB_DEPENDS:STATIC=general;-m64 -O0 -g     -Wl,--no-undefined -nostdlib -nodefaultlibs -nostartfiles -L/home/shiv/Research/Intel-SGX-Installation/linux-sgx/linux/installer/bin/sgxsdk/lib64     -Wl,--whole-archive -lsgx_trts_sim -Wl,--no-whole-archive     -Wl,--start-group -lsgx_tstdc -lsgx_tcrypto -lsgx_tservice_sim -Wl,--end-group     -Wl,-Bstatic -Wl,-Bsymbolic -Wl,--no-undefined     -Wl,-pie,-eenclave_entry -Wl,--export-dynamic     -Wl,--defsym,__ImageBase=0;
+enclave_LIB_DEPENDS:STATIC=general;/home/shiv/Research/cs294-proj/federated-k-means/ExampleEnclave/src/enclave/libOblivious.so;general;-m64 -O0 -g     -Wl,--no-undefined -nostdlib -nodefaultlibs -nostartfiles -L/home/shiv/Research/Intel-SGX-Installation/linux-sgx/linux/installer/bin/sgxsdk/lib64     -Wl,--whole-archive -lsgx_trts_sim -Wl,--no-whole-archive     -Wl,--start-group -lsgx_tstdc -lsgx_tcrypto -lsgx_tservice_sim -Wl,--end-group     -Wl,-Bstatic -Wl,-Bsymbolic -Wl,--no-undefined     -Wl,-pie,-eenclave_entry -Wl,--export-dynamic     -Wl,--defsym,__ImageBase=0;
 
 
 ########################

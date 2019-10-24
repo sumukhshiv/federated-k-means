@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC -g  -shared -Wl,-soname,libOblivious.so -o ../libOblivious.so CMakeFiles/Oblivious.dir/Oblivious.c.o CMakeFiles/Oblivious.dir/Allocator.cpp.o 
