@@ -1,0 +1,10 @@
+/home/shiv/Research/cs294-proj/federated-k-means/ExampleEnclave/CMakeFiles/rebuild_cache.dir
+/home/shiv/Research/cs294-proj/federated-k-means/ExampleEnclave/CMakeFiles/edit_cache.dir
+/home/shiv/Research/cs294-proj/federated-k-means/ExampleEnclave/src/CMakeFiles/rebuild_cache.dir
+/home/shiv/Research/cs294-proj/federated-k-means/ExampleEnclave/src/CMakeFiles/edit_cache.dir
+/home/shiv/Research/cs294-proj/federated-k-means/ExampleEnclave/src/enclave/CMakeFiles/rebuild_cache.dir
+/home/shiv/Research/cs294-proj/federated-k-means/ExampleEnclave/src/enclave/CMakeFiles/enclave.dir
+/home/shiv/Research/cs294-proj/federated-k-means/ExampleEnclave/src/enclave/CMakeFiles/edit_cache.dir
+/home/shiv/Research/cs294-proj/federated-k-means/ExampleEnclave/src/app/CMakeFiles/rebuild_cache.dir
+/home/shiv/Research/cs294-proj/federated-k-means/ExampleEnclave/src/app/CMakeFiles/app.dir
+/home/shiv/Research/cs294-proj/federated-k-means/ExampleEnclave/src/app/CMakeFiles/edit_cache.dir
