@@ -1,4 +1,4 @@
-# Install script for directory: /home/shiv/Research/cs294-proj/federated-k-means/ExampleEnclave
+# Install script for directory: /home/sumukh/Documents/berkeley/decentralized_security/federated-k-means/ExampleEnclave
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -39,7 +39,7 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/home/shiv/Research/cs294-proj/federated-k-means/ExampleEnclave/src/cmake_install.cmake")
+  include("/home/sumukh/Documents/berkeley/decentralized_security/federated-k-means/ExampleEnclave/src/cmake_install.cmake")
 
 endif()
 
@@ -51,5 +51,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/shiv/Research/cs294-proj/federated-k-means/ExampleEnclave/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/sumukh/Documents/berkeley/decentralized_security/federated-k-means/ExampleEnclave/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

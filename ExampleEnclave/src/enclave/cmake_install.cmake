@@ -1,4 +1,4 @@
-# Install script for directory: /home/shiv/Research/cs294-proj/federated-k-means/ExampleEnclave/src/enclave
+# Install script for directory: /home/sumukh/Documents/berkeley/decentralized_security/federated-k-means/ExampleEnclave/src/enclave
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

@@ -6,81 +6,81 @@
 
 #IncludeRegexTransform: 
 
-/home/shiv/Research/Intel-SGX-Installation/linux-sgx/linux/installer/bin/sgxsdk/include/sgx.h
+/home/sumukh/Documents/SGX_Install/linux-sgx/linux/installer/bin/sgxsdk/include/sgx.h
 sgx_error.h
-/home/shiv/Research/Intel-SGX-Installation/linux-sgx/linux/installer/bin/sgxsdk/include/sgx_error.h
+/home/sumukh/Documents/SGX_Install/linux-sgx/linux/installer/bin/sgxsdk/include/sgx_error.h
 sgx_attributes.h
-/home/shiv/Research/Intel-SGX-Installation/linux-sgx/linux/installer/bin/sgxsdk/include/sgx_attributes.h
+/home/sumukh/Documents/SGX_Install/linux-sgx/linux/installer/bin/sgxsdk/include/sgx_attributes.h
 sgx_key.h
-/home/shiv/Research/Intel-SGX-Installation/linux-sgx/linux/installer/bin/sgxsdk/include/sgx_key.h
+/home/sumukh/Documents/SGX_Install/linux-sgx/linux/installer/bin/sgxsdk/include/sgx_key.h
 sgx_report.h
-/home/shiv/Research/Intel-SGX-Installation/linux-sgx/linux/installer/bin/sgxsdk/include/sgx_report.h
+/home/sumukh/Documents/SGX_Install/linux-sgx/linux/installer/bin/sgxsdk/include/sgx_report.h
 
-/home/shiv/Research/Intel-SGX-Installation/linux-sgx/linux/installer/bin/sgxsdk/include/sgx_attributes.h
+/home/sumukh/Documents/SGX_Install/linux-sgx/linux/installer/bin/sgxsdk/include/sgx_attributes.h
 stdint.h
 -
 
-/home/shiv/Research/Intel-SGX-Installation/linux-sgx/linux/installer/bin/sgxsdk/include/sgx_defs.h
+/home/sumukh/Documents/SGX_Install/linux-sgx/linux/installer/bin/sgxsdk/include/sgx_defs.h
 
-/home/shiv/Research/Intel-SGX-Installation/linux-sgx/linux/installer/bin/sgxsdk/include/sgx_edger8r.h
+/home/sumukh/Documents/SGX_Install/linux-sgx/linux/installer/bin/sgxsdk/include/sgx_edger8r.h
 sgx_defs.h
-/home/shiv/Research/Intel-SGX-Installation/linux-sgx/linux/installer/bin/sgxsdk/include/sgx_defs.h
+/home/sumukh/Documents/SGX_Install/linux-sgx/linux/installer/bin/sgxsdk/include/sgx_defs.h
 sgx_error.h
-/home/shiv/Research/Intel-SGX-Installation/linux-sgx/linux/installer/bin/sgxsdk/include/sgx_error.h
+/home/sumukh/Documents/SGX_Install/linux-sgx/linux/installer/bin/sgxsdk/include/sgx_error.h
 sgx_eid.h
-/home/shiv/Research/Intel-SGX-Installation/linux-sgx/linux/installer/bin/sgxsdk/include/sgx_eid.h
+/home/sumukh/Documents/SGX_Install/linux-sgx/linux/installer/bin/sgxsdk/include/sgx_eid.h
 stddef.h
 -
 
-/home/shiv/Research/Intel-SGX-Installation/linux-sgx/linux/installer/bin/sgxsdk/include/sgx_eid.h
+/home/sumukh/Documents/SGX_Install/linux-sgx/linux/installer/bin/sgxsdk/include/sgx_eid.h
 stdint.h
 -
 
-/home/shiv/Research/Intel-SGX-Installation/linux-sgx/linux/installer/bin/sgxsdk/include/sgx_error.h
+/home/sumukh/Documents/SGX_Install/linux-sgx/linux/installer/bin/sgxsdk/include/sgx_error.h
 
-/home/shiv/Research/Intel-SGX-Installation/linux-sgx/linux/installer/bin/sgxsdk/include/sgx_key.h
+/home/sumukh/Documents/SGX_Install/linux-sgx/linux/installer/bin/sgxsdk/include/sgx_key.h
 stdint.h
 -
 sgx_attributes.h
-/home/shiv/Research/Intel-SGX-Installation/linux-sgx/linux/installer/bin/sgxsdk/include/sgx_attributes.h
+/home/sumukh/Documents/SGX_Install/linux-sgx/linux/installer/bin/sgxsdk/include/sgx_attributes.h
 
-/home/shiv/Research/Intel-SGX-Installation/linux-sgx/linux/installer/bin/sgxsdk/include/sgx_report.h
+/home/sumukh/Documents/SGX_Install/linux-sgx/linux/installer/bin/sgxsdk/include/sgx_report.h
 sgx_attributes.h
-/home/shiv/Research/Intel-SGX-Installation/linux-sgx/linux/installer/bin/sgxsdk/include/sgx_attributes.h
+/home/sumukh/Documents/SGX_Install/linux-sgx/linux/installer/bin/sgxsdk/include/sgx_attributes.h
 sgx_key.h
-/home/shiv/Research/Intel-SGX-Installation/linux-sgx/linux/installer/bin/sgxsdk/include/sgx_key.h
+/home/sumukh/Documents/SGX_Install/linux-sgx/linux/installer/bin/sgxsdk/include/sgx_key.h
 
-/home/shiv/Research/Intel-SGX-Installation/linux-sgx/linux/installer/bin/sgxsdk/include/sgx_tcrypto.h
+/home/sumukh/Documents/SGX_Install/linux-sgx/linux/installer/bin/sgxsdk/include/sgx_tcrypto.h
 sgx.h
-/home/shiv/Research/Intel-SGX-Installation/linux-sgx/linux/installer/bin/sgxsdk/include/sgx.h
+/home/sumukh/Documents/SGX_Install/linux-sgx/linux/installer/bin/sgxsdk/include/sgx.h
 sgx_defs.h
-/home/shiv/Research/Intel-SGX-Installation/linux-sgx/linux/installer/bin/sgxsdk/include/sgx_defs.h
+/home/sumukh/Documents/SGX_Install/linux-sgx/linux/installer/bin/sgxsdk/include/sgx_defs.h
 stdlib.h
-/home/shiv/Research/Intel-SGX-Installation/linux-sgx/linux/installer/bin/sgxsdk/include/stdlib.h
+/home/sumukh/Documents/SGX_Install/linux-sgx/linux/installer/bin/sgxsdk/include/stdlib.h
 
-/home/shiv/Research/Intel-SGX-Installation/linux-sgx/linux/installer/bin/sgxsdk/include/sgx_tseal.h
+/home/sumukh/Documents/SGX_Install/linux-sgx/linux/installer/bin/sgxsdk/include/sgx_tseal.h
 stddef.h
 -
 stdint.h
 -
 sgx_key.h
-/home/shiv/Research/Intel-SGX-Installation/linux-sgx/linux/installer/bin/sgxsdk/include/sgx_key.h
+/home/sumukh/Documents/SGX_Install/linux-sgx/linux/installer/bin/sgxsdk/include/sgx_key.h
 sgx_error.h
-/home/shiv/Research/Intel-SGX-Installation/linux-sgx/linux/installer/bin/sgxsdk/include/sgx_error.h
+/home/sumukh/Documents/SGX_Install/linux-sgx/linux/installer/bin/sgxsdk/include/sgx_error.h
 sgx_defs.h
-/home/shiv/Research/Intel-SGX-Installation/linux-sgx/linux/installer/bin/sgxsdk/include/sgx_defs.h
+/home/sumukh/Documents/SGX_Install/linux-sgx/linux/installer/bin/sgxsdk/include/sgx_defs.h
 sgx_attributes.h
-/home/shiv/Research/Intel-SGX-Installation/linux-sgx/linux/installer/bin/sgxsdk/include/sgx_attributes.h
+/home/sumukh/Documents/SGX_Install/linux-sgx/linux/installer/bin/sgxsdk/include/sgx_attributes.h
 sgx_tcrypto.h
-/home/shiv/Research/Intel-SGX-Installation/linux-sgx/linux/installer/bin/sgxsdk/include/sgx_tcrypto.h
+/home/sumukh/Documents/SGX_Install/linux-sgx/linux/installer/bin/sgxsdk/include/sgx_tcrypto.h
 
-/home/shiv/Research/cs294-proj/federated-k-means/ExampleEnclave/src/app/enclave_u.c
+/home/sumukh/Documents/berkeley/decentralized_security/federated-k-means/ExampleEnclave/src/app/enclave_u.c
 enclave_u.h
-/home/shiv/Research/cs294-proj/federated-k-means/ExampleEnclave/src/app/enclave_u.h
+/home/sumukh/Documents/berkeley/decentralized_security/federated-k-means/ExampleEnclave/src/app/enclave_u.h
 errno.h
 -
 
-/home/shiv/Research/cs294-proj/federated-k-means/ExampleEnclave/src/app/enclave_u.h
+/home/sumukh/Documents/berkeley/decentralized_security/federated-k-means/ExampleEnclave/src/app/enclave_u.h
 stdint.h
 -
 wchar.h
@@ -90,9 +90,9 @@ stddef.h
 string.h
 -
 sgx_edger8r.h
-/home/shiv/Research/cs294-proj/federated-k-means/ExampleEnclave/src/app/sgx_edger8r.h
+/home/sumukh/Documents/berkeley/decentralized_security/federated-k-means/ExampleEnclave/src/app/sgx_edger8r.h
 sgx_tseal.h
-/home/shiv/Research/cs294-proj/federated-k-means/ExampleEnclave/src/app/sgx_tseal.h
+/home/sumukh/Documents/berkeley/decentralized_security/federated-k-means/ExampleEnclave/src/app/sgx_tseal.h
 stdlib.h
 -
 

@@ -48,10 +48,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/shiv/Research/cs294-proj/federated-k-means/ExampleEnclave
+CMAKE_SOURCE_DIR = /home/sumukh/Documents/berkeley/decentralized_security/federated-k-means/ExampleEnclave
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/shiv/Research/cs294-proj/federated-k-means/ExampleEnclave
+CMAKE_BINARY_DIR = /home/sumukh/Documents/berkeley/decentralized_security/federated-k-means/ExampleEnclave
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -80,9 +80,9 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/shiv/Research/cs294-proj/federated-k-means/ExampleEnclave/CMakeFiles /home/shiv/Research/cs294-proj/federated-k-means/ExampleEnclave/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/sumukh/Documents/berkeley/decentralized_security/federated-k-means/ExampleEnclave/CMakeFiles /home/sumukh/Documents/berkeley/decentralized_security/federated-k-means/ExampleEnclave/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/shiv/Research/cs294-proj/federated-k-means/ExampleEnclave/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/sumukh/Documents/berkeley/decentralized_security/federated-k-means/ExampleEnclave/CMakeFiles 0
 .PHONY : all
 
 # The main clean target

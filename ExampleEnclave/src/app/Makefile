@@ -48,10 +48,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/shiv/Research/cs294-proj/federated-k-means/ExampleEnclave
+CMAKE_SOURCE_DIR = /home/sumukh/Documents/berkeley/decentralized_security/federated-k-means/ExampleEnclave
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/shiv/Research/cs294-proj/federated-k-means/ExampleEnclave
+CMAKE_BINARY_DIR = /home/sumukh/Documents/berkeley/decentralized_security/federated-k-means/ExampleEnclave
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -80,14 +80,14 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/shiv/Research/cs294-proj/federated-k-means/ExampleEnclave && $(CMAKE_COMMAND) -E cmake_progress_start /home/shiv/Research/cs294-proj/federated-k-means/ExampleEnclave/CMakeFiles /home/shiv/Research/cs294-proj/federated-k-means/ExampleEnclave/src/app/CMakeFiles/progress.marks
-	cd /home/shiv/Research/cs294-proj/federated-k-means/ExampleEnclave && $(MAKE) -f CMakeFiles/Makefile2 src/app/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/shiv/Research/cs294-proj/federated-k-means/ExampleEnclave/CMakeFiles 0
+	cd /home/sumukh/Documents/berkeley/decentralized_security/federated-k-means/ExampleEnclave && $(CMAKE_COMMAND) -E cmake_progress_start /home/sumukh/Documents/berkeley/decentralized_security/federated-k-means/ExampleEnclave/CMakeFiles /home/sumukh/Documents/berkeley/decentralized_security/federated-k-means/ExampleEnclave/src/app/CMakeFiles/progress.marks
+	cd /home/sumukh/Documents/berkeley/decentralized_security/federated-k-means/ExampleEnclave && $(MAKE) -f CMakeFiles/Makefile2 src/app/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/sumukh/Documents/berkeley/decentralized_security/federated-k-means/ExampleEnclave/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/shiv/Research/cs294-proj/federated-k-means/ExampleEnclave && $(MAKE) -f CMakeFiles/Makefile2 src/app/clean
+	cd /home/sumukh/Documents/berkeley/decentralized_security/federated-k-means/ExampleEnclave && $(MAKE) -f CMakeFiles/Makefile2 src/app/clean
 .PHONY : clean
 
 # The main clean target
@@ -97,22 +97,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/shiv/Research/cs294-proj/federated-k-means/ExampleEnclave && $(MAKE) -f CMakeFiles/Makefile2 src/app/preinstall
+	cd /home/sumukh/Documents/berkeley/decentralized_security/federated-k-means/ExampleEnclave && $(MAKE) -f CMakeFiles/Makefile2 src/app/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/shiv/Research/cs294-proj/federated-k-means/ExampleEnclave && $(MAKE) -f CMakeFiles/Makefile2 src/app/preinstall
+	cd /home/sumukh/Documents/berkeley/decentralized_security/federated-k-means/ExampleEnclave && $(MAKE) -f CMakeFiles/Makefile2 src/app/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/shiv/Research/cs294-proj/federated-k-means/ExampleEnclave && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/sumukh/Documents/berkeley/decentralized_security/federated-k-means/ExampleEnclave && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 src/app/CMakeFiles/app.dir/rule:
-	cd /home/shiv/Research/cs294-proj/federated-k-means/ExampleEnclave && $(MAKE) -f CMakeFiles/Makefile2 src/app/CMakeFiles/app.dir/rule
+	cd /home/sumukh/Documents/berkeley/decentralized_security/federated-k-means/ExampleEnclave && $(MAKE) -f CMakeFiles/Makefile2 src/app/CMakeFiles/app.dir/rule
 .PHONY : src/app/CMakeFiles/app.dir/rule
 
 # Convenience name for target.
@@ -122,7 +122,7 @@ app: src/app/CMakeFiles/app.dir/rule
 
 # fast build rule for target.
 app/fast:
-	cd /home/shiv/Research/cs294-proj/federated-k-means/ExampleEnclave && $(MAKE) -f src/app/CMakeFiles/app.dir/build.make src/app/CMakeFiles/app.dir/build
+	cd /home/sumukh/Documents/berkeley/decentralized_security/federated-k-means/ExampleEnclave && $(MAKE) -f src/app/CMakeFiles/app.dir/build.make src/app/CMakeFiles/app.dir/build
 .PHONY : app/fast
 
 app.o: app.cpp.o
@@ -131,7 +131,7 @@ app.o: app.cpp.o
 
 # target to build an object file
 app.cpp.o:
-	cd /home/shiv/Research/cs294-proj/federated-k-means/ExampleEnclave && $(MAKE) -f src/app/CMakeFiles/app.dir/build.make src/app/CMakeFiles/app.dir/app.cpp.o
+	cd /home/sumukh/Documents/berkeley/decentralized_security/federated-k-means/ExampleEnclave && $(MAKE) -f src/app/CMakeFiles/app.dir/build.make src/app/CMakeFiles/app.dir/app.cpp.o
 .PHONY : app.cpp.o
 
 app.i: app.cpp.i
@@ -140,7 +140,7 @@ app.i: app.cpp.i
 
 # target to preprocess a source file
 app.cpp.i:
-	cd /home/shiv/Research/cs294-proj/federated-k-means/ExampleEnclave && $(MAKE) -f src/app/CMakeFiles/app.dir/build.make src/app/CMakeFiles/app.dir/app.cpp.i
+	cd /home/sumukh/Documents/berkeley/decentralized_security/federated-k-means/ExampleEnclave && $(MAKE) -f src/app/CMakeFiles/app.dir/build.make src/app/CMakeFiles/app.dir/app.cpp.i
 .PHONY : app.cpp.i
 
 app.s: app.cpp.s
@@ -149,7 +149,7 @@ app.s: app.cpp.s
 
 # target to generate assembly for a file
 app.cpp.s:
-	cd /home/shiv/Research/cs294-proj/federated-k-means/ExampleEnclave && $(MAKE) -f src/app/CMakeFiles/app.dir/build.make src/app/CMakeFiles/app.dir/app.cpp.s
+	cd /home/sumukh/Documents/berkeley/decentralized_security/federated-k-means/ExampleEnclave && $(MAKE) -f src/app/CMakeFiles/app.dir/build.make src/app/CMakeFiles/app.dir/app.cpp.s
 .PHONY : app.cpp.s
 
 enclave_u.o: enclave_u.c.o
@@ -158,7 +158,7 @@ enclave_u.o: enclave_u.c.o
 
 # target to build an object file
 enclave_u.c.o:
-	cd /home/shiv/Research/cs294-proj/federated-k-means/ExampleEnclave && $(MAKE) -f src/app/CMakeFiles/app.dir/build.make src/app/CMakeFiles/app.dir/enclave_u.c.o
+	cd /home/sumukh/Documents/berkeley/decentralized_security/federated-k-means/ExampleEnclave && $(MAKE) -f src/app/CMakeFiles/app.dir/build.make src/app/CMakeFiles/app.dir/enclave_u.c.o
 .PHONY : enclave_u.c.o
 
 enclave_u.i: enclave_u.c.i
@@ -167,7 +167,7 @@ enclave_u.i: enclave_u.c.i
 
 # target to preprocess a source file
 enclave_u.c.i:
-	cd /home/shiv/Research/cs294-proj/federated-k-means/ExampleEnclave && $(MAKE) -f src/app/CMakeFiles/app.dir/build.make src/app/CMakeFiles/app.dir/enclave_u.c.i
+	cd /home/sumukh/Documents/berkeley/decentralized_security/federated-k-means/ExampleEnclave && $(MAKE) -f src/app/CMakeFiles/app.dir/build.make src/app/CMakeFiles/app.dir/enclave_u.c.i
 .PHONY : enclave_u.c.i
 
 enclave_u.s: enclave_u.c.s
@@ -176,7 +176,7 @@ enclave_u.s: enclave_u.c.s
 
 # target to generate assembly for a file
 enclave_u.c.s:
-	cd /home/shiv/Research/cs294-proj/federated-k-means/ExampleEnclave && $(MAKE) -f src/app/CMakeFiles/app.dir/build.make src/app/CMakeFiles/app.dir/enclave_u.c.s
+	cd /home/sumukh/Documents/berkeley/decentralized_security/federated-k-means/ExampleEnclave && $(MAKE) -f src/app/CMakeFiles/app.dir/build.make src/app/CMakeFiles/app.dir/enclave_u.c.s
 .PHONY : enclave_u.c.s
 
 sgx_utils/sgx_utils.o: sgx_utils/sgx_utils.cpp.o
@@ -185,7 +185,7 @@ sgx_utils/sgx_utils.o: sgx_utils/sgx_utils.cpp.o
 
 # target to build an object file
 sgx_utils/sgx_utils.cpp.o:
-	cd /home/shiv/Research/cs294-proj/federated-k-means/ExampleEnclave && $(MAKE) -f src/app/CMakeFiles/app.dir/build.make src/app/CMakeFiles/app.dir/sgx_utils/sgx_utils.cpp.o
+	cd /home/sumukh/Documents/berkeley/decentralized_security/federated-k-means/ExampleEnclave && $(MAKE) -f src/app/CMakeFiles/app.dir/build.make src/app/CMakeFiles/app.dir/sgx_utils/sgx_utils.cpp.o
 .PHONY : sgx_utils/sgx_utils.cpp.o
 
 sgx_utils/sgx_utils.i: sgx_utils/sgx_utils.cpp.i
@@ -194,7 +194,7 @@ sgx_utils/sgx_utils.i: sgx_utils/sgx_utils.cpp.i
 
 # target to preprocess a source file
 sgx_utils/sgx_utils.cpp.i:
-	cd /home/shiv/Research/cs294-proj/federated-k-means/ExampleEnclave && $(MAKE) -f src/app/CMakeFiles/app.dir/build.make src/app/CMakeFiles/app.dir/sgx_utils/sgx_utils.cpp.i
+	cd /home/sumukh/Documents/berkeley/decentralized_security/federated-k-means/ExampleEnclave && $(MAKE) -f src/app/CMakeFiles/app.dir/build.make src/app/CMakeFiles/app.dir/sgx_utils/sgx_utils.cpp.i
 .PHONY : sgx_utils/sgx_utils.cpp.i
 
 sgx_utils/sgx_utils.s: sgx_utils/sgx_utils.cpp.s
@@ -203,7 +203,7 @@ sgx_utils/sgx_utils.s: sgx_utils/sgx_utils.cpp.s
 
 # target to generate assembly for a file
 sgx_utils/sgx_utils.cpp.s:
-	cd /home/shiv/Research/cs294-proj/federated-k-means/ExampleEnclave && $(MAKE) -f src/app/CMakeFiles/app.dir/build.make src/app/CMakeFiles/app.dir/sgx_utils/sgx_utils.cpp.s
+	cd /home/sumukh/Documents/berkeley/decentralized_security/federated-k-means/ExampleEnclave && $(MAKE) -f src/app/CMakeFiles/app.dir/build.make src/app/CMakeFiles/app.dir/sgx_utils/sgx_utils.cpp.s
 .PHONY : sgx_utils/sgx_utils.cpp.s
 
 # Help Target
@@ -235,6 +235,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/shiv/Research/cs294-proj/federated-k-means/ExampleEnclave && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/sumukh/Documents/berkeley/decentralized_security/federated-k-means/ExampleEnclave && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

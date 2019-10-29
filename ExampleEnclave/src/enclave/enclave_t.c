@@ -301,16 +301,16 @@ err:
 
 SGX_EXTERNC const struct {
 	size_t nr_ecall;
-	struct {void* ecall_addr; uint8_t is_priv;} ecall_table[6];
+	struct {void* ecall_addr; uint8_t is_priv; uint8_t is_switchless;} ecall_table[6];
 } g_ecall_table = {
 	6,
 	{
-		{(void*)(uintptr_t)sgx_generate_random_number, 0},
-		{(void*)(uintptr_t)sgx_add_number, 0},
-		{(void*)(uintptr_t)sgx_del_number, 0},
-		{(void*)(uintptr_t)sgx_get_sum, 0},
-		{(void*)(uintptr_t)sgx_seal, 0},
-		{(void*)(uintptr_t)sgx_unseal, 0},
+		{(void*)(uintptr_t)sgx_generate_random_number, 0, 0},
+		{(void*)(uintptr_t)sgx_add_number, 0, 0},
+		{(void*)(uintptr_t)sgx_del_number, 0, 0},
+		{(void*)(uintptr_t)sgx_get_sum, 0, 0},
+		{(void*)(uintptr_t)sgx_seal, 0, 0},
+		{(void*)(uintptr_t)sgx_unseal, 0, 0},
 	}
 };
 

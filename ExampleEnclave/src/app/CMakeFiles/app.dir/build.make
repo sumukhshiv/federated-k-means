@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/shiv/Research/cs294-proj/federated-k-means/ExampleEnclave
+CMAKE_SOURCE_DIR = /home/sumukh/Documents/berkeley/decentralized_security/federated-k-means/ExampleEnclave
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/shiv/Research/cs294-proj/federated-k-means/ExampleEnclave
+CMAKE_BINARY_DIR = /home/sumukh/Documents/berkeley/decentralized_security/federated-k-means/ExampleEnclave
 
 # Include any dependencies generated for this target.
 include src/app/CMakeFiles/app.dir/depend.make
@@ -58,21 +58,21 @@ include src/app/CMakeFiles/app.dir/progress.make
 include src/app/CMakeFiles/app.dir/flags.make
 
 src/app/enclave_u.c:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/shiv/Research/cs294-proj/federated-k-means/ExampleEnclave/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating enclave_u.c"
-	cd /home/shiv/Research/cs294-proj/federated-k-means/ExampleEnclave/src/app && /home/shiv/Research/Intel-SGX-Installation/linux-sgx/linux/installer/bin/sgxsdk/bin/x64/sgx_edger8r --untrusted enclave.edl --search-path ../enclave/ --search-path /home/shiv/Research/Intel-SGX-Installation/linux-sgx/linux/installer/bin/sgxsdk/include --search-path /lib
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/sumukh/Documents/berkeley/decentralized_security/federated-k-means/ExampleEnclave/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating enclave_u.c"
+	cd /home/sumukh/Documents/berkeley/decentralized_security/federated-k-means/ExampleEnclave/src/app && /home/sumukh/Documents/SGX_Install/linux-sgx/linux/installer/bin/sgxsdk/bin/x64/sgx_edger8r --untrusted enclave.edl --search-path ../enclave/ --search-path /home/sumukh/Documents/SGX_Install/linux-sgx/linux/installer/bin/sgxsdk/include --search-path /lib
 
 src/app/CMakeFiles/app.dir/enclave_u.c.o: src/app/CMakeFiles/app.dir/flags.make
 src/app/CMakeFiles/app.dir/enclave_u.c.o: src/app/enclave_u.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/shiv/Research/cs294-proj/federated-k-means/ExampleEnclave/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object src/app/CMakeFiles/app.dir/enclave_u.c.o"
-	cd /home/shiv/Research/cs294-proj/federated-k-means/ExampleEnclave/src/app && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/app.dir/enclave_u.c.o   -c /home/shiv/Research/cs294-proj/federated-k-means/ExampleEnclave/src/app/enclave_u.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/sumukh/Documents/berkeley/decentralized_security/federated-k-means/ExampleEnclave/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object src/app/CMakeFiles/app.dir/enclave_u.c.o"
+	cd /home/sumukh/Documents/berkeley/decentralized_security/federated-k-means/ExampleEnclave/src/app && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/app.dir/enclave_u.c.o   -c /home/sumukh/Documents/berkeley/decentralized_security/federated-k-means/ExampleEnclave/src/app/enclave_u.c
 
 src/app/CMakeFiles/app.dir/enclave_u.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/app.dir/enclave_u.c.i"
-	cd /home/shiv/Research/cs294-proj/federated-k-means/ExampleEnclave/src/app && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/shiv/Research/cs294-proj/federated-k-means/ExampleEnclave/src/app/enclave_u.c > CMakeFiles/app.dir/enclave_u.c.i
+	cd /home/sumukh/Documents/berkeley/decentralized_security/federated-k-means/ExampleEnclave/src/app && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/sumukh/Documents/berkeley/decentralized_security/federated-k-means/ExampleEnclave/src/app/enclave_u.c > CMakeFiles/app.dir/enclave_u.c.i
 
 src/app/CMakeFiles/app.dir/enclave_u.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/app.dir/enclave_u.c.s"
-	cd /home/shiv/Research/cs294-proj/federated-k-means/ExampleEnclave/src/app && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/shiv/Research/cs294-proj/federated-k-means/ExampleEnclave/src/app/enclave_u.c -o CMakeFiles/app.dir/enclave_u.c.s
+	cd /home/sumukh/Documents/berkeley/decentralized_security/federated-k-means/ExampleEnclave/src/app && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/sumukh/Documents/berkeley/decentralized_security/federated-k-means/ExampleEnclave/src/app/enclave_u.c -o CMakeFiles/app.dir/enclave_u.c.s
 
 src/app/CMakeFiles/app.dir/enclave_u.c.o.requires:
 
@@ -87,16 +87,16 @@ src/app/CMakeFiles/app.dir/enclave_u.c.o.provides.build: src/app/CMakeFiles/app.
 
 src/app/CMakeFiles/app.dir/app.cpp.o: src/app/CMakeFiles/app.dir/flags.make
 src/app/CMakeFiles/app.dir/app.cpp.o: src/app/app.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/shiv/Research/cs294-proj/federated-k-means/ExampleEnclave/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object src/app/CMakeFiles/app.dir/app.cpp.o"
-	cd /home/shiv/Research/cs294-proj/federated-k-means/ExampleEnclave/src/app && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/app.dir/app.cpp.o -c /home/shiv/Research/cs294-proj/federated-k-means/ExampleEnclave/src/app/app.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/sumukh/Documents/berkeley/decentralized_security/federated-k-means/ExampleEnclave/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object src/app/CMakeFiles/app.dir/app.cpp.o"
+	cd /home/sumukh/Documents/berkeley/decentralized_security/federated-k-means/ExampleEnclave/src/app && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/app.dir/app.cpp.o -c /home/sumukh/Documents/berkeley/decentralized_security/federated-k-means/ExampleEnclave/src/app/app.cpp
 
 src/app/CMakeFiles/app.dir/app.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/app.dir/app.cpp.i"
-	cd /home/shiv/Research/cs294-proj/federated-k-means/ExampleEnclave/src/app && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/shiv/Research/cs294-proj/federated-k-means/ExampleEnclave/src/app/app.cpp > CMakeFiles/app.dir/app.cpp.i
+	cd /home/sumukh/Documents/berkeley/decentralized_security/federated-k-means/ExampleEnclave/src/app && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/sumukh/Documents/berkeley/decentralized_security/federated-k-means/ExampleEnclave/src/app/app.cpp > CMakeFiles/app.dir/app.cpp.i
 
 src/app/CMakeFiles/app.dir/app.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/app.dir/app.cpp.s"
-	cd /home/shiv/Research/cs294-proj/federated-k-means/ExampleEnclave/src/app && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/shiv/Research/cs294-proj/federated-k-means/ExampleEnclave/src/app/app.cpp -o CMakeFiles/app.dir/app.cpp.s
+	cd /home/sumukh/Documents/berkeley/decentralized_security/federated-k-means/ExampleEnclave/src/app && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/sumukh/Documents/berkeley/decentralized_security/federated-k-means/ExampleEnclave/src/app/app.cpp -o CMakeFiles/app.dir/app.cpp.s
 
 src/app/CMakeFiles/app.dir/app.cpp.o.requires:
 
@@ -111,16 +111,16 @@ src/app/CMakeFiles/app.dir/app.cpp.o.provides.build: src/app/CMakeFiles/app.dir/
 
 src/app/CMakeFiles/app.dir/sgx_utils/sgx_utils.cpp.o: src/app/CMakeFiles/app.dir/flags.make
 src/app/CMakeFiles/app.dir/sgx_utils/sgx_utils.cpp.o: src/app/sgx_utils/sgx_utils.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/shiv/Research/cs294-proj/federated-k-means/ExampleEnclave/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object src/app/CMakeFiles/app.dir/sgx_utils/sgx_utils.cpp.o"
-	cd /home/shiv/Research/cs294-proj/federated-k-means/ExampleEnclave/src/app && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/app.dir/sgx_utils/sgx_utils.cpp.o -c /home/shiv/Research/cs294-proj/federated-k-means/ExampleEnclave/src/app/sgx_utils/sgx_utils.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/sumukh/Documents/berkeley/decentralized_security/federated-k-means/ExampleEnclave/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object src/app/CMakeFiles/app.dir/sgx_utils/sgx_utils.cpp.o"
+	cd /home/sumukh/Documents/berkeley/decentralized_security/federated-k-means/ExampleEnclave/src/app && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/app.dir/sgx_utils/sgx_utils.cpp.o -c /home/sumukh/Documents/berkeley/decentralized_security/federated-k-means/ExampleEnclave/src/app/sgx_utils/sgx_utils.cpp
 
 src/app/CMakeFiles/app.dir/sgx_utils/sgx_utils.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/app.dir/sgx_utils/sgx_utils.cpp.i"
-	cd /home/shiv/Research/cs294-proj/federated-k-means/ExampleEnclave/src/app && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/shiv/Research/cs294-proj/federated-k-means/ExampleEnclave/src/app/sgx_utils/sgx_utils.cpp > CMakeFiles/app.dir/sgx_utils/sgx_utils.cpp.i
+	cd /home/sumukh/Documents/berkeley/decentralized_security/federated-k-means/ExampleEnclave/src/app && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/sumukh/Documents/berkeley/decentralized_security/federated-k-means/ExampleEnclave/src/app/sgx_utils/sgx_utils.cpp > CMakeFiles/app.dir/sgx_utils/sgx_utils.cpp.i
 
 src/app/CMakeFiles/app.dir/sgx_utils/sgx_utils.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/app.dir/sgx_utils/sgx_utils.cpp.s"
-	cd /home/shiv/Research/cs294-proj/federated-k-means/ExampleEnclave/src/app && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/shiv/Research/cs294-proj/federated-k-means/ExampleEnclave/src/app/sgx_utils/sgx_utils.cpp -o CMakeFiles/app.dir/sgx_utils/sgx_utils.cpp.s
+	cd /home/sumukh/Documents/berkeley/decentralized_security/federated-k-means/ExampleEnclave/src/app && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/sumukh/Documents/berkeley/decentralized_security/federated-k-means/ExampleEnclave/src/app/sgx_utils/sgx_utils.cpp -o CMakeFiles/app.dir/sgx_utils/sgx_utils.cpp.s
 
 src/app/CMakeFiles/app.dir/sgx_utils/sgx_utils.cpp.o.requires:
 
@@ -147,8 +147,8 @@ app: src/app/CMakeFiles/app.dir/app.cpp.o
 app: src/app/CMakeFiles/app.dir/sgx_utils/sgx_utils.cpp.o
 app: src/app/CMakeFiles/app.dir/build.make
 app: src/app/CMakeFiles/app.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/shiv/Research/cs294-proj/federated-k-means/ExampleEnclave/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX executable ../../app"
-	cd /home/shiv/Research/cs294-proj/federated-k-means/ExampleEnclave/src/app && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/app.dir/link.txt --verbose=$(VERBOSE)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/sumukh/Documents/berkeley/decentralized_security/federated-k-means/ExampleEnclave/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX executable ../../app"
+	cd /home/sumukh/Documents/berkeley/decentralized_security/federated-k-means/ExampleEnclave/src/app && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/app.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
 src/app/CMakeFiles/app.dir/build: app
@@ -162,10 +162,10 @@ src/app/CMakeFiles/app.dir/requires: src/app/CMakeFiles/app.dir/sgx_utils/sgx_ut
 .PHONY : src/app/CMakeFiles/app.dir/requires
 
 src/app/CMakeFiles/app.dir/clean:
-	cd /home/shiv/Research/cs294-proj/federated-k-means/ExampleEnclave/src/app && $(CMAKE_COMMAND) -P CMakeFiles/app.dir/cmake_clean.cmake
+	cd /home/sumukh/Documents/berkeley/decentralized_security/federated-k-means/ExampleEnclave/src/app && $(CMAKE_COMMAND) -P CMakeFiles/app.dir/cmake_clean.cmake
 .PHONY : src/app/CMakeFiles/app.dir/clean
 
 src/app/CMakeFiles/app.dir/depend: src/app/enclave_u.c
-	cd /home/shiv/Research/cs294-proj/federated-k-means/ExampleEnclave && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/shiv/Research/cs294-proj/federated-k-means/ExampleEnclave /home/shiv/Research/cs294-proj/federated-k-means/ExampleEnclave/src/app /home/shiv/Research/cs294-proj/federated-k-means/ExampleEnclave /home/shiv/Research/cs294-proj/federated-k-means/ExampleEnclave/src/app /home/shiv/Research/cs294-proj/federated-k-means/ExampleEnclave/src/app/CMakeFiles/app.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/sumukh/Documents/berkeley/decentralized_security/federated-k-means/ExampleEnclave && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/sumukh/Documents/berkeley/decentralized_security/federated-k-means/ExampleEnclave /home/sumukh/Documents/berkeley/decentralized_security/federated-k-means/ExampleEnclave/src/app /home/sumukh/Documents/berkeley/decentralized_security/federated-k-means/ExampleEnclave /home/sumukh/Documents/berkeley/decentralized_security/federated-k-means/ExampleEnclave/src/app /home/sumukh/Documents/berkeley/decentralized_security/federated-k-means/ExampleEnclave/src/app/CMakeFiles/app.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : src/app/CMakeFiles/app.dir/depend
 
