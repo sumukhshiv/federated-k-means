@@ -146,6 +146,7 @@ app: src/app/CMakeFiles/app.dir/enclave_u.c.o
 app: src/app/CMakeFiles/app.dir/app.cpp.o
 app: src/app/CMakeFiles/app.dir/sgx_utils/sgx_utils.cpp.o
 app: src/app/CMakeFiles/app.dir/build.make
+app: src/app/libOblivious.so
 app: src/app/CMakeFiles/app.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/shiv/Research/cs294-proj/federated-k-means/ExampleEnclave/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX executable ../../app"
 	cd /home/shiv/Research/cs294-proj/federated-k-means/ExampleEnclave/src/app && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/app.dir/link.txt --verbose=$(VERBOSE)

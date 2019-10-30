@@ -4,6 +4,8 @@
 #include "enclave_u.h"
 #include "sgx_urts.h"
 #include "sgx_utils/sgx_utils.h"
+#include "__oblivious_impl.h"
+#include "Oblivious.h"
 
 /* Global EID shared by multiple threads */
 sgx_enclave_id_t global_eid = 0;

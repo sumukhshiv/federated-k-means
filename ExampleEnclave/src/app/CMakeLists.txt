@@ -19,9 +19,10 @@ add_executable(app ${CLIENT_SRC_FILES})
 
 include_directories(
         ${SGXSDK_INCLUDE_DIRS}
+	${CMAKE_CURRENT_SOURCE_DIR}/Oblivious
 )
 
-target_link_libraries(app
+target_link_libraries(app ${CMAKE_CURRENT_SOURCE_DIR}/libOblivious.so
         -L${SGX_LIBRARY_PATH} -l${SGX_URTS_LIB} -l${SGX_USVC_LIB}
         -Wl,-rpath -Wl,/usr/local/lib
         -Wl,-rpath -Wl,${SGX_LIBRARY_PATH}

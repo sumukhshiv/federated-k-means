@@ -19,8 +19,10 @@ set(CMAKE_C_TARGET_INCLUDE_PATH
   "src/enclave"
   "/home/shiv/Research/Intel-SGX-Installation/linux-sgx/linux/installer/bin/sgxsdk/include"
   "/home/shiv/Research/Intel-SGX-Installation/linux-sgx/linux/installer/bin/sgxsdk/include/tlibc"
+  "/home/shiv/Research/Intel-SGX-Installation/linux-sgx/linux/installer/bin/sgxsdk/include/libcxx"
   "/home/shiv/Research/Intel-SGX-Installation/linux-sgx/linux/installer/bin/sgxsdk/include/stlport"
   "src/enclave/Oblivious"
+  "/usr/lib/gcc/x86_64-linux-gnu/7.4.0/include"
   )
 set(CMAKE_DEPENDS_CHECK_CXX
   "/home/shiv/Research/cs294-proj/federated-k-means/ExampleEnclave/src/enclave/enclave.cpp" "/home/shiv/Research/cs294-proj/federated-k-means/ExampleEnclave/src/enclave/CMakeFiles/enclave.dir/enclave.cpp.o"
@@ -38,8 +40,10 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "src/enclave"
   "/home/shiv/Research/Intel-SGX-Installation/linux-sgx/linux/installer/bin/sgxsdk/include"
   "/home/shiv/Research/Intel-SGX-Installation/linux-sgx/linux/installer/bin/sgxsdk/include/tlibc"
+  "/home/shiv/Research/Intel-SGX-Installation/linux-sgx/linux/installer/bin/sgxsdk/include/libcxx"
   "/home/shiv/Research/Intel-SGX-Installation/linux-sgx/linux/installer/bin/sgxsdk/include/stlport"
   "src/enclave/Oblivious"
+  "/usr/lib/gcc/x86_64-linux-gnu/7.4.0/include"
   )
 
 # Targets to which this target links.

@@ -28,6 +28,9 @@ src/app/CMakeFiles/app.dir/app.cpp.o: /home/shiv/Research/Intel-SGX-Installation
 src/app/CMakeFiles/app.dir/app.cpp.o: src/app/app.cpp
 src/app/CMakeFiles/app.dir/app.cpp.o: src/app/enclave_u.h
 src/app/CMakeFiles/app.dir/app.cpp.o: src/app/sgx_utils/sgx_utils.h
+src/app/CMakeFiles/app.dir/app.cpp.o: src/app/Oblivious/Oblivious.h
+src/app/CMakeFiles/app.dir/app.cpp.o: src/app/Oblivious/ObliviousDefs.h
+src/app/CMakeFiles/app.dir/app.cpp.o: src/app/Oblivious/__oblivious_impl.h
 
 src/app/CMakeFiles/app.dir/sgx_utils/sgx_utils.cpp.o: /home/shiv/Research/Intel-SGX-Installation/linux-sgx/linux/installer/bin/sgxsdk/include/sgx_attributes.h
 src/app/CMakeFiles/app.dir/sgx_utils/sgx_utils.cpp.o: /home/shiv/Research/Intel-SGX-Installation/linux-sgx/linux/installer/bin/sgxsdk/include/sgx_defs.h

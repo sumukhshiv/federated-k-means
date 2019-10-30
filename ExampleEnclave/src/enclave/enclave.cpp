@@ -1,5 +1,7 @@
 #include "enclave_t.h"
 #include <sgx_thread.h>
+#include "__oblivious_impl.h"
+#include "Oblivious.h"
 
 struct node_t {
     uint32_t value;

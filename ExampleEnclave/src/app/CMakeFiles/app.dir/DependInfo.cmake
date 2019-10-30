@@ -12,6 +12,7 @@ set(CMAKE_C_COMPILER_ID "GNU")
 # The include file search paths:
 set(CMAKE_C_TARGET_INCLUDE_PATH
   "/home/shiv/Research/Intel-SGX-Installation/linux-sgx/linux/installer/bin/sgxsdk/include"
+  "src/app/Oblivious"
   )
 set(CMAKE_DEPENDS_CHECK_CXX
   "/home/shiv/Research/cs294-proj/federated-k-means/ExampleEnclave/src/app/app.cpp" "/home/shiv/Research/cs294-proj/federated-k-means/ExampleEnclave/src/app/CMakeFiles/app.dir/app.cpp.o"
@@ -22,6 +23,7 @@ set(CMAKE_CXX_COMPILER_ID "GNU")
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "/home/shiv/Research/Intel-SGX-Installation/linux-sgx/linux/installer/bin/sgxsdk/include"
+  "src/app/Oblivious"
   )
 
 # Targets to which this target links.

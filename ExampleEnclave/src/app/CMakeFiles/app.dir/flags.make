@@ -7,11 +7,11 @@ C_FLAGS =  -DDEBUG -UNDEBUG -UEDEBUG -m64 -O0 -g -fPIC -Wno-attributes
 
 C_DEFINES = 
 
-C_INCLUDES = -I/home/shiv/Research/Intel-SGX-Installation/linux-sgx/linux/installer/bin/sgxsdk/include 
+C_INCLUDES = -I/home/shiv/Research/Intel-SGX-Installation/linux-sgx/linux/installer/bin/sgxsdk/include -I/home/shiv/Research/cs294-proj/federated-k-means/ExampleEnclave/src/app/Oblivious 
 
 CXX_FLAGS =   -DDEBUG -UNDEBUG -UEDEBUG -m64 -O0 -g -fPIC -Wno-attributes -std=c++11  
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/shiv/Research/Intel-SGX-Installation/linux-sgx/linux/installer/bin/sgxsdk/include 
+CXX_INCLUDES = -I/home/shiv/Research/Intel-SGX-Installation/linux-sgx/linux/installer/bin/sgxsdk/include -I/home/shiv/Research/cs294-proj/federated-k-means/ExampleEnclave/src/app/Oblivious 
 
