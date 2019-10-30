@@ -1,3 +1,2 @@
-
-ExampleEnclave/CMakeFiles/Makefile.cmake
-
+**/CMakeFiles/
+**/CMakeCache.txt
