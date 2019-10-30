@@ -11,6 +11,11 @@ struct node_t {
 
 int generate_random_number() {
     ocall_print("Processing random number generation...");
+    if (o_copy_i64(1, 4, 5) == 4) {
+        ocall_print("MY NAME IS KIRAT");
+    } else {
+        ocall_print("GG DUDE");
+    }
     return 42;
 }
 
