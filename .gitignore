@@ -1,2 +1,15 @@
 **/CMakeFiles/
 **/CMakeCache.txt
+ExampleEnclave/Makefile
+ExampleEnclave/app
+ExampleEnclave/cmake_install.cmake
+ExampleEnclave/compile_commands.json
+ExampleEnclave/enclave.signed.so
+ExampleEnclave/enclave.so
+ExampleEnclave/src/CMakeFiles/CMakeDirectoryInformation.cmake
+ExampleEnclave/src/Makefile
+ExampleEnclave/src/app/Makefile
+ExampleEnclave/src/app/cmake_install.cmake
+ExampleEnclave/src/cmake_install.cmake
+ExampleEnclave/src/enclave/Makefile
+ExampleEnclave/src/enclave/cmake_install.cmake
