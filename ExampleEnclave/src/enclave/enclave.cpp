@@ -2,6 +2,8 @@
 #include <sgx_thread.h>
 #include "__oblivious_impl.h"
 #include "Oblivious.h"
+#include "kmeans.h"
+
 
 struct node_t {
     uint32_t value;
@@ -16,6 +18,11 @@ int generate_random_number() {
     } else {
         ocall_print("GG DUDE");
     }
+
+    runKirat();
+
+
+
     return 42;
 }
 

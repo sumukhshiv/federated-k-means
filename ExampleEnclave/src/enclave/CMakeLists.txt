@@ -1,5 +1,6 @@
 set(ENCLAVE_SOURCE_FILES
         enclave.cpp
+        kmeans.cpp
         enclave_t.c
         sealing/sealing.cpp
         )
