@@ -6,6 +6,8 @@
 #include "sgx_utils/sgx_utils.h"
 #include "__oblivious_impl.h"
 #include "Oblivious.h"
+#include "oarray.h"
+
 
 /* Global EID shared by multiple threads */
 sgx_enclave_id_t global_eid = 0;
@@ -16,6 +18,7 @@ void ocall_print(const char* str) {
 }
 
 int main(int argc, char const *argv[]) {
+    oblivious::oarray<int, 256> _arr;
     if (initialize_enclave(&global_eid, "enclave.token", "enclave.signed.so") < 0) {
         std::cout << "Fail to initialize enclave." << std::endl;
         return 1;
@@ -57,29 +60,29 @@ int main(int argc, char const *argv[]) {
     printf("Sum: %u\n", sum);
     assert (status == SGX_SUCCESS);
 
-    // Seal the random number
-    size_t sealed_size = sizeof(sgx_sealed_data_t) + sizeof(ptr);
-    uint8_t* sealed_data = (uint8_t*)malloc(sealed_size);
+    // // Seal the random number
+    // size_t sealed_size = sizeof(sgx_sealed_data_t) + sizeof(ptr);
+    // uint8_t* sealed_data = (uint8_t*)malloc(sealed_size);
 
-    sgx_status_t ecall_status;
-    status = seal(global_eid, &ecall_status,
-            (uint8_t*)&ptr, sizeof(ptr),
-            (sgx_sealed_data_t*)sealed_data, sealed_size);
+    // sgx_status_t ecall_status;
+    // status = seal(global_eid, &ecall_status,
+    //         (uint8_t*)&ptr, sizeof(ptr),
+    //         (sgx_sealed_data_t*)sealed_data, sealed_size);
 
-    if (!is_ecall_successful(status, "Sealing failed :(", ecall_status)) {
-        return 1;
-    }
+    // if (!is_ecall_successful(status, "Sealing failed :(", ecall_status)) {
+    //     return 1;
+    // }
 
-    int unsealed;
-    status = unseal(global_eid, &ecall_status,
-            (sgx_sealed_data_t*)sealed_data, sealed_size,
-            (uint8_t*)&unsealed, sizeof(unsealed));
+    // int unsealed;
+    // status = unseal(global_eid, &ecall_status,
+    //         (sgx_sealed_data_t*)sealed_data, sealed_size,
+    //         (uint8_t*)&unsealed, sizeof(unsealed));
 
-    if (!is_ecall_successful(status, "Unsealing failed :(", ecall_status)) {
-        return 1;
-    }
+    // if (!is_ecall_successful(status, "Unsealing failed :(", ecall_status)) {
+    //     return 1;
+    // }
 
-    std::cout << "Seal round trip success! Receive back " << unsealed << std::endl;
+    // std::cout << "Seal round trip success! Receive back " << unsealed << std::endl;
 
     return 0;
 }

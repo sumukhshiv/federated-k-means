@@ -5,10 +5,6 @@
 #include <math.h>
 #include <stdlib.h>
 #include <stdio.h>
-#include "kmeans.h"
-#include "enclave_t.h"
-
-
 
 #define sqr(x) ((x)*(x))
 
@@ -20,8 +16,8 @@
 
 void fail(char *str)
   {
- //   printf(str);
-    //exit(-1);
+    printf(str);
+    exit(-1);
   }
   
 double calc_distance(int dim, double *p1, double *p2)
@@ -123,10 +119,8 @@ void calc_cluster_centroids(int dim, int n, int k, double *X, int *cluster_assig
    // for each cluster
     for (int ii = 0; ii < k; ii++) 
       {
-        if (cluster_member_count[ii] == 0) {
-
-        }
-   //       printf("WARNING: Empty cluster %d! \n", ii);
+        if (cluster_member_count[ii] == 0)
+          printf("WARNING: Empty cluster %d! \n", ii);
           
        // for each dimension
         for (int jj = 0; jj < dim; jj++)
@@ -177,10 +171,8 @@ void  perform_move(int dim, int n, int k, double *X, int *cluster_assignment, do
     cluster_member_count[cluster_old]--;
     cluster_member_count[cluster_new]++;
     
-    if (cluster_member_count[cluster_old] <= 1) {
-
-    }
-    //  printf("WARNING: Can't handle single-member clusters! \n");
+    if (cluster_member_count[cluster_old] <= 1)
+      printf("WARNING: Can't handle single-member clusters! \n");
     
    // update centroid array
     for (int ii = 0; ii < dim; ii++)
@@ -196,15 +188,9 @@ void cluster_diag(int dim, int n, int k, double *X, int *cluster_assignment_inde
     
     get_cluster_member_count(n, k, cluster_assignment_index, cluster_member_count);
      
- //   printf("  Final clusters \n");
+    printf("  Final clusters \n");
     for (int ii = 0; ii < k; ii++) {
-        char* hello_world = (char*)malloc(150 * sizeof(char));
-        //snprintf(hello_world,10, "%s %s!", "Hello", "world");
-    //   snprintf(hello_world, 150, "    cluster %d:     members: %8d, centroid (%.1f %.1f) \n", ii, cluster_member_count[ii], cluster_centroid[ii*dim + 0], cluster_centroid[ii*dim + 1]);
-    snprintf(hello_world, 150, "    cluster %d:     members: %8d, centroid (%.1f %.1f %.1f) \n", ii, cluster_member_count[ii], cluster_centroid[ii*dim + 0], cluster_centroid[ii*dim + 1], cluster_centroid[ii*dim + 2]);
-
-        ocall_print(hello_world);
-    //   printf("    cluster %d:     members: %8d, centroid (%.1f %.1f) \n", ii, cluster_member_count[ii], cluster_centroid[ii*dim + 0], cluster_centroid[ii*dim + 1]);
+      printf("    cluster %d:     members: %8d, centroid (%.1f %.1f) \n", ii, cluster_member_count[ii], cluster_centroid[ii*dim + 0], cluster_centroid[ii*dim + 1]);
       // printf("    cluster %d:     members: %8d, centroid (%.1f %.1f %.1f) \n", ii, cluster_member_count[ii], cluster_centroid[ii*dim + 0], cluster_centroid[ii*dim + 1], cluster_centroid[ii*dim + 2]);
 
     }
@@ -277,7 +263,7 @@ void kmeans(
             // recalc centroids
              calc_cluster_centroids(dim, n, k, X, cluster_assignment_cur, cluster_centroid);
              
-         //    printf("  negative progress made on this step - iteration completed (%.2f) \n", totD - prev_totD);
+             printf("  negative progress made on this step - iteration completed (%.2f) \n", totD - prev_totD);
              
             // done with this phase
              break;
@@ -292,13 +278,13 @@ void kmeans(
          
          int change_count = assignment_change_count(n, cluster_assignment_cur, cluster_assignment_prev);
          
-       //  printf("%3d   %u   %9d  %16.2f %17.2f\n", batch_iteration, 1, change_count, totD, totD - prev_totD);
-       //  fflush(stdout);
+         printf("%3d   %u   %9d  %16.2f %17.2f\n", batch_iteration, 1, change_count, totD, totD - prev_totD);
+         fflush(stdout);
          
         // done with this phase if nothing has changed
          if (change_count == 0)
            {
-           //  printf("  no change made on this step - iteration completed \n");
+             printf("  no change made on this step - iteration completed \n");
              break;
            }
 
@@ -419,32 +405,35 @@ cluster_diag(dim, n, k, X, cluster_assignment_cur, cluster_centroid);
   }  
 
 
-int runKirat() {
- // printf("kirat\n");
-  int dim = 3;
-  int n = 2;
+int main(int argc, char const *argv[]) {
+  printf("kirat\n");
+  int dim = 2;
   //double kirat_data[4] = {2.0, 2.0, 2.0, 2.0};
-  double kirat_data[n][dim];
-
+  double kirat_data[2][2];
   // kirat_data[0][0] = 2.0;
   // kirat_data[0][1] = 1.0;
   // kirat_data[1][0] = 2.0;
   // kirat_data[1][1] = 1.0;
-  kirat_data[0][0] = 7.0;
-  kirat_data[0][1] = 20.0;
-  kirat_data[0][2] = 8.0;
-  kirat_data[1][0] = 7.0;
-  kirat_data[1][1] = 20.0;
-  kirat_data[1][2] = 9.0;
+  kirat_data[0][0] = 3.0;
+  kirat_data[0][1] = 5.0;
+  //kirat_data[0][2] = 7.0;
+  kirat_data[1][0] = 3.0;
+  kirat_data[1][1] = 5.0;
+  //kirat_data[1][2] = 7.0;
+  int n = 2;
   int k = 1;
   // double cluster_initial[1] = {20.0};
-  double cluster_initial[1][dim];
+  double cluster_initial[1][2];
   cluster_initial[0][0] = 20.0;
   cluster_initial[0][1] = 50.0;
-  cluster_initial[0][2] = 520.0;
+  //cluster_initial[0][2] = 520.0;
 
-  int cluster_final[1][dim];
-  kmeans(dim, (double*) kirat_data, n, k, (double*)cluster_initial, (int*) cluster_final);
+  int cluster_final[1][2];
+  kmeans(dim, kirat_data, n, k, cluster_initial, cluster_final);
 
   return 0;
-}
+}         
+           
+
+
+

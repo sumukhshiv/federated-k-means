@@ -20,6 +20,8 @@ int generate_random_number(void);
 int add_number(uint32_t value);
 int del_number(uint32_t value);
 uint32_t get_sum(void);
+void storeData(double* data, int dim, int n);
+void init(void);
 sgx_status_t seal(uint8_t* plaintext, size_t plaintext_len, sgx_sealed_data_t* sealed_data, size_t sealed_size);
 sgx_status_t unseal(sgx_sealed_data_t* sealed_data, size_t sealed_size, uint8_t* plaintext, uint32_t plaintext_len);
 

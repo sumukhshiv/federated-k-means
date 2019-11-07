@@ -2,7 +2,10 @@
 #include <sgx_thread.h>
 #include "__oblivious_impl.h"
 #include "Oblivious.h"
+#include <iostream>
+#include <cassert>
 #include "kmeans.h"
+//#include "oarray.h"
 
 
 struct node_t {
@@ -11,7 +14,29 @@ struct node_t {
     struct node_t* prev;
 };
 
+double data_points[1000][1000];
+int current_i;
+int current_j;
+
+void init() {
+    //data_points = (double*) malloc(100);
+    current_i = 0;
+    current_j = 0;
+}
+
+void storeData(double* data, int dim, int n){
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; i < dim; j++) {
+            data_points[current_i][current_j] = ((double**) data)[i][j];
+            current_j += 1;
+        }
+        current_j = 0;
+        current_i += 1;
+    }
+}
+
 int generate_random_number() {
+     // oarray<int, 256> _arr;
     ocall_print("Processing random number generation...");
     if (o_copy_i64(1, 4, 5) == 4) {
         ocall_print("MY NAME IS KIRAT");

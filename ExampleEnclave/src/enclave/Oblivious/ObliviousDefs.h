@@ -12,7 +12,7 @@
 
 #include <immintrin.h>
 
-#define MEMORY_MASK_BITS 64
+#define MEMORY_MASK_BITS 8
 #define BLOCK_SIZE (1 << MEMORY_MASK_BITS)
 #define BLOCK_MASK ((uintptr_t)(BLOCK_SIZE - 1))
 // A chunk is the maximal contiguous region of memory that can be

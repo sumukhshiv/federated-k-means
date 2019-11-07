@@ -45,6 +45,12 @@ typedef struct ms_get_sum_t {
 	uint32_t ms_retval;
 } ms_get_sum_t;
 
+typedef struct ms_storeData_t {
+	double* ms_data;
+	int ms_dim;
+	int ms_n;
+} ms_storeData_t;
+
 typedef struct ms_seal_t {
 	sgx_status_t ms_retval;
 	uint8_t* ms_plaintext;
@@ -162,6 +168,60 @@ static sgx_status_t SGX_CDECL sgx_get_sum(void* pms)
 	ms->ms_retval = get_sum();
 
 
+	return status;
+}
+
+static sgx_status_t SGX_CDECL sgx_storeData(void* pms)
+{
+	CHECK_REF_POINTER(pms, sizeof(ms_storeData_t));
+	//
+	// fence after pointer checks
+	//
+	sgx_lfence();
+	ms_storeData_t* ms = SGX_CAST(ms_storeData_t*, pms);
+	sgx_status_t status = SGX_SUCCESS;
+	double* _tmp_data = ms->ms_data;
+	size_t _len_data = 100;
+	double* _in_data = NULL;
+
+	CHECK_UNIQUE_POINTER(_tmp_data, _len_data);
+
+	//
+	// fence after pointer checks
+	//
+	sgx_lfence();
+
+	if (_tmp_data != NULL && _len_data != 0) {
+		if ( _len_data % sizeof(*_tmp_data) != 0)
+		{
+			status = SGX_ERROR_INVALID_PARAMETER;
+			goto err;
+		}
+		_in_data = (double*)malloc(_len_data);
+		if (_in_data == NULL) {
+			status = SGX_ERROR_OUT_OF_MEMORY;
+			goto err;
+		}
+
+		if (memcpy_s(_in_data, _len_data, _tmp_data, _len_data)) {
+			status = SGX_ERROR_UNEXPECTED;
+			goto err;
+		}
+
+	}
+
+	storeData(_in_data, ms->ms_dim, ms->ms_n);
+
+err:
+	if (_in_data) free(_in_data);
+	return status;
+}
+
+static sgx_status_t SGX_CDECL sgx_init(void* pms)
+{
+	sgx_status_t status = SGX_SUCCESS;
+	if (pms != NULL) return SGX_ERROR_INVALID_PARAMETER;
+	init();
 	return status;
 }
 
@@ -301,14 +361,16 @@ err:
 
 SGX_EXTERNC const struct {
 	size_t nr_ecall;
-	struct {void* ecall_addr; uint8_t is_priv;} ecall_table[6];
+	struct {void* ecall_addr; uint8_t is_priv;} ecall_table[8];
 } g_ecall_table = {
-	6,
+	8,
 	{
 		{(void*)(uintptr_t)sgx_generate_random_number, 0},
 		{(void*)(uintptr_t)sgx_add_number, 0},
 		{(void*)(uintptr_t)sgx_del_number, 0},
 		{(void*)(uintptr_t)sgx_get_sum, 0},
+		{(void*)(uintptr_t)sgx_storeData, 0},
+		{(void*)(uintptr_t)sgx_init, 0},
 		{(void*)(uintptr_t)sgx_seal, 0},
 		{(void*)(uintptr_t)sgx_unseal, 0},
 	}
@@ -316,16 +378,16 @@ SGX_EXTERNC const struct {
 
 SGX_EXTERNC const struct {
 	size_t nr_ocall;
-	uint8_t entry_table[6][6];
+	uint8_t entry_table[6][8];
 } g_dyn_entry_table = {
 	6,
 	{
-		{0, 0, 0, 0, 0, 0, },
-		{0, 0, 0, 0, 0, 0, },
-		{0, 0, 0, 0, 0, 0, },
-		{0, 0, 0, 0, 0, 0, },
-		{0, 0, 0, 0, 0, 0, },
-		{0, 0, 0, 0, 0, 0, },
+		{0, 0, 0, 0, 0, 0, 0, 0, },
+		{0, 0, 0, 0, 0, 0, 0, 0, },
+		{0, 0, 0, 0, 0, 0, 0, 0, },
+		{0, 0, 0, 0, 0, 0, 0, 0, },
+		{0, 0, 0, 0, 0, 0, 0, 0, },
+		{0, 0, 0, 0, 0, 0, 0, 0, },
 	}
 };
 
