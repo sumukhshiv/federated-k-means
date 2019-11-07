@@ -46,6 +46,7 @@ typedef struct ms_get_sum_t {
 } ms_get_sum_t;
 
 typedef struct ms_storeData_t {
+	int ms_retval;
 	double* ms_data;
 	int ms_dim;
 	int ms_n;
@@ -181,8 +182,13 @@ static sgx_status_t SGX_CDECL sgx_storeData(void* pms)
 	ms_storeData_t* ms = SGX_CAST(ms_storeData_t*, pms);
 	sgx_status_t status = SGX_SUCCESS;
 	double* _tmp_data = ms->ms_data;
-	size_t _len_data = 100;
+	size_t _len_data = 100 * sizeof(double);
 	double* _in_data = NULL;
+
+	if (sizeof(*_tmp_data) != 0 &&
+		100 > (SIZE_MAX / sizeof(*_tmp_data))) {
+		return SGX_ERROR_INVALID_PARAMETER;
+	}
 
 	CHECK_UNIQUE_POINTER(_tmp_data, _len_data);
 
@@ -210,7 +216,7 @@ static sgx_status_t SGX_CDECL sgx_storeData(void* pms)
 
 	}
 
-	storeData(_in_data, ms->ms_dim, ms->ms_n);
+	ms->ms_retval = storeData(_in_data, ms->ms_dim, ms->ms_n);
 
 err:
 	if (_in_data) free(_in_data);
@@ -361,18 +367,18 @@ err:
 
 SGX_EXTERNC const struct {
 	size_t nr_ecall;
-	struct {void* ecall_addr; uint8_t is_priv;} ecall_table[8];
+	struct {void* ecall_addr; uint8_t is_priv; uint8_t is_switchless;} ecall_table[8];
 } g_ecall_table = {
 	8,
 	{
-		{(void*)(uintptr_t)sgx_generate_random_number, 0},
-		{(void*)(uintptr_t)sgx_add_number, 0},
-		{(void*)(uintptr_t)sgx_del_number, 0},
-		{(void*)(uintptr_t)sgx_get_sum, 0},
-		{(void*)(uintptr_t)sgx_storeData, 0},
-		{(void*)(uintptr_t)sgx_init, 0},
-		{(void*)(uintptr_t)sgx_seal, 0},
-		{(void*)(uintptr_t)sgx_unseal, 0},
+		{(void*)(uintptr_t)sgx_generate_random_number, 0, 0},
+		{(void*)(uintptr_t)sgx_add_number, 0, 0},
+		{(void*)(uintptr_t)sgx_del_number, 0, 0},
+		{(void*)(uintptr_t)sgx_get_sum, 0, 0},
+		{(void*)(uintptr_t)sgx_storeData, 0, 0},
+		{(void*)(uintptr_t)sgx_init, 0, 0},
+		{(void*)(uintptr_t)sgx_seal, 0, 0},
+		{(void*)(uintptr_t)sgx_unseal, 0, 0},
 	}
 };
 

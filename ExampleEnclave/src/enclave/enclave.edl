@@ -8,7 +8,7 @@ enclave {
         public int add_number(uint32_t value);
         public int del_number(uint32_t value);
         public uint32_t get_sum(void);
-        public void storeData([in, size=100]double* data, int dim, int n);
+        public int storeData([in, count=100]double* data, int dim, int n);
         public void init();
 
     };

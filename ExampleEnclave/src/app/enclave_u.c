@@ -19,6 +19,13 @@ typedef struct ms_get_sum_t {
 	uint32_t ms_retval;
 } ms_get_sum_t;
 
+typedef struct ms_storeData_t {
+	int ms_retval;
+	double* ms_data;
+	int ms_dim;
+	int ms_n;
+} ms_storeData_t;
+
 typedef struct ms_seal_t {
 	sgx_status_t ms_retval;
 	uint8_t* ms_plaintext;
@@ -167,6 +174,25 @@ sgx_status_t get_sum(sgx_enclave_id_t eid, uint32_t* retval)
 	return status;
 }
 
+sgx_status_t storeData(sgx_enclave_id_t eid, int* retval, double* data, int dim, int n)
+{
+	sgx_status_t status;
+	ms_storeData_t ms;
+	ms.ms_data = data;
+	ms.ms_dim = dim;
+	ms.ms_n = n;
+	status = sgx_ecall(eid, 4, &ocall_table_enclave, &ms);
+	if (status == SGX_SUCCESS && retval) *retval = ms.ms_retval;
+	return status;
+}
+
+sgx_status_t init(sgx_enclave_id_t eid)
+{
+	sgx_status_t status;
+	status = sgx_ecall(eid, 5, &ocall_table_enclave, NULL);
+	return status;
+}
+
 sgx_status_t seal(sgx_enclave_id_t eid, sgx_status_t* retval, uint8_t* plaintext, size_t plaintext_len, sgx_sealed_data_t* sealed_data, size_t sealed_size)
 {
 	sgx_status_t status;
@@ -175,7 +201,7 @@ sgx_status_t seal(sgx_enclave_id_t eid, sgx_status_t* retval, uint8_t* plaintext
 	ms.ms_plaintext_len = plaintext_len;
 	ms.ms_sealed_data = sealed_data;
 	ms.ms_sealed_size = sealed_size;
-	status = sgx_ecall(eid, 4, &ocall_table_enclave, &ms);
+	status = sgx_ecall(eid, 6, &ocall_table_enclave, &ms);
 	if (status == SGX_SUCCESS && retval) *retval = ms.ms_retval;
 	return status;
 }
@@ -188,7 +214,7 @@ sgx_status_t unseal(sgx_enclave_id_t eid, sgx_status_t* retval, sgx_sealed_data_
 	ms.ms_sealed_size = sealed_size;
 	ms.ms_plaintext = plaintext;
 	ms.ms_plaintext_len = plaintext_len;
-	status = sgx_ecall(eid, 5, &ocall_table_enclave, &ms);
+	status = sgx_ecall(eid, 7, &ocall_table_enclave, &ms);
 	if (status == SGX_SUCCESS && retval) *retval = ms.ms_retval;
 	return status;
 }

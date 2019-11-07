@@ -31,6 +31,31 @@ int main(int argc, char const *argv[]) {
     }
     printf("Random number: %d\n", ptr);
 
+    int dim = 3;
+    int n = 2;
+    //double kirat_data[4] = {2.0, 2.0, 2.0, 2.0};
+    double kirat_data[n][dim];
+
+    // kirat_data[0][0] = 2.0;
+    // kirat_data[0][1] = 1.0;
+    // kirat_data[1][0] = 2.0;
+    // kirat_data[1][1] = 1.0;
+    kirat_data[0][0] = 7.0;
+    kirat_data[0][1] = 20.0;
+    kirat_data[0][2] = 8.0;
+    kirat_data[1][0] = 7.0;
+    kirat_data[1][1] = 20.0;
+    kirat_data[1][2] = 9.0;
+    // double* kirat = (double*) kirat_data;
+    // for (int i = 0; i < n; i++) {
+    //     for (int j = 0; j < dim; j++) {
+    //         printf("%f", kirat[i*dim + j]);
+    //     }
+    // }
+    status = storeData(global_eid, &ptr, (double*)kirat_data, dim, n);
+    // printf("Error code is 0x%X. Please refer to the \"Intel SGX SDK Developer Reference\" for more details.\n", status);
+    assert (status == SGX_SUCCESS);
+
     status = add_number(global_eid, &ptr, 10); 
     assert (ptr);
     assert (status == SGX_SUCCESS);

@@ -13,26 +13,35 @@ struct node_t {
     struct node_t* next;
     struct node_t* prev;
 };
+double data_points[2][3];
+int num_points = 1000;
+int num_dimensions = 1000;
+int current_i = 0;
+int current_j = 0;
 
-double data_points[1000][1000];
-int current_i;
-int current_j;
-
-void init() {
-    //data_points = (double*) malloc(100);
-    current_i = 0;
-    current_j = 0;
+void init(){
+    ocall_print("HELLO");
 }
 
-void storeData(double* data, int dim, int n){
+int storeData(double* data, int dim, int n){
     for (int i = 0; i < n; i++) {
-        for (int j = 0; i < dim; j++) {
-            data_points[current_i][current_j] = ((double**) data)[i][j];
+        for (int j = 0; j < dim; j++) {
+            data_points[current_i][current_j] = data[i*dim + j];
             current_j += 1;
         }
         current_j = 0;
         current_i += 1;
     }
+    int k = 1;
+    double cluster_initial[k][dim];
+    cluster_initial[0][0] = 20.0;
+    cluster_initial[0][1] = 50.0;
+    cluster_initial[0][2] = 520.0;
+
+    int cluster_final[k][dim];
+    kmeans(dim, (double*) data_points, n, k, (double*)cluster_initial, (int*) cluster_final);
+    return 1;
+
 }
 
 int generate_random_number() {
@@ -44,7 +53,7 @@ int generate_random_number() {
         ocall_print("GG DUDE");
     }
 
-    runKirat();
+    //runKirat();
 
 
 

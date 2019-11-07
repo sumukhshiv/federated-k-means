@@ -204,6 +204,7 @@ void cluster_diag(int dim, int n, int k, double *X, int *cluster_assignment_inde
     snprintf(hello_world, 150, "    cluster %d:     members: %8d, centroid (%.1f %.1f %.1f) \n", ii, cluster_member_count[ii], cluster_centroid[ii*dim + 0], cluster_centroid[ii*dim + 1], cluster_centroid[ii*dim + 2]);
 
         ocall_print(hello_world);
+
     //   printf("    cluster %d:     members: %8d, centroid (%.1f %.1f) \n", ii, cluster_member_count[ii], cluster_centroid[ii*dim + 0], cluster_centroid[ii*dim + 1]);
       // printf("    cluster %d:     members: %8d, centroid (%.1f %.1f %.1f) \n", ii, cluster_member_count[ii], cluster_centroid[ii*dim + 0], cluster_centroid[ii*dim + 1], cluster_centroid[ii*dim + 2]);
 
@@ -242,7 +243,6 @@ void kmeans(
     int   *cluster_assignment_cur  = (int *)malloc(sizeof(int) * n);
     int   *cluster_assignment_prev = (int *)malloc(sizeof(int) * n);
     double *point_move_score        = (double *)malloc(sizeof(double) * n * k);
-    
     
     if (!dist || !cluster_assignment_cur || !cluster_assignment_prev || !point_move_score)
       fail("Error allocating dist arrays");
