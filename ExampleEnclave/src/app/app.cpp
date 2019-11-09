@@ -56,6 +56,29 @@ int main(int argc, char const *argv[]) {
     // printf("Error code is 0x%X. Please refer to the \"Intel SGX SDK Developer Reference\" for more details.\n", status);
     assert (status == SGX_SUCCESS);
 
+    double data2[n][dim];
+
+    // kirat_data[0][0] = 2.0;
+    // kirat_data[0][1] = 1.0;
+    // kirat_data[1][0] = 2.0;
+    // kirat_data[1][1] = 1.0;
+    data2[0][0] = 7.0;
+    data2[0][1] = 20.0;
+    data2[0][2] = 8.0;
+    data2[1][0] = 7.0;
+    data2[1][1] = 20.0;
+    data2[1][2] = 9.0;
+
+    status = storeData(global_eid, &ptr, (double*)data2, dim, n);
+    // printf("Error code is 0x%X. Please refer to the \"Intel SGX SDK Developer Reference\" for more details.\n", status);
+    assert (status == SGX_SUCCESS);
+
+    status = execute_k_means(global_eid); 
+    assert (status == SGX_SUCCESS);
+
+    status = print_data_array(global_eid); 
+    assert (status == SGX_SUCCESS);
+
     status = add_number(global_eid, &ptr, 10); 
     assert (ptr);
     assert (status == SGX_SUCCESS);

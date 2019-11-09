@@ -4,6 +4,8 @@
 #include "Oblivious.h"
 #include <iostream>
 #include <cassert>
+#include <stdlib.h>
+#include <stdio.h>
 #include "kmeans.h"
 //#include "oarray.h"
 
@@ -13,17 +15,23 @@ struct node_t {
     struct node_t* next;
     struct node_t* prev;
 };
-double data_points[2][3];
-int num_points = 1000;
-int num_dimensions = 1000;
+const int num_points = 1000;
+const int num_dimensions = 3;
 int current_i = 0;
 int current_j = 0;
+int global_dim = 0;
+int total_rows = 0;
+
+double data_points[num_points][num_dimensions];
+
 
 void init(){
     ocall_print("HELLO");
 }
 
 int storeData(double* data, int dim, int n){
+    global_dim = dim; 
+    total_rows += n;
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < dim; j++) {
             data_points[current_i][current_j] = data[i*dim + j];
@@ -32,16 +40,30 @@ int storeData(double* data, int dim, int n){
         current_j = 0;
         current_i += 1;
     }
+        
+    return 1;
+
+}
+
+void execute_k_means() {
     int k = 1;
-    double cluster_initial[k][dim];
+    double cluster_initial[k][global_dim];
     cluster_initial[0][0] = 20.0;
     cluster_initial[0][1] = 50.0;
     cluster_initial[0][2] = 520.0;
 
-    int cluster_final[k][dim];
-    kmeans(dim, (double*) data_points, n, k, (double*)cluster_initial, (int*) cluster_final);
-    return 1;
+    int cluster_final[k][global_dim];
 
+    kmeans(global_dim, (double*) data_points, total_rows, k, (double*)cluster_initial, (int*) cluster_final);
+
+}
+
+void print_data_array() {
+    for (int i = 0; i < current_i; i++) {
+        char* row = (char*) malloc(50);
+        snprintf(row, 50, "%f, %f, %f\n", data_points[i][0], data_points[i][1], data_points[i][2]);
+        ocall_print(row);
+    }
 }
 
 int generate_random_number() {
