@@ -201,8 +201,8 @@ void cluster_diag(int dim, int n, int k, double *X, int *cluster_assignment_inde
         char* hello_world = (char*)malloc(150 * sizeof(char));
         //snprintf(hello_world,10, "%s %s!", "Hello", "world");
     //   snprintf(hello_world, 150, "    cluster %d:     members: %8d, centroid (%.1f %.1f) \n", ii, cluster_member_count[ii], cluster_centroid[ii*dim + 0], cluster_centroid[ii*dim + 1]);
-    snprintf(hello_world, 150, "    cluster %d:     members: %8d, centroid (%.1f %.1f %.1f) \n", ii, cluster_member_count[ii], cluster_centroid[ii*dim + 0], cluster_centroid[ii*dim + 1], cluster_centroid[ii*dim + 2]);
-
+    // snprintf(hello_world, 150, "    cluster %d:     members: %8d, centroid (%.1f %.1f %.1f) \n", ii, cluster_member_count[ii], cluster_centroid[ii*dim + 0], cluster_centroid[ii*dim + 1], cluster_centroid[ii*dim + 2]);
+       snprintf(hello_world, 150, "    cluster %d:     members: %8d, centroid (%.1f %.1f %.1f) \n", ii, cluster_member_count[ii], cluster_centroid[ii*dim + 0], cluster_centroid[ii*dim + 1], cluster_centroid[ii*dim + 2]);
         ocall_print(hello_world);
 
     //   printf("    cluster %d:     members: %8d, centroid (%.1f %.1f) \n", ii, cluster_member_count[ii], cluster_centroid[ii*dim + 0], cluster_centroid[ii*dim + 1]);
@@ -410,7 +410,7 @@ cluster_diag(dim, n, k, X, cluster_assignment_cur, cluster_centroid);
 //    printf("iterations: %3d %3d \n", batch_iteration, online_iteration);
       
    // write to output array
-    copy_assignment_array(n, cluster_assignment_cur, cluster_assignment_final);    
+    // copy_assignment_array(n, cluster_assignment_cur, cluster_assignment_final);    
     
     free(dist);
     free(cluster_assignment_cur);
@@ -421,29 +421,36 @@ cluster_diag(dim, n, k, X, cluster_assignment_cur, cluster_centroid);
 
 int runKirat() {
  // printf("kirat\n");
-  int dim = 3;
+  int dim = 1;
   int n = 2;
   //double kirat_data[4] = {2.0, 2.0, 2.0, 2.0};
   double kirat_data[n][dim];
-
+  kirat_data[0][0] = 0;
+  kirat_data[1][0] = 6;
   // kirat_data[0][0] = 2.0;
   // kirat_data[0][1] = 1.0;
   // kirat_data[1][0] = 2.0;
   // kirat_data[1][1] = 1.0;
-  kirat_data[0][0] = 7.0;
-  kirat_data[0][1] = 20.0;
-  kirat_data[0][2] = 8.0;
-  kirat_data[1][0] = 7.0;
-  kirat_data[1][1] = 20.0;
-  kirat_data[1][2] = 9.0;
-  int k = 1;
+  // kirat_data[0][0] = 7.0;
+  // kirat_data[0][1] = 20.0;
+  // kirat_data[0][2] = 8.0;
+  // kirat_data[1][0] = 7.0;
+  // kirat_data[1][1] = 20.0;
+  // kirat_data[1][2] = 9.0;
+  int k = 2;
   // double cluster_initial[1] = {20.0};
-  double cluster_initial[1][dim];
-  cluster_initial[0][0] = 20.0;
-  cluster_initial[0][1] = 50.0;
-  cluster_initial[0][2] = 520.0;
+  double cluster_initial[k][dim];
+  // cluster_initial[0][0] = 0.0;
+  // cluster_initial[0][1] = 0.0;
+  // cluster_initial[0][2] = 0.0;
+  // cluster_initial[1][0] = 10.0;
+  // cluster_initial[1][1] = 10.0;
+  // cluster_initial[1][2] = 10.0;
+  cluster_initial[0][0] = 1;
+  cluster_initial[1][0] = 5;
 
-  int cluster_final[1][dim];
+
+  int cluster_final[k][dim];
   kmeans(dim, (double*) kirat_data, n, k, (double*)cluster_initial, (int*) cluster_final);
 
   return 0;

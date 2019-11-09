@@ -22,7 +22,7 @@ int current_j = 0;
 int global_dim = 0;
 int total_rows = 0;
 
-double data_points[num_points][num_dimensions];
+double static data_points[num_points][num_dimensions];
 
 
 void init(){
@@ -46,22 +46,29 @@ int storeData(double* data, int dim, int n){
 }
 
 void execute_k_means() {
-    int k = 1;
+    int k = 3;
     double cluster_initial[k][global_dim];
-    cluster_initial[0][0] = 20.0;
-    cluster_initial[0][1] = 50.0;
-    cluster_initial[0][2] = 520.0;
+    cluster_initial[0][0] = 0.5;
+    cluster_initial[0][1] = 0.5;
+    cluster_initial[0][2] = 0.5;
+    cluster_initial[1][0] = 0.6;
+    cluster_initial[1][1] = 0.6;
+    cluster_initial[1][2] = 0.6;
+    cluster_initial[2][0] = 0.4;
+    cluster_initial[2][1] = 0.4;
+    cluster_initial[2][2] = 0.4;
+    
 
     int cluster_final[k][global_dim];
 
     kmeans(global_dim, (double*) data_points, total_rows, k, (double*)cluster_initial, (int*) cluster_final);
-
+    ocall_print("HARKIRAT SINGH SIDHU");
 }
 
 void print_data_array() {
-    for (int i = 0; i < current_i; i++) {
-        char* row = (char*) malloc(50);
-        snprintf(row, 50, "%f, %f, %f\n", data_points[i][0], data_points[i][1], data_points[i][2]);
+    for (int i = current_i - 1; i > 0; i--) {
+        char* row = (char*) malloc(1000);
+        snprintf(row, 1000, "%f, %f, %f\n", data_points[i][0], data_points[i][1], data_points[i][2]);
         ocall_print(row);
     }
 }
@@ -75,7 +82,7 @@ int generate_random_number() {
         ocall_print("GG DUDE");
     }
 
-    //runKirat();
+  //  runKirat();
 
 
 

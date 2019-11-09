@@ -17,6 +17,7 @@ void ocall_print(const char* str) {
     printf("%s\n", str);
 }
 
+
 int main(int argc, char const *argv[]) {
     oblivious::oarray<int, 256> _arr;
     if (initialize_enclave(&global_eid, "enclave.token", "enclave.signed.so") < 0) {
@@ -32,49 +33,80 @@ int main(int argc, char const *argv[]) {
     printf("Random number: %d\n", ptr);
 
     int dim = 3;
-    int n = 2;
-    //double kirat_data[4] = {2.0, 2.0, 2.0, 2.0};
-    double kirat_data[n][dim];
+    int n = 15;
+    double kirat_data[n][dim] = {{0.39,0.66,0.56},{0.2,0.42,0.62},{0.57,0.07,0.05},{0.12,0.76,0.96},{0.46,0.92,0.57},{0.97,0.1,0.19},{0.1,0.97,0.84},{0.94,0.31,0.82},{0.11,0.93,0.55},{0.67,0.01,0.52},{0.79,0.93,0.03},{0.35,0.4,0.04},{0.98,0.09,0.45},{0.39,0.9,0.89},{0.21,0.16,0.47}};
 
-    // kirat_data[0][0] = 2.0;
-    // kirat_data[0][1] = 1.0;
-    // kirat_data[1][0] = 2.0;
-    // kirat_data[1][1] = 1.0;
-    kirat_data[0][0] = 7.0;
-    kirat_data[0][1] = 20.0;
-    kirat_data[0][2] = 8.0;
-    kirat_data[1][0] = 7.0;
-    kirat_data[1][1] = 20.0;
-    kirat_data[1][2] = 9.0;
-    // double* kirat = (double*) kirat_data;
-    // for (int i = 0; i < n; i++) {
-    //     for (int j = 0; j < dim; j++) {
-    //         printf("%f", kirat[i*dim + j]);
-    //     }
-    // }
+    //double kirat_data[4] = {2.0, 2.0, 2.0, 2.0};
+    // // kirat_data[0][0] = 2.0;
+    // // kirat_data[0][1] = 1.0;
+    // // kirat_data[1][0] = 2.0;
+    // // kirat_data[1][1] = 1.0;
+    // kirat_data[0][0] = 7.0;
+    // kirat_data[0][1] = 20.0;
+    // kirat_data[0][2] = 8.0;
+    // kirat_data[1][0] = 7.0;
+    // kirat_data[1][1] = 20.0;
+    // kirat_data[1][2] = 9.0;
+
     status = storeData(global_eid, &ptr, (double*)kirat_data, dim, n);
     // printf("Error code is 0x%X. Please refer to the \"Intel SGX SDK Developer Reference\" for more details.\n", status);
     assert (status == SGX_SUCCESS);
 
-    double data2[n][dim];
-
-    // kirat_data[0][0] = 2.0;
-    // kirat_data[0][1] = 1.0;
-    // kirat_data[1][0] = 2.0;
-    // kirat_data[1][1] = 1.0;
-    data2[0][0] = 7.0;
-    data2[0][1] = 20.0;
-    data2[0][2] = 8.0;
-    data2[1][0] = 7.0;
-    data2[1][1] = 20.0;
-    data2[1][2] = 9.0;
-
-    status = storeData(global_eid, &ptr, (double*)data2, dim, n);
-    // printf("Error code is 0x%X. Please refer to the \"Intel SGX SDK Developer Reference\" for more details.\n", status);
+    double kirat_data2[n][dim] = {{0.39,0.66,0.56},{0.2,0.42,0.62},{0.57,0.07,0.05},{0.12,0.76,0.96},{0.46,0.92,0.57},{0.97,0.1,0.19},{0.1,0.97,0.84},{0.94,0.31,0.82},{0.11,0.93,0.55},{0.67,0.01,0.52},{0.79,0.93,0.03},{0.35,0.4,0.04},{0.98,0.09,0.45},{0.39,0.9,0.89},{0.21,0.16,0.47}};
+    status = storeData(global_eid, &ptr, (double*)kirat_data2, dim, n);
     assert (status == SGX_SUCCESS);
+
+
+    double kirat_data3[n][dim] = {{0.39,0.66,0.56},{0.2,0.42,0.62},{0.57,0.07,0.05},{0.12,0.76,0.96},{0.46,0.92,0.57},{0.97,0.1,0.19},{0.1,0.97,0.84},{0.94,0.31,0.82},{0.11,0.93,0.55},{0.67,0.01,0.52},{0.79,0.93,0.03},{0.35,0.4,0.04},{0.98,0.09,0.45},{0.39,0.9,0.89},{0.21,0.16,0.47}};
+    status = storeData(global_eid, &ptr, (double*)kirat_data3, dim, n);
+    assert (status == SGX_SUCCESS);
+    double kirat_data4[n][dim] = {{0.39,0.66,0.56},{0.2,0.42,0.62},{0.57,0.07,0.05},{0.12,0.76,0.96},{0.46,0.92,0.57},{0.97,0.1,0.19},{0.1,0.97,0.84},{0.94,0.31,0.82},{0.11,0.93,0.55},{0.67,0.01,0.52},{0.79,0.93,0.03},{0.35,0.4,0.04},{0.98,0.09,0.45},{0.39,0.9,0.89},{0.21,0.16,0.47}};
+    status = storeData(global_eid, &ptr, (double*)kirat_data4, dim, n);
+    assert (status == SGX_SUCCESS);
+
+
+    double kirat_data5[n][dim] = {{0.39,0.66,0.56},{0.2,0.42,0.62},{0.57,0.07,0.05},{0.12,0.76,0.96},{0.46,0.92,0.57},{0.97,0.1,0.19},{0.1,0.97,0.84},{0.94,0.31,0.82},{0.11,0.93,0.55},{0.67,0.01,0.52},{0.79,0.93,0.03},{0.35,0.4,0.04},{0.98,0.09,0.45},{0.39,0.9,0.89},{0.21,0.16,0.47}};
+    status = storeData(global_eid, &ptr, (double*)kirat_data5, dim, n);
+    assert (status == SGX_SUCCESS);
+
+     double kirat_data6[n][dim] = {{0.39,0.66,0.56},{0.2,0.42,0.62},{0.57,0.07,0.05},{0.12,0.76,0.96},{0.46,0.92,0.57},{0.97,0.1,0.19},{0.1,0.97,0.84},{0.94,0.31,0.82},{0.11,0.93,0.55},{0.67,0.01,0.52},{0.79,0.93,0.03},{0.35,0.4,0.04},{0.98,0.09,0.45},{0.39,0.9,0.89},{0.21,0.16,0.47}};
+    status = storeData(global_eid, &ptr, (double*)kirat_data6, dim, n);
+    assert (status == SGX_SUCCESS);
+
+            double kirat_data7[n][dim] = {{0.39,0.66,0.56},{0.2,0.42,0.62},{0.57,0.07,0.05},{0.12,0.76,0.96},{0.46,0.92,0.57},{0.97,0.1,0.19},{0.1,0.97,0.84},{0.94,0.31,0.82},{0.11,0.93,0.55},{0.67,0.01,0.52},{0.79,0.93,0.03},{0.35,0.4,0.04},{0.98,0.09,0.45},{0.39,0.9,0.89},{0.21,0.16,0.47}};
+    status = storeData(global_eid, &ptr, (double*)kirat_data7, dim, n);
+    assert (status == SGX_SUCCESS);
+
+            double kirat_data8[n][dim] = {{0.39,0.66,0.56},{0.2,0.42,0.62},{0.57,0.07,0.05},{0.12,0.76,0.96},{0.46,0.92,0.57},{0.97,0.1,0.19},{0.1,0.97,0.84},{0.94,0.31,0.82},{0.11,0.93,0.55},{0.67,0.01,0.52},{0.79,0.93,0.03},{0.35,0.4,0.04},{0.98,0.09,0.45},{0.39,0.9,0.89},{0.21,0.16,0.47}};
+    status = storeData(global_eid, &ptr, (double*)kirat_data8, dim, n);
+    assert (status == SGX_SUCCESS);
+
+
+
+
+
+    // double data2[n][dim];
+
+    // // kirat_data[0][0] = 2.0;
+    // // kirat_data[0][1] = 1.0;
+    // // kirat_data[1][0] = 2.0;
+    // // kirat_data[1][1] = 1.0;
+    // data2[0][0] = 7.0;
+    // data2[0][1] = 20.0;
+    // data2[0][2] = 8.0;
+    // data2[1][0] = 7.0;
+    // data2[1][1] = 20.0;
+    // data2[1][2] = 9.0;
+
+    // status = storeData(global_eid, &ptr, (double*)data2, dim, n);
+    // // printf("Error code is 0x%X. Please refer to the \"Intel SGX SDK Developer Reference\" for more details.\n", status);
+    // assert (status == SGX_SUCCESS);
 
     status = execute_k_means(global_eid); 
     assert (status == SGX_SUCCESS);
+
+      //  printf("BREH\n");
+
 
     status = print_data_array(global_eid); 
     assert (status == SGX_SUCCESS);
@@ -108,29 +140,29 @@ int main(int argc, char const *argv[]) {
     printf("Sum: %u\n", sum);
     assert (status == SGX_SUCCESS);
 
-    // // Seal the random number
-    // size_t sealed_size = sizeof(sgx_sealed_data_t) + sizeof(ptr);
-    // uint8_t* sealed_data = (uint8_t*)malloc(sealed_size);
+    // // // Seal the random number
+    // // size_t sealed_size = sizeof(sgx_sealed_data_t) + sizeof(ptr);
+    // // uint8_t* sealed_data = (uint8_t*)malloc(sealed_size);
 
-    // sgx_status_t ecall_status;
-    // status = seal(global_eid, &ecall_status,
-    //         (uint8_t*)&ptr, sizeof(ptr),
-    //         (sgx_sealed_data_t*)sealed_data, sealed_size);
+    // // sgx_status_t ecall_status;
+    // // status = seal(global_eid, &ecall_status,
+    // //         (uint8_t*)&ptr, sizeof(ptr),
+    // //         (sgx_sealed_data_t*)sealed_data, sealed_size);
 
-    // if (!is_ecall_successful(status, "Sealing failed :(", ecall_status)) {
-    //     return 1;
-    // }
+    // // if (!is_ecall_successful(status, "Sealing failed :(", ecall_status)) {
+    // //     return 1;
+    // // }
 
-    // int unsealed;
-    // status = unseal(global_eid, &ecall_status,
-    //         (sgx_sealed_data_t*)sealed_data, sealed_size,
-    //         (uint8_t*)&unsealed, sizeof(unsealed));
+    // // int unsealed;
+    // // status = unseal(global_eid, &ecall_status,
+    // //         (sgx_sealed_data_t*)sealed_data, sealed_size,
+    // //         (uint8_t*)&unsealed, sizeof(unsealed));
 
-    // if (!is_ecall_successful(status, "Unsealing failed :(", ecall_status)) {
-    //     return 1;
-    // }
+    // // if (!is_ecall_successful(status, "Unsealing failed :(", ecall_status)) {
+    // //     return 1;
+    // // }
 
-    // std::cout << "Seal round trip success! Receive back " << unsealed << std::endl;
+    // // std::cout << "Seal round trip success! Receive back " << unsealed << std::endl;
 
     return 0;
 }
