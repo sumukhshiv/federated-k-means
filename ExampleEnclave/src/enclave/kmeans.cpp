@@ -87,36 +87,30 @@ void choose_all_clusters_from_distances(int dim, int n, int k, double *distance_
             double cur_distance = distance_array[ii*k + jj];
 
             //OBLIV-EDIT
-            
-            // int cond = cur_distance < closest_distance;
-            // if (cond == 0) {
-            //   ocall_print("COND IS 0");
-            // } else if (cond == 1) {
-            //   ocall_print("COND IS 1");
-            // }  else {
-            //   ocall_print("WTF ERROR");
-            // }
+            // ISSUES: 0*infinity = nan, later nan + double = nan, need to get around both
+            int cond = cur_distance < closest_distance;
+            int exec1 = jj;
+            double exec2 = cur_distance;
+
+            // char* hello_world = (char*)malloc(150 * sizeof(char));
+            // snprintf(hello_world, 750, "cond: %d, cur_distance: %f, closest_distance: %f, cond*cur_distance: %f, (1-cond)*closest_distance: %f\n", cond, cur_distance, closest_distance, cond*cur_distance, (1-cond)*closest_distance);
+            // ocall_print(hello_world);
+
+            best_index = best_index * (1-cond) + exec1 * (cond);
+            // closest_distance = cond*exec2 + (1-cond)*closest_distance;
+            // char* hello_world2 = (char*)malloc(150 * sizeof(char));
+            // snprintf(hello_world2, 750, "after assignment closest distance: %f\n", closest_distance);
+            // ocall_print(hello_world2);
 
             if (cur_distance < closest_distance)
               {
-                int cond = cur_distance < closest_distance;
-            int exec1 = jj;
-            double exec2 = cur_distance;
-            best_index = best_index * (1-cond) + exec1 * (cond);
-            // closest_distance = closest_distance * (double)(1-(double)cond) + exec2 * (double)(cond);
-            
+                // closest_distance = closest_distance * (double)(1-(double)cond) + exec2 * (double)(cond);
                 // best_index = jj;
-                // closest_distance = cur_distance;
-
-                char* hello_world = (char*)malloc(150 * sizeof(char));
-       snprintf(hello_world, 750, "cond: %d, cur_distance: %f, closest_distance: %f, cond*cur_distance: %f, (1-cond)*closest_distance: %f\n", cond, cur_distance, closest_distance, cond*cur_distance, (1-cond)*closest_distance);
-        ocall_print(hello_world);
-                closest_distance = cond*cur_distance + (1-cond)*closest_distance;
-
+                closest_distance = cur_distance;
               } 
           }
 
-       // record in array
+        // record in array
         cluster_assignment_index[ii] = best_index;
       }
   }
