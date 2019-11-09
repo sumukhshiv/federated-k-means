@@ -182,11 +182,11 @@ static sgx_status_t SGX_CDECL sgx_storeData(void* pms)
 	ms_storeData_t* ms = SGX_CAST(ms_storeData_t*, pms);
 	sgx_status_t status = SGX_SUCCESS;
 	double* _tmp_data = ms->ms_data;
-	size_t _len_data = 100 * sizeof(double);
+	size_t _len_data = 1000 * sizeof(double);
 	double* _in_data = NULL;
 
 	if (sizeof(*_tmp_data) != 0 &&
-		100 > (SIZE_MAX / sizeof(*_tmp_data))) {
+		1000 > (SIZE_MAX / sizeof(*_tmp_data))) {
 		return SGX_ERROR_INVALID_PARAMETER;
 	}
 

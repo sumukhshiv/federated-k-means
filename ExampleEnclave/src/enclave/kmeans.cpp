@@ -7,6 +7,8 @@
 #include <stdio.h>
 #include "kmeans.h"
 #include "enclave_t.h"
+#include <algorithm>
+
 
 
 
@@ -20,8 +22,7 @@
 
 void fail(char *str)
   {
- //   printf(str);
-    //exit(-1);
+    ocall_print("FAILED");
   }
   
 double calc_distance(int dim, double *p1, double *p2)
@@ -38,11 +39,13 @@ double calc_distance(int dim, double *p1, double *p2)
 void calc_all_distances(int dim, int n, int k, double *X, double *centroid, double *distance_output)
   {
     for (int ii = 0; ii < n; ii++) // for each point
+    {
       for (int jj = 0; jj < k; jj++) // for each cluster
         {
          // calculate distance between point and cluster centroid
           distance_output[ii*k + jj] = calc_distance(dim, &X[ii*dim], &centroid[jj*dim]);
         }
+    }
   }
   
 double calc_total_distance(int dim, int n, int k, double *X, double *centroids, int *cluster_assignment_index)
@@ -202,7 +205,7 @@ void cluster_diag(int dim, int n, int k, double *X, int *cluster_assignment_inde
         //snprintf(hello_world,10, "%s %s!", "Hello", "world");
     //   snprintf(hello_world, 150, "    cluster %d:     members: %8d, centroid (%.1f %.1f) \n", ii, cluster_member_count[ii], cluster_centroid[ii*dim + 0], cluster_centroid[ii*dim + 1]);
     // snprintf(hello_world, 150, "    cluster %d:     members: %8d, centroid (%.1f %.1f %.1f) \n", ii, cluster_member_count[ii], cluster_centroid[ii*dim + 0], cluster_centroid[ii*dim + 1], cluster_centroid[ii*dim + 2]);
-       snprintf(hello_world, 150, "    cluster %d:     members: %8d, centroid (%.1f %.1f %.1f) \n", ii, cluster_member_count[ii], cluster_centroid[ii*dim + 0], cluster_centroid[ii*dim + 1], cluster_centroid[ii*dim + 2]);
+       snprintf(hello_world, 150, "    cluster %d:     members: %8d, centroid (%.3f %.3f %.3f) \n", ii, cluster_member_count[ii], cluster_centroid[ii*dim + 0], cluster_centroid[ii*dim + 1], cluster_centroid[ii*dim + 2]);
         ocall_print(hello_world);
 
     //   printf("    cluster %d:     members: %8d, centroid (%.1f %.1f) \n", ii, cluster_member_count[ii], cluster_centroid[ii*dim + 0], cluster_centroid[ii*dim + 1]);
