@@ -79,26 +79,15 @@ void choose_all_clusters_from_distances(int dim, int n, int k, double *distance_
         int best_index = -1;
         double closest_distance = BIG_double;
         
-       // for each cluster
+        // for each cluster
         for (int jj = 0; jj < k; jj++)
           {
-           // distance between point and cluster centroid
-           
+            // distance between point and cluster centroid
             double cur_distance = distance_array[ii*k + jj];
 
-            //OBLIV-EDIT
-            
-            // int cond = cur_distance < closest_distance;
-            // if (cond == 0) {
-            //   ocall_print("COND IS 0");
-            // } else if (cond == 1) {
-            //   ocall_print("COND IS 1");
-            // }  else {
-            //   ocall_print("WTF ERROR");
-            // }
-
+            // OBLIV-EDIT
             // ISSUES: 0*infinity = nan, later nan + double = nan, need to get around both
-            //COMMENT: Had to resolve 0 * Infinity = NaN when doing OBLIVIOUS computation
+            // COMMENT: Had to resolve 0 * Infinity = NaN when doing OBLIVIOUS computation
             // Distances could be NaN if centroids had NaN values (dividing by zero as no members)
             
 
@@ -106,24 +95,21 @@ void choose_all_clusters_from_distances(int dim, int n, int k, double *distance_
             int exec1 = jj;
             double exec2 = cur_distance;
 
-            //char* hello_world = (char*)malloc(150 * sizeof(char));
-      //  snprintf(hello_world, 750, "before cond: %d, cur_distance: %f, closest_distance: %f, cond*cur_distance: %f, (1-cond)*closest_distance: %f\n", cond, cur_distance, closest_distance, cond*cur_distance, (1-cond)*closest_distance);
-      //   ocall_print(hello_world);
+            // char* hello_world = (char*)malloc(150 * sizeof(char));
+            // snprintf(hello_world, 750, "before cond: %d, cur_distance: %f, closest_distance: %f, cond*cur_distance: %f, (1-cond)*closest_distance: %f\n", cond, cur_distance, closest_distance, cond*cur_distance, (1-cond)*closest_distance);
+            // ocall_print(hello_world);
 
             best_index = best_index * (1-cond) + exec1 * (cond);
             closest_distance = closest_distance * (1-cond) + exec2 * (cond);
 
-             //hello_world = (char*)malloc(150 * sizeof(char));
-      //  snprintf(hello_world, 750, "aftr cond: %d, cur_distance: %f, closest_distance: %f, cond*cur_distance: %f, (1-cond)*closest_distance: %f\n", cond, cur_distance, closest_distance, cond*cur_distance, (1-cond)*closest_distance);
-      //   ocall_print(hello_world);
-            
-                // best_index = jj;
-                // closest_distance = cur_distance;
+            // hello_world = (char*)malloc(150 * sizeof(char));
+            // snprintf(hello_world, 750, "aftr cond: %d, cur_distance: %f, closest_distance: %f, cond*cur_distance: %f, (1-cond)*closest_distance: %f\n", cond, cur_distance, closest_distance, cond*cur_distance, (1-cond)*closest_distance);
+            // ocall_print(hello_world);
 
         // record in array
         cluster_assignment_index[ii] = best_index;
       }
-  }
+    }
   }
 
 void calc_cluster_centroids(int dim, int n, int k, double *X, int *cluster_assignment_index, double *new_cluster_centroid)
