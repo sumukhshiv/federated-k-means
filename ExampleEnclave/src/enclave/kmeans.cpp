@@ -97,24 +97,31 @@ void choose_all_clusters_from_distances(int dim, int n, int k, double *distance_
             //   ocall_print("WTF ERROR");
             // }
 
-            if (cur_distance < closest_distance)
-              {
-                int cond = cur_distance < closest_distance;
+            //COMMENT: Had to resolve 0 * Infinity = NaN when doing OBLIVIOUS computation
+            // Distances could be NaN if centroids had NaN values (dividing by zero as no members)
+            
+
+            int cond = cur_distance < closest_distance;
             int exec1 = jj;
             double exec2 = cur_distance;
+
+            //char* hello_world = (char*)malloc(150 * sizeof(char));
+      //  snprintf(hello_world, 750, "before cond: %d, cur_distance: %f, closest_distance: %f, cond*cur_distance: %f, (1-cond)*closest_distance: %f\n", cond, cur_distance, closest_distance, cond*cur_distance, (1-cond)*closest_distance);
+      //   ocall_print(hello_world);
+
             best_index = best_index * (1-cond) + exec1 * (cond);
-            // closest_distance = closest_distance * (double)(1-(double)cond) + exec2 * (double)(cond);
+            closest_distance = closest_distance * (1-cond) + exec2 * (cond);
+
+             //hello_world = (char*)malloc(150 * sizeof(char));
+      //  snprintf(hello_world, 750, "aftr cond: %d, cur_distance: %f, closest_distance: %f, cond*cur_distance: %f, (1-cond)*closest_distance: %f\n", cond, cur_distance, closest_distance, cond*cur_distance, (1-cond)*closest_distance);
+      //   ocall_print(hello_world);
             
                 // best_index = jj;
                 // closest_distance = cur_distance;
 
-                char* hello_world = (char*)malloc(150 * sizeof(char));
-       snprintf(hello_world, 750, "cond: %d, cur_distance: %f, closest_distance: %f, cond*cur_distance: %f, (1-cond)*closest_distance: %f\n", cond, cur_distance, closest_distance, cond*cur_distance, (1-cond)*closest_distance);
-        ocall_print(hello_world);
-                closest_distance = cond*cur_distance + (1-cond)*closest_distance;
+                
 
               } 
-          }
 
        // record in array
         cluster_assignment_index[ii] = best_index;
@@ -123,15 +130,17 @@ void choose_all_clusters_from_distances(int dim, int n, int k, double *distance_
 
 void calc_cluster_centroids(int dim, int n, int k, double *X, int *cluster_assignment_index, double *new_cluster_centroid)
   {
+    int temp_cluster_member_count[MAX_CLUSTERS];
     int cluster_member_count[MAX_CLUSTERS];
-  
+    double temp_cluster_centroid[dim*k];
    // initialize cluster centroid coordinate sums to zero
     for (int ii = 0; ii < k; ii++) 
       {
-        cluster_member_count[ii] = 0;
+        temp_cluster_member_count[ii] = 0;
         
         for (int jj = 0; jj < dim; jj++)
-          new_cluster_centroid[ii*dim + jj] = 0;
+          //new_cluster_centroid[ii*dim + jj] = 0;
+          temp_cluster_centroid[ii*dim + jj] = 0;
      }
 
    // sum all points
@@ -142,12 +151,19 @@ void calc_cluster_centroids(int dim, int n, int k, double *X, int *cluster_assig
         int active_cluster = cluster_assignment_index[ii];
 
        // update count of members in that cluster
-        cluster_member_count[active_cluster]++;
+        temp_cluster_member_count[active_cluster]++;
         
        // sum point coordinates for finding centroid
         for (int jj = 0; jj < dim; jj++)
-          new_cluster_centroid[active_cluster*dim + jj] += X[ii*dim + jj];
+          //new_cluster_centroid[active_cluster*dim + jj] += X[ii*dim + jj];
+          temp_cluster_centroid[active_cluster*dim + jj] += X[ii*dim + jj];
+
       }
+    
+    for (int i = 0; i < k; i++){
+      int cond = temp_cluster_member_count[i] == 0;
+      cluster_member_count[i] = cond*(temp_cluster_member_count[i]+1) + (1-cond)*temp_cluster_member_count[i];
+    }
       
       
    // now divide each coordinate sum by number of members to find mean/centroid
@@ -160,8 +176,12 @@ void calc_cluster_centroids(int dim, int n, int k, double *X, int *cluster_assig
    //       printf("WARNING: Empty cluster %d! \n", ii);
           
        // for each dimension
-        for (int jj = 0; jj < dim; jj++)
-          new_cluster_centroid[ii*dim + jj] /= cluster_member_count[ii];  /// XXXX will divide by zero here for any empty clusters!
+       int cond = temp_cluster_member_count[ii] == 0;
+        for (int jj = 0; jj < dim; jj++){
+          new_cluster_centroid[ii*dim + jj] = cond*new_cluster_centroid[ii*dim + jj] + 
+          (1-cond)*temp_cluster_centroid[ii*dim + jj]/cluster_member_count[ii];
+        }
+          //new_cluster_centroid[ii*dim + jj] /= cluster_member_count[ii];  /// XXXX will divide by zero here for any empty clusters!
 
       }
   }
@@ -452,33 +472,33 @@ cluster_diag(dim, n, k, X, cluster_assignment_cur, cluster_centroid);
 
 int runKirat() {
  // printf("kirat\n");
-  int dim = 1;
+  int dim = 3;
   int n = 2;
   //double kirat_data[4] = {2.0, 2.0, 2.0, 2.0};
   double kirat_data[n][dim];
-  kirat_data[0][0] = 0;
-  kirat_data[1][0] = 6;
-  // kirat_data[0][0] = 2.0;
-  // kirat_data[0][1] = 1.0;
-  // kirat_data[1][0] = 2.0;
-  // kirat_data[1][1] = 1.0;
-  // kirat_data[0][0] = 7.0;
-  // kirat_data[0][1] = 20.0;
-  // kirat_data[0][2] = 8.0;
-  // kirat_data[1][0] = 7.0;
-  // kirat_data[1][1] = 20.0;
-  // kirat_data[1][2] = 9.0;
+  // kirat_data[0][0] = 0;
+  // kirat_data[1][0] = 6;
+  kirat_data[0][0] = 2.0;
+  kirat_data[0][1] = 1.0;
+  kirat_data[1][0] = 2.0;
+  kirat_data[1][1] = 1.0;
+  kirat_data[0][0] = 7.0;
+  kirat_data[0][1] = 20.0;
+  kirat_data[0][2] = 8.0;
+  kirat_data[1][0] = 7.0;
+  kirat_data[1][1] = 20.0;
+  kirat_data[1][2] = 9.0;
   int k = 2;
   // double cluster_initial[1] = {20.0};
   double cluster_initial[k][dim];
-  // cluster_initial[0][0] = 0.0;
-  // cluster_initial[0][1] = 0.0;
-  // cluster_initial[0][2] = 0.0;
-  // cluster_initial[1][0] = 10.0;
-  // cluster_initial[1][1] = 10.0;
-  // cluster_initial[1][2] = 10.0;
-  cluster_initial[0][0] = 1;
-  cluster_initial[1][0] = 5;
+  cluster_initial[0][0] = 100.0;
+  cluster_initial[0][1] = 100.0;
+  cluster_initial[0][2] = 100.0;
+  cluster_initial[1][0] = 7.0;
+  cluster_initial[1][1] = 20.0;
+  cluster_initial[1][2] = 10.0;
+  // cluster_initial[0][0] = 1;
+  // cluster_initial[1][0] = 5;
 
 
   int cluster_final[k][dim];

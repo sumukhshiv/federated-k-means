@@ -82,7 +82,7 @@ int generate_random_number() {
         ocall_print("GG DUDE");
     }
 
-  //  runKirat();
+    //runKirat();
 
 
 
