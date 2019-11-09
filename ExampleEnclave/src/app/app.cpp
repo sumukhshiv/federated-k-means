@@ -93,8 +93,8 @@ int main(int argc, char const *argv[]) {
     status = execute_k_means(global_eid); 
     assert (status == SGX_SUCCESS);
 
-    status = print_data_array(global_eid); 
-    assert (status == SGX_SUCCESS);
+    // status = print_data_array(global_eid); 
+    // assert (status == SGX_SUCCESS);
 
     status = add_number(global_eid, &ptr, 10); 
     assert (ptr);

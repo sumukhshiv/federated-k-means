@@ -48,15 +48,15 @@ int storeData(double* data, int dim, int n){
 void execute_k_means() {
     int k = 3;
     double cluster_initial[k][global_dim];
-    cluster_initial[0][0] = 0.05;
-    cluster_initial[0][1] = 0.05;
-    cluster_initial[0][2] = 0.05;
-    cluster_initial[1][0] = 0.25;
-    cluster_initial[1][1] = 0.25;
-    cluster_initial[1][2] = 0.25;
-    cluster_initial[2][0] = 0.9;
-    cluster_initial[2][1] = 0.9;
-    cluster_initial[2][2] = 0.9;
+    cluster_initial[0][0] = 0.3;
+    cluster_initial[0][1] = 0.3;
+    cluster_initial[0][2] = 0.3;
+    cluster_initial[1][0] = 0.4;
+    cluster_initial[1][1] = 0.4;
+    cluster_initial[1][2] = 0.4;
+    cluster_initial[2][0] = 0.5;
+    cluster_initial[2][1] = 0.5;
+    cluster_initial[2][2] = 0.5;
     
 
     int cluster_final[k][global_dim];

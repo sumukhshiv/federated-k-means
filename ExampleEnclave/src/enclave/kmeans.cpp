@@ -18,7 +18,7 @@
 
 #define MAX_ITERATIONS 100
 
-#define BIG_double (INFINITY)
+#define BIG_double (2147483647)
 
 void fail(char *str)
   {
@@ -60,8 +60,12 @@ double calc_total_distance(int dim, int n, int k, double *X, double *centroids, 
         int active_cluster = cluster_assignment_index[ii];
         
        // sum distance
-        if (active_cluster != -1)
-          tot_D += calc_distance(dim, &X[ii*dim], &centroids[active_cluster*dim]);
+       //OBLIV-EDIT
+       int cond = active_cluster != -1;
+       int exec = calc_distance(dim, &X[ii*dim], &centroids[active_cluster*dim]);
+       tot_D = tot_D * (1 - cond) + (exec + tot_D) * (cond);
+        // if (active_cluster != -1)
+        //   tot_D += calc_distance(dim, &X[ii*dim], &centroids[active_cluster*dim]);
       }
       
     return tot_D;
@@ -81,11 +85,35 @@ void choose_all_clusters_from_distances(int dim, int n, int k, double *distance_
            // distance between point and cluster centroid
            
             double cur_distance = distance_array[ii*k + jj];
+
+            //OBLIV-EDIT
+            
+            // int cond = cur_distance < closest_distance;
+            // if (cond == 0) {
+            //   ocall_print("COND IS 0");
+            // } else if (cond == 1) {
+            //   ocall_print("COND IS 1");
+            // }  else {
+            //   ocall_print("WTF ERROR");
+            // }
+
             if (cur_distance < closest_distance)
               {
-                best_index = jj;
-                closest_distance = cur_distance;
-              }
+                int cond = cur_distance < closest_distance;
+            int exec1 = jj;
+            double exec2 = cur_distance;
+            best_index = best_index * (1-cond) + exec1 * (cond);
+            // closest_distance = closest_distance * (double)(1-(double)cond) + exec2 * (double)(cond);
+            
+                // best_index = jj;
+                // closest_distance = cur_distance;
+
+                char* hello_world = (char*)malloc(150 * sizeof(char));
+       snprintf(hello_world, 750, "cond: %d, cur_distance: %f, closest_distance: %f, cond*cur_distance: %f, (1-cond)*closest_distance: %f\n", cond, cur_distance, closest_distance, cond*cur_distance, (1-cond)*closest_distance);
+        ocall_print(hello_world);
+                closest_distance = cond*cur_distance + (1-cond)*closest_distance;
+
+              } 
           }
 
        // record in array
