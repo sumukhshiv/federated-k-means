@@ -97,6 +97,7 @@ void choose_all_clusters_from_distances(int dim, int n, int k, double *distance_
             //   ocall_print("WTF ERROR");
             // }
 
+            // ISSUES: 0*infinity = nan, later nan + double = nan, need to get around both
             //COMMENT: Had to resolve 0 * Infinity = NaN when doing OBLIVIOUS computation
             // Distances could be NaN if centroids had NaN values (dividing by zero as no members)
             
@@ -119,17 +120,14 @@ void choose_all_clusters_from_distances(int dim, int n, int k, double *distance_
                 // best_index = jj;
                 // closest_distance = cur_distance;
 
-                
-
-              } 
-
-       // record in array
+        // record in array
         cluster_assignment_index[ii] = best_index;
       }
   }
 
 void calc_cluster_centroids(int dim, int n, int k, double *X, int *cluster_assignment_index, double *new_cluster_centroid)
   {
+    //Obliviously fix NaN cluster centroids by adding a padding of 1 when a cluster has 0 members
     int temp_cluster_member_count[MAX_CLUSTERS];
     int cluster_member_count[MAX_CLUSTERS];
     double temp_cluster_centroid[dim*k];
