@@ -124,6 +124,7 @@ void choose_all_clusters_from_distances(int dim, int n, int k, double *distance_
         cluster_assignment_index[ii] = best_index;
       }
   }
+  }
 
 void calc_cluster_centroids(int dim, int n, int k, double *X, int *cluster_assignment_index, double *new_cluster_centroid)
   {
