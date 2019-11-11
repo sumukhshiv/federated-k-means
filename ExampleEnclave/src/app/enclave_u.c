@@ -1,24 +1,6 @@
 #include "enclave_u.h"
 #include <errno.h>
 
-typedef struct ms_generate_random_number_t {
-	int ms_retval;
-} ms_generate_random_number_t;
-
-typedef struct ms_add_number_t {
-	int ms_retval;
-	uint32_t ms_value;
-} ms_add_number_t;
-
-typedef struct ms_del_number_t {
-	int ms_retval;
-	uint32_t ms_value;
-} ms_del_number_t;
-
-typedef struct ms_get_sum_t {
-	uint32_t ms_retval;
-} ms_get_sum_t;
-
 typedef struct ms_storeData_t {
 	int ms_retval;
 	double* ms_data;
@@ -136,44 +118,6 @@ static const struct {
 		(void*)enclave_sgx_thread_set_multiple_untrusted_events_ocall,
 	}
 };
-sgx_status_t generate_random_number(sgx_enclave_id_t eid, int* retval)
-{
-	sgx_status_t status;
-	ms_generate_random_number_t ms;
-	status = sgx_ecall(eid, 0, &ocall_table_enclave, &ms);
-	if (status == SGX_SUCCESS && retval) *retval = ms.ms_retval;
-	return status;
-}
-
-sgx_status_t add_number(sgx_enclave_id_t eid, int* retval, uint32_t value)
-{
-	sgx_status_t status;
-	ms_add_number_t ms;
-	ms.ms_value = value;
-	status = sgx_ecall(eid, 1, &ocall_table_enclave, &ms);
-	if (status == SGX_SUCCESS && retval) *retval = ms.ms_retval;
-	return status;
-}
-
-sgx_status_t del_number(sgx_enclave_id_t eid, int* retval, uint32_t value)
-{
-	sgx_status_t status;
-	ms_del_number_t ms;
-	ms.ms_value = value;
-	status = sgx_ecall(eid, 2, &ocall_table_enclave, &ms);
-	if (status == SGX_SUCCESS && retval) *retval = ms.ms_retval;
-	return status;
-}
-
-sgx_status_t get_sum(sgx_enclave_id_t eid, uint32_t* retval)
-{
-	sgx_status_t status;
-	ms_get_sum_t ms;
-	status = sgx_ecall(eid, 3, &ocall_table_enclave, &ms);
-	if (status == SGX_SUCCESS && retval) *retval = ms.ms_retval;
-	return status;
-}
-
 sgx_status_t storeData(sgx_enclave_id_t eid, int* retval, double* data, int dim, int n)
 {
 	sgx_status_t status;
@@ -181,7 +125,7 @@ sgx_status_t storeData(sgx_enclave_id_t eid, int* retval, double* data, int dim,
 	ms.ms_data = data;
 	ms.ms_dim = dim;
 	ms.ms_n = n;
-	status = sgx_ecall(eid, 4, &ocall_table_enclave, &ms);
+	status = sgx_ecall(eid, 0, &ocall_table_enclave, &ms);
 	if (status == SGX_SUCCESS && retval) *retval = ms.ms_retval;
 	return status;
 }
@@ -189,21 +133,14 @@ sgx_status_t storeData(sgx_enclave_id_t eid, int* retval, double* data, int dim,
 sgx_status_t init(sgx_enclave_id_t eid)
 {
 	sgx_status_t status;
-	status = sgx_ecall(eid, 5, &ocall_table_enclave, NULL);
-	return status;
-}
-
-sgx_status_t print_data_array(sgx_enclave_id_t eid)
-{
-	sgx_status_t status;
-	status = sgx_ecall(eid, 6, &ocall_table_enclave, NULL);
+	status = sgx_ecall(eid, 1, &ocall_table_enclave, NULL);
 	return status;
 }
 
 sgx_status_t execute_k_means(sgx_enclave_id_t eid)
 {
 	sgx_status_t status;
-	status = sgx_ecall(eid, 7, &ocall_table_enclave, NULL);
+	status = sgx_ecall(eid, 2, &ocall_table_enclave, NULL);
 	return status;
 }
 
@@ -215,7 +152,7 @@ sgx_status_t seal(sgx_enclave_id_t eid, sgx_status_t* retval, uint8_t* plaintext
 	ms.ms_plaintext_len = plaintext_len;
 	ms.ms_sealed_data = sealed_data;
 	ms.ms_sealed_size = sealed_size;
-	status = sgx_ecall(eid, 8, &ocall_table_enclave, &ms);
+	status = sgx_ecall(eid, 3, &ocall_table_enclave, &ms);
 	if (status == SGX_SUCCESS && retval) *retval = ms.ms_retval;
 	return status;
 }
@@ -228,7 +165,7 @@ sgx_status_t unseal(sgx_enclave_id_t eid, sgx_status_t* retval, sgx_sealed_data_
 	ms.ms_sealed_size = sealed_size;
 	ms.ms_plaintext = plaintext;
 	ms.ms_plaintext_len = plaintext_len;
-	status = sgx_ecall(eid, 9, &ocall_table_enclave, &ms);
+	status = sgx_ecall(eid, 4, &ocall_table_enclave, &ms);
 	if (status == SGX_SUCCESS && retval) *retval = ms.ms_retval;
 	return status;
 }

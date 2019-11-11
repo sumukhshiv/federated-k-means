@@ -4,13 +4,8 @@ enclave {
 
     trusted {
         /* define ECALLs here. */
-        public int generate_random_number(void);
-        public int add_number(uint32_t value);
-        public int del_number(uint32_t value);
-        public uint32_t get_sum(void);
         public int storeData([in, count=1000]double* data, int dim, int n);
         public void init();
-        public void print_data_array();
         public void execute_k_means();
 
 

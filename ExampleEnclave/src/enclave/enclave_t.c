@@ -27,24 +27,6 @@
 )
 
 
-typedef struct ms_generate_random_number_t {
-	int ms_retval;
-} ms_generate_random_number_t;
-
-typedef struct ms_add_number_t {
-	int ms_retval;
-	uint32_t ms_value;
-} ms_add_number_t;
-
-typedef struct ms_del_number_t {
-	int ms_retval;
-	uint32_t ms_value;
-} ms_del_number_t;
-
-typedef struct ms_get_sum_t {
-	uint32_t ms_retval;
-} ms_get_sum_t;
-
 typedef struct ms_storeData_t {
 	int ms_retval;
 	double* ms_data;
@@ -99,78 +81,6 @@ typedef struct ms_sgx_thread_set_multiple_untrusted_events_ocall_t {
 	const void** ms_waiters;
 	size_t ms_total;
 } ms_sgx_thread_set_multiple_untrusted_events_ocall_t;
-
-static sgx_status_t SGX_CDECL sgx_generate_random_number(void* pms)
-{
-	CHECK_REF_POINTER(pms, sizeof(ms_generate_random_number_t));
-	//
-	// fence after pointer checks
-	//
-	sgx_lfence();
-	ms_generate_random_number_t* ms = SGX_CAST(ms_generate_random_number_t*, pms);
-	sgx_status_t status = SGX_SUCCESS;
-
-
-
-	ms->ms_retval = generate_random_number();
-
-
-	return status;
-}
-
-static sgx_status_t SGX_CDECL sgx_add_number(void* pms)
-{
-	CHECK_REF_POINTER(pms, sizeof(ms_add_number_t));
-	//
-	// fence after pointer checks
-	//
-	sgx_lfence();
-	ms_add_number_t* ms = SGX_CAST(ms_add_number_t*, pms);
-	sgx_status_t status = SGX_SUCCESS;
-
-
-
-	ms->ms_retval = add_number(ms->ms_value);
-
-
-	return status;
-}
-
-static sgx_status_t SGX_CDECL sgx_del_number(void* pms)
-{
-	CHECK_REF_POINTER(pms, sizeof(ms_del_number_t));
-	//
-	// fence after pointer checks
-	//
-	sgx_lfence();
-	ms_del_number_t* ms = SGX_CAST(ms_del_number_t*, pms);
-	sgx_status_t status = SGX_SUCCESS;
-
-
-
-	ms->ms_retval = del_number(ms->ms_value);
-
-
-	return status;
-}
-
-static sgx_status_t SGX_CDECL sgx_get_sum(void* pms)
-{
-	CHECK_REF_POINTER(pms, sizeof(ms_get_sum_t));
-	//
-	// fence after pointer checks
-	//
-	sgx_lfence();
-	ms_get_sum_t* ms = SGX_CAST(ms_get_sum_t*, pms);
-	sgx_status_t status = SGX_SUCCESS;
-
-
-
-	ms->ms_retval = get_sum();
-
-
-	return status;
-}
 
 static sgx_status_t SGX_CDECL sgx_storeData(void* pms)
 {
@@ -228,14 +138,6 @@ static sgx_status_t SGX_CDECL sgx_init(void* pms)
 	sgx_status_t status = SGX_SUCCESS;
 	if (pms != NULL) return SGX_ERROR_INVALID_PARAMETER;
 	init();
-	return status;
-}
-
-static sgx_status_t SGX_CDECL sgx_print_data_array(void* pms)
-{
-	sgx_status_t status = SGX_SUCCESS;
-	if (pms != NULL) return SGX_ERROR_INVALID_PARAMETER;
-	print_data_array();
 	return status;
 }
 
@@ -383,17 +285,12 @@ err:
 
 SGX_EXTERNC const struct {
 	size_t nr_ecall;
-	struct {void* ecall_addr; uint8_t is_priv; uint8_t is_switchless;} ecall_table[10];
+	struct {void* ecall_addr; uint8_t is_priv; uint8_t is_switchless;} ecall_table[5];
 } g_ecall_table = {
-	10,
+	5,
 	{
-		{(void*)(uintptr_t)sgx_generate_random_number, 0, 0},
-		{(void*)(uintptr_t)sgx_add_number, 0, 0},
-		{(void*)(uintptr_t)sgx_del_number, 0, 0},
-		{(void*)(uintptr_t)sgx_get_sum, 0, 0},
 		{(void*)(uintptr_t)sgx_storeData, 0, 0},
 		{(void*)(uintptr_t)sgx_init, 0, 0},
-		{(void*)(uintptr_t)sgx_print_data_array, 0, 0},
 		{(void*)(uintptr_t)sgx_execute_k_means, 0, 0},
 		{(void*)(uintptr_t)sgx_seal, 0, 0},
 		{(void*)(uintptr_t)sgx_unseal, 0, 0},
@@ -402,16 +299,16 @@ SGX_EXTERNC const struct {
 
 SGX_EXTERNC const struct {
 	size_t nr_ocall;
-	uint8_t entry_table[6][10];
+	uint8_t entry_table[6][5];
 } g_dyn_entry_table = {
 	6,
 	{
-		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, },
-		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, },
-		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, },
-		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, },
-		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, },
-		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, },
+		{0, 0, 0, 0, 0, },
+		{0, 0, 0, 0, 0, },
+		{0, 0, 0, 0, 0, },
+		{0, 0, 0, 0, 0, },
+		{0, 0, 0, 0, 0, },
+		{0, 0, 0, 0, 0, },
 	}
 };
 

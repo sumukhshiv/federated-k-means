@@ -261,35 +261,3 @@ void kmeans(
   free(cluster_assignment_prev);
   free(point_move_score);
 }  
-
-int test_kmeans() {
-  int dim = 3;
-  int n = 2;
-  double kirat_data[n][dim];
-  // kirat_data[0][0] = 0;
-  // kirat_data[1][0] = 6;
-  kirat_data[0][0] = 2.0;
-  kirat_data[0][1] = 1.0;
-  kirat_data[1][0] = 2.0;
-  kirat_data[1][1] = 1.0;
-  kirat_data[0][0] = 7.0;
-  kirat_data[0][1] = 20.0;
-  kirat_data[0][2] = 8.0;
-  kirat_data[1][0] = 7.0;
-  kirat_data[1][1] = 20.0;
-  kirat_data[1][2] = 9.0;
-  
-  int k = 2;
-  double cluster_initial[k][dim];
-  cluster_initial[0][0] = 100.0;
-  cluster_initial[0][1] = 100.0;
-  cluster_initial[0][2] = 100.0;
-  cluster_initial[1][0] = 7.0;
-  cluster_initial[1][1] = 20.0;
-  cluster_initial[1][2] = 10.0;
-
-  int cluster_final[k][dim];
-  kmeans(dim, (double*) kirat_data, n, k, (double*)cluster_initial, (int*) cluster_final);
-
-  return 0;
-}
