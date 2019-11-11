@@ -150,24 +150,21 @@ void calc_cluster_centroids(int dim, int n, int k, double *X, int *cluster_assig
       cluster_member_count[i] = cond*(temp_cluster_member_count[i]+1) + (1-cond)*temp_cluster_member_count[i];
     }
       
-      
-   // now divide each coordinate sum by number of members to find mean/centroid
-   // for each cluster
+    // now divide each coordinate sum by number of members to find mean/centroid for each cluster
     for (int ii = 0; ii < k; ii++) 
       {
-        if (cluster_member_count[ii] == 0) {
+        // for each dimension
+        int cond = temp_cluster_member_count[ii] == 0;
 
-        }
-   //       printf("WARNING: Empty cluster %d! \n", ii);
-          
-       // for each dimension
-       int cond = temp_cluster_member_count[ii] == 0;
-        for (int jj = 0; jj < dim; jj++){
-          new_cluster_centroid[ii*dim + jj] = cond*new_cluster_centroid[ii*dim + jj] + 
-          (1-cond)*temp_cluster_centroid[ii*dim + jj]/cluster_member_count[ii];
-        }
-          //new_cluster_centroid[ii*dim + jj] /= cluster_member_count[ii];  /// XXXX will divide by zero here for any empty clusters!
+        // if (cond) {
+        //   char* warning = (char*)malloc(150 * sizeof(char));
+        //   snprintf(warning, 750, "WARNING: Empty cluster %d! \n", ii);
+        //   ocall_print(warning);
+        // }
 
+        for (int jj = 0; jj < dim; jj++) {
+          new_cluster_centroid[ii*dim + jj] = cond*new_cluster_centroid[ii*dim + jj] + (1-cond)*temp_cluster_centroid[ii*dim + jj]/cluster_member_count[ii];
+        }
       }
   }
 
@@ -256,11 +253,13 @@ void copy_assignment_array(int n, int *src, int *tgt)
 int assignment_change_count(int n, int a[], int b[])
   {
     int change_count = 0;
-
-    for (int ii = 0; ii < n; ii++)
-      if (a[ii] != b[ii])
-        change_count++;
-        
+    for (int ii = 0; ii < n; ii++) {
+      int cond = (a[ii] != b[ii]);
+      change_count = cond*(change_count+1) + (1-cond)*(change_count);
+    }
+    // char* hello_world = (char*)malloc(150 * sizeof(char));
+    // snprintf(hello_world, 150, "change_count: %d", change_count);
+    // ocall_print(hello_world);
     return change_count;
   }
 
@@ -299,25 +298,14 @@ void kmeans(
         // update cluster centroids
          calc_cluster_centroids(dim, n, k, X, cluster_assignment_cur, cluster_centroid);
 
-        // deal with empty clusters
-        // XXXXXXXXXXXXXX
-
         // see if we've failed to improve
          double totD = calc_total_distance(dim, n, k, X, cluster_centroid, cluster_assignment_cur);
-         if (totD > prev_totD)
-          // failed to improve - currently solution worse than previous
-           {
-            // restore old assignments
-             copy_assignment_array(n, cluster_assignment_prev, cluster_assignment_cur);
-             
-            // recalc centroids
-             calc_cluster_centroids(dim, n, k, X, cluster_assignment_cur, cluster_centroid);
-             
-         //    printf("  negative progress made on this step - iteration completed (%.2f) \n", totD - prev_totD);
-             
-            // done with this phase
-             break;
-           }
+         int cond = (totD > prev_totD);
+        //  int *cluster_assignment_cur = (cluster_assignment_prev)*cond + (cluster_assignment_cur)*(1-cond);
+         for (int i = 0; i < n; i++) {
+           cluster_assignment_cur[i] = (cluster_assignment_prev[i])*cond + (cluster_assignment_cur[i])*(1-cond);
+         }
+         calc_cluster_centroids(dim, n, k, X, cluster_assignment_cur, cluster_centroid);
            
         // save previous step
          copy_assignment_array(n, cluster_assignment_cur, cluster_assignment_prev);
@@ -328,15 +316,8 @@ void kmeans(
          
          int change_count = assignment_change_count(n, cluster_assignment_cur, cluster_assignment_prev);
          
-       //  printf("%3d   %u   %9d  %16.2f %17.2f\n", batch_iteration, 1, change_count, totD, totD - prev_totD);
-       //  fflush(stdout);
-         
-        // done with this phase if nothing has changed
-         if (change_count == 0)
-           {
-           //  printf("  no change made on this step - iteration completed \n");
-             break;
-           }
+         //  printf("%3d   %u   %9d  %16.2f %17.2f\n", batch_iteration, 1, change_count, totD, totD - prev_totD);
+         //  fflush(stdout);
 
          prev_totD = totD;
                         
