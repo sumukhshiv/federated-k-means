@@ -7,7 +7,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "kmeans.h"
-//#include "oarray.h"
 
 
 struct node_t {
@@ -24,12 +23,11 @@ int total_rows = 0;
 
 double static data_points[num_points][num_dimensions];
 
-
 void init(){
-    ocall_print("HELLO");
+    ocall_print("Initializing...");
 }
 
-int storeData(double* data, int dim, int n){
+int storeData(double* data, int dim, int n) {
     global_dim = dim; 
     total_rows += n;
     for (int i = 0; i < n; i++) {
@@ -40,9 +38,7 @@ int storeData(double* data, int dim, int n){
         current_j = 0;
         current_i += 1;
     }
-        
     return 1;
-
 }
 
 void execute_k_means() {
@@ -57,12 +53,9 @@ void execute_k_means() {
     cluster_initial[2][0] = 0.5;
     cluster_initial[2][1] = 0.5;
     cluster_initial[2][2] = 0.5;
-    
 
     int cluster_final[k][global_dim];
-
     kmeans(global_dim, (double*) data_points, total_rows, k, (double*)cluster_initial, (int*) cluster_final);
-    ocall_print("HARKIRAT SINGH SIDHU");
 }
 
 void print_data_array() {
@@ -74,18 +67,7 @@ void print_data_array() {
 }
 
 int generate_random_number() {
-     // oarray<int, 256> _arr;
     ocall_print("Processing random number generation...");
-    if (o_copy_i64(1, 4, 5) == 4) {
-        ocall_print("MY NAME IS KIRAT");
-    } else {
-        ocall_print("GG DUDE");
-    }
-
-    //runKirat();
-
-
-
     return 42;
 }
 
