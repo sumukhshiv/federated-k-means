@@ -44,7 +44,7 @@ int SGX_UBRIDGE(SGX_CDECL, sgx_thread_set_multiple_untrusted_events_ocall, (cons
 
 sgx_status_t storeData(sgx_enclave_id_t eid, int* retval, double* data, int dim, int n);
 sgx_status_t init(sgx_enclave_id_t eid);
-sgx_status_t execute_k_means(sgx_enclave_id_t eid);
+sgx_status_t execute_k_means(sgx_enclave_id_t eid, int num_clusters);
 sgx_status_t seal(sgx_enclave_id_t eid, sgx_status_t* retval, uint8_t* plaintext, size_t plaintext_len, sgx_sealed_data_t* sealed_data, size_t sealed_size);
 sgx_status_t unseal(sgx_enclave_id_t eid, sgx_status_t* retval, sgx_sealed_data_t* sealed_data, size_t sealed_size, uint8_t* plaintext, uint32_t plaintext_len);
 

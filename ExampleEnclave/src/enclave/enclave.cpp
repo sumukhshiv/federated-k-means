@@ -14,8 +14,8 @@ struct node_t {
     struct node_t* next;
     struct node_t* prev;
 };
-const int num_points = 1000;
-const int num_dimensions = 3;
+const int num_points = 9000;
+const int num_dimensions = 17;
 int current_i = 0;
 int current_j = 0;
 int global_dim = 0;
@@ -41,18 +41,27 @@ int storeData(double* data, int dim, int n) {
     return 1;
 }
 
-void execute_k_means() {
-    int k = 3;
+void execute_k_means(int num_clusters) {
+    double rand_arr[5] = {0.5, -0.2, 0.1, 0.4, -0.3};
+    int rand_i = 0;
+    int k = num_clusters;
     double cluster_initial[k][global_dim];
-    cluster_initial[0][0] = 0.3;
-    cluster_initial[0][1] = 0.3;
-    cluster_initial[0][2] = 0.3;
-    cluster_initial[1][0] = 0.4;
-    cluster_initial[1][1] = 0.4;
-    cluster_initial[1][2] = 0.4;
-    cluster_initial[2][0] = 0.5;
-    cluster_initial[2][1] = 0.5;
-    cluster_initial[2][2] = 0.5;
+    for (int i = 0; i < k; i++) {
+        for (int j = 0; j < global_dim; j++) {
+            cluster_initial[i][j] = rand_arr[rand_i];
+            rand_i++;
+            if (rand_i > 4) {
+                rand_i = 0;
+            }
+        }
+    }
+    
+    // cluster_initial[1][0] = 0.4;
+    // cluster_initial[1][1] = 0.4;
+    // cluster_initial[1][2] = 0.4;
+    // cluster_initial[2][0] = 0.5;
+    // cluster_initial[2][1] = 0.5;
+    // cluster_initial[2][2] = 0.5;
 
     int cluster_final[k][global_dim];
     kmeans(global_dim, (double*) data_points, total_rows, k, (double*)cluster_initial, (int*) cluster_final);

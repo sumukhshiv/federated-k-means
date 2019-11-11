@@ -34,6 +34,10 @@ typedef struct ms_storeData_t {
 	int ms_n;
 } ms_storeData_t;
 
+typedef struct ms_execute_k_means_t {
+	int ms_num_clusters;
+} ms_execute_k_means_t;
+
 typedef struct ms_seal_t {
 	sgx_status_t ms_retval;
 	uint8_t* ms_plaintext;
@@ -143,9 +147,19 @@ static sgx_status_t SGX_CDECL sgx_init(void* pms)
 
 static sgx_status_t SGX_CDECL sgx_execute_k_means(void* pms)
 {
+	CHECK_REF_POINTER(pms, sizeof(ms_execute_k_means_t));
+	//
+	// fence after pointer checks
+	//
+	sgx_lfence();
+	ms_execute_k_means_t* ms = SGX_CAST(ms_execute_k_means_t*, pms);
 	sgx_status_t status = SGX_SUCCESS;
-	if (pms != NULL) return SGX_ERROR_INVALID_PARAMETER;
-	execute_k_means();
+
+
+
+	execute_k_means(ms->ms_num_clusters);
+
+
 	return status;
 }
 
@@ -285,15 +299,15 @@ err:
 
 SGX_EXTERNC const struct {
 	size_t nr_ecall;
-	struct {void* ecall_addr; uint8_t is_priv; uint8_t is_switchless;} ecall_table[5];
+	struct {void* ecall_addr; uint8_t is_priv;} ecall_table[5];
 } g_ecall_table = {
 	5,
 	{
-		{(void*)(uintptr_t)sgx_storeData, 0, 0},
-		{(void*)(uintptr_t)sgx_init, 0, 0},
-		{(void*)(uintptr_t)sgx_execute_k_means, 0, 0},
-		{(void*)(uintptr_t)sgx_seal, 0, 0},
-		{(void*)(uintptr_t)sgx_unseal, 0, 0},
+		{(void*)(uintptr_t)sgx_storeData, 0},
+		{(void*)(uintptr_t)sgx_init, 0},
+		{(void*)(uintptr_t)sgx_execute_k_means, 0},
+		{(void*)(uintptr_t)sgx_seal, 0},
+		{(void*)(uintptr_t)sgx_unseal, 0},
 	}
 };
 

@@ -8,6 +8,10 @@ typedef struct ms_storeData_t {
 	int ms_n;
 } ms_storeData_t;
 
+typedef struct ms_execute_k_means_t {
+	int ms_num_clusters;
+} ms_execute_k_means_t;
+
 typedef struct ms_seal_t {
 	sgx_status_t ms_retval;
 	uint8_t* ms_plaintext;
@@ -137,10 +141,12 @@ sgx_status_t init(sgx_enclave_id_t eid)
 	return status;
 }
 
-sgx_status_t execute_k_means(sgx_enclave_id_t eid)
+sgx_status_t execute_k_means(sgx_enclave_id_t eid, int num_clusters)
 {
 	sgx_status_t status;
-	status = sgx_ecall(eid, 2, &ocall_table_enclave, NULL);
+	ms_execute_k_means_t ms;
+	ms.ms_num_clusters = num_clusters;
+	status = sgx_ecall(eid, 2, &ocall_table_enclave, &ms);
 	return status;
 }
 

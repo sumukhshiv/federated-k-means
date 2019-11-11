@@ -6,7 +6,7 @@ enclave {
         /* define ECALLs here. */
         public int storeData([in, count=1000]double* data, int dim, int n);
         public void init();
-        public void execute_k_means();
+        public void execute_k_means(int num_clusters);
 
 
     };
