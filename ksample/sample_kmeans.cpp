@@ -12,7 +12,7 @@
 
 #define MAX_ITERATIONS 100
 
-#define BIG_double (INFINITY)
+#define BIG_double (100000000)
 
 void fail(char *str)
   {
@@ -81,17 +81,17 @@ void choose_all_clusters_from_distances(int dim, int n, int k, double *distance_
             // int tmp1 = jj;
             // double tmp2 = cur_distance;
             best_index = (cond*jj) + ((1-cond)*best_index);
-            double closest_distance1 = (double)((cond*cur_distance)+ ((1.0-cond)*closest_distance));
-            if (cur_distance < closest_distance)
-              {
-                // best_index = jj;
-                closest_distance = (double)cur_distance;
-              }
+            closest_distance = (double)((cond*cur_distance)+ ((1.0-cond)*closest_distance));
+            // if (cur_distance < closest_distance)
+            //   {
+            //     // best_index = jj;
+            //     closest_distance = (double)cur_distance;
+            //   }
 
-            if (closest_distance - closest_distance1) {
-              printf("CLOSEST DISTANCE %f, CLOSEST DISTANCE1 %f\n", closest_distance, closest_distance1);
-            }
-            closest_distance = closest_distance1;
+            // if (closest_distance - closest_distance1) {
+            //   printf("CLOSEST DISTANCE %f, CLOSEST DISTANCE1 %f\n", closest_distance, closest_distance1);
+            // }
+            // closest_distance = closest_distance1;
 
           }
 

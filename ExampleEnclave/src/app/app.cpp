@@ -25,7 +25,7 @@ int main(int argc, char const *argv[]) {
     }
     
     int ptr;
-    int dim = 1;
+    int dim = 3;
     int n = 100;
     sgx_status_t status;
 
