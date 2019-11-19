@@ -53,10 +53,8 @@ double calc_total_distance(int dim, int n, int k, double *X, double *centroids, 
         int active_cluster = cluster_assignment_index[ii];
         
        // sum distance
-       //OBLIV-EDIT
-        int cond = active_cluster != -1;
-        int exec = calc_distance(dim, &X[ii*dim], &centroids[active_cluster*dim]);
-        tot_D = tot_D * (1 - cond) + (exec + tot_D) * (cond);
+        if (active_cluster != -1)
+          tot_D += calc_distance(dim, &X[ii*dim], &centroids[active_cluster*dim]);
       }
       
     return tot_D;
@@ -76,23 +74,11 @@ void choose_all_clusters_from_distances(int dim, int n, int k, double *distance_
            // distance between point and cluster centroid
            
             double cur_distance = distance_array[ii*k + jj];
-            int cond = cur_distance < closest_distance;
-            // printf("COND %d\n", cond);
-            // int tmp1 = jj;
-            // double tmp2 = cur_distance;
-            best_index = (cond*jj) + ((1-cond)*best_index);
-            double closest_distance1 = (double)((cond*cur_distance)+ ((1.0-cond)*closest_distance));
             if (cur_distance < closest_distance)
               {
-                // best_index = jj;
-                closest_distance = (double)cur_distance;
+                best_index = jj;
+                closest_distance = cur_distance;
               }
-
-            if (closest_distance - closest_distance1) {
-              printf("CLOSEST DISTANCE %f, CLOSEST DISTANCE1 %f\n", closest_distance, closest_distance1);
-            }
-            closest_distance = closest_distance1;
-
           }
 
        // record in array
@@ -102,18 +88,15 @@ void choose_all_clusters_from_distances(int dim, int n, int k, double *distance_
 
 void calc_cluster_centroids(int dim, int n, int k, double *X, int *cluster_assignment_index, double *new_cluster_centroid)
   {
-    //Obliviously fix NaN cluster centroids by adding a padding of 1 when a cluster has 0 members
-    int temp_cluster_member_count[MAX_CLUSTERS];
     int cluster_member_count[MAX_CLUSTERS];
-    double temp_cluster_centroid[dim*k];
+  
    // initialize cluster centroid coordinate sums to zero
     for (int ii = 0; ii < k; ii++) 
       {
-        temp_cluster_member_count[ii] = 0;
+        cluster_member_count[ii] = 0;
         
         for (int jj = 0; jj < dim; jj++)
-          //new_cluster_centroid[ii*dim + jj] = 0;
-          temp_cluster_centroid[ii*dim + jj] = 0;
+          new_cluster_centroid[ii*dim + jj] = 0;
      }
 
    // sum all points
@@ -124,37 +107,24 @@ void calc_cluster_centroids(int dim, int n, int k, double *X, int *cluster_assig
         int active_cluster = cluster_assignment_index[ii];
 
        // update count of members in that cluster
-        temp_cluster_member_count[active_cluster]++;
+        cluster_member_count[active_cluster]++;
         
        // sum point coordinates for finding centroid
         for (int jj = 0; jj < dim; jj++)
-          //new_cluster_centroid[active_cluster*dim + jj] += X[ii*dim + jj];
-          temp_cluster_centroid[active_cluster*dim + jj] += X[ii*dim + jj];
-
+          new_cluster_centroid[active_cluster*dim + jj] += X[ii*dim + jj];
       }
-    
-    for (int i = 0; i < k; i++){
-      int cond = temp_cluster_member_count[i] == 0;
-      cluster_member_count[i] = cond*(temp_cluster_member_count[i]+1) + (1-cond)*temp_cluster_member_count[i];
-    }
       
       
    // now divide each coordinate sum by number of members to find mean/centroid
    // for each cluster
     for (int ii = 0; ii < k; ii++) 
       {
-        if (cluster_member_count[ii] == 0) {
-
-        }
-   //       printf("WARNING: Empty cluster %d! \n", ii);
+        if (cluster_member_count[ii] == 0)
+          printf("WARNING: Empty cluster %d! \n", ii);
           
        // for each dimension
-       int cond = temp_cluster_member_count[ii] == 0;
-        for (int jj = 0; jj < dim; jj++){
-          new_cluster_centroid[ii*dim + jj] = cond*new_cluster_centroid[ii*dim + jj] + 
-          (1-cond)*temp_cluster_centroid[ii*dim + jj]/cluster_member_count[ii];
-        }
-          //new_cluster_centroid[ii*dim + jj] /= cluster_member_count[ii];  /// XXXX will divide by zero here for any empty clusters!
+        for (int jj = 0; jj < dim; jj++)
+          new_cluster_centroid[ii*dim + jj] /= cluster_member_count[ii];  /// XXXX will divide by zero here for any empty clusters!
 
       }
   }
@@ -235,11 +205,12 @@ void copy_assignment_array(int n, int *src, int *tgt)
 int assignment_change_count(int n, int a[], int b[])
   {
     int change_count = 0;
-    for (int ii = 0; ii < n; ii++) {
-      int cond = (a[ii] != b[ii]);
-      change_count = cond*(change_count+1) + (1-cond)*(change_count);
-    }
-  return change_count;
+
+    for (int ii = 0; ii < n; ii++)
+      if (a[ii] != b[ii])
+        change_count++;
+        
+    return change_count;
   }
 
 void kmeans(
@@ -270,27 +241,57 @@ void kmeans(
    // BATCH UPDATE
     double prev_totD = BIG_double;
     int batch_iteration = 0;
-    while (batch_iteration < MAX_ITERATIONS) {
-    // update cluster centroids
-    calc_cluster_centroids(dim, n, k, X, cluster_assignment_cur, cluster_centroid);
-    // see if we've failed to improve
-    double totD = calc_total_distance(dim, n, k, X, cluster_centroid, cluster_assignment_cur);
-    int cond = (totD > prev_totD);
-    //  int *cluster_assignment_cur = (cluster_assignment_prev)*cond + (cluster_assignment_cur)*(1-cond);
-    for (int i = 0; i < n; i++) {
-      cluster_assignment_cur[i] = (cluster_assignment_prev[i])*cond + (cluster_assignment_cur[i])*(1-cond);
-    }
-    calc_cluster_centroids(dim, n, k, X, cluster_assignment_cur, cluster_centroid);
-    // save previous step
-    copy_assignment_array(n, cluster_assignment_cur, cluster_assignment_prev);
-    
-    // move all points to nearest cluster
-    calc_all_distances(dim, n, k, X, cluster_centroid, dist);
-    choose_all_clusters_from_distances(dim, n, k, dist, cluster_assignment_cur);
-    
-    prev_totD = totD;
-    batch_iteration++;
-}
+    while (batch_iteration < MAX_ITERATIONS)
+      {
+//        printf("batch iteration %d \n", batch_iteration);
+//        cluster_diag(dim, n, k, X, cluster_assignment_cur, cluster_centroid);
+        
+        // update cluster centroids
+         calc_cluster_centroids(dim, n, k, X, cluster_assignment_cur, cluster_centroid);
+
+        // deal with empty clusters
+        // XXXXXXXXXXXXXX
+
+        // see if we've failed to improve
+         double totD = calc_total_distance(dim, n, k, X, cluster_centroid, cluster_assignment_cur);
+         if (totD > prev_totD)
+          // failed to improve - currently solution worse than previous
+           {
+            // restore old assignments
+             copy_assignment_array(n, cluster_assignment_prev, cluster_assignment_cur);
+             
+            // recalc centroids
+             calc_cluster_centroids(dim, n, k, X, cluster_assignment_cur, cluster_centroid);
+             
+             printf("  negative progress made on this step - iteration completed (%.2f) \n", totD - prev_totD);
+             
+            // done with this phase
+             break;
+           }
+           
+        // save previous step
+         copy_assignment_array(n, cluster_assignment_cur, cluster_assignment_prev);
+         
+        // move all points to nearest cluster
+         calc_all_distances(dim, n, k, X, cluster_centroid, dist);
+         choose_all_clusters_from_distances(dim, n, k, dist, cluster_assignment_cur);
+         
+         int change_count = assignment_change_count(n, cluster_assignment_cur, cluster_assignment_prev);
+         
+         printf("%3d   %u   %9d  %16.2f %17.2f\n", batch_iteration, 1, change_count, totD, totD - prev_totD);
+         fflush(stdout);
+         
+        // done with this phase if nothing has changed
+         if (change_count == 0)
+           {
+             printf("  no change made on this step - iteration completed \n");
+             break;
+           }
+
+         prev_totD = totD;
+                        
+         batch_iteration++;
+      }
 
 cluster_diag(dim, n, k, X, cluster_assignment_cur, cluster_centroid);
 

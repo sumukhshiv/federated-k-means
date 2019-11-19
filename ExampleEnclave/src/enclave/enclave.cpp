@@ -42,19 +42,26 @@ int storeData(double* data, int dim, int n) {
 }
 
 void execute_k_means(int num_clusters) {
-    double rand_arr[5] = {0.5, -0.2, 0.1, 0.4, -0.3};
-    int rand_i = 0;
+    // double rand_arr[136] = {0.5, -0.2, 0.1, 0.4, -0.3};
+    // int rand_i = 0;
+    // int k = num_clusters;
+    // double cluster_initial[k][global_dim];
+    // for (int i = 0; i < k; i++) {
+    //     for (int j = 0; j < global_dim; j++) {
+    //         cluster_initial[i][j] = rand_arr[rand_i];
+    //         rand_i++;
+    //             rand_i = 0;
+    //         if (rand_i > 135) {
+    //         }
+    //     }
+    // }
+
     int k = num_clusters;
-    double cluster_initial[k][global_dim];
-    for (int i = 0; i < k; i++) {
-        for (int j = 0; j < global_dim; j++) {
-            cluster_initial[i][j] = rand_arr[rand_i];
-            rand_i++;
-            if (rand_i > 4) {
-                rand_i = 0;
-            }
-        }
-    }
+
+    double cluster_initial[k][global_dim] = {{0.5}, {0.6}, {0.7}};
+
+
+
     
     // cluster_initial[1][0] = 0.4;
     // cluster_initial[1][1] = 0.4;
@@ -63,6 +70,6 @@ void execute_k_means(int num_clusters) {
     // cluster_initial[2][1] = 0.5;
     // cluster_initial[2][2] = 0.5;
 
-    int cluster_final[k][global_dim];
+    double cluster_final[k][global_dim];
     kmeans(global_dim, (double*) data_points, total_rows, k, (double*)cluster_initial, (int*) cluster_final);
 }
