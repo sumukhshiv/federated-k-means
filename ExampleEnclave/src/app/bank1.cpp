@@ -43,6 +43,7 @@
 #include <time.h>
 #include <string.h>
 #include "ias_ra.h"
+#include "enclave_attestation.h"
 // #include "app.h"
 
 #ifndef SAFE_FREE
@@ -964,7 +965,7 @@ int ocall_ping_machine_receive_encrypted_message(uint8_t *p_secret,
 }
 
 void bank1_start_fn() {
-    //enclave_start_attestation("KPS", 1);
+    enclave_start_attestation("KPS", 1);
 }
 
 
