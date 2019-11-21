@@ -41,13 +41,12 @@ int storeData(double* data, int dim, int n) {
 }
 
 void execute_k_means(int num_clusters) {
-    int k = num_clusters;
     global_dim = 3;
     total_rows = 100;
 
     double weird_necessary_array[10][3];
-    double cluster_initial[k][global_dim] = {{0.3, 0.3, 0.3}, {0.6, 0.6, 0.6}, {0.9, 0.9, 0.9}};
-    double cluster_final[k][global_dim];
-    
-    kmeans(global_dim, (double*)data_points, total_rows, k, (double*)cluster_initial, (int*) cluster_final);
+    double cluster_initial[num_clusters][global_dim] = {{0.3, 0.3, 0.3}, {0.6, 0.6, 0.6}, {0.9, 0.9, 0.9}};
+    double cluster_final[num_clusters][global_dim];
+
+    kmeans(global_dim, (double*)data_points, total_rows, num_clusters, (double*)cluster_initial, (int*) cluster_final);
 }
