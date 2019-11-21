@@ -299,15 +299,15 @@ err:
 
 SGX_EXTERNC const struct {
 	size_t nr_ecall;
-	struct {void* ecall_addr; uint8_t is_priv;} ecall_table[5];
+	struct {void* ecall_addr; uint8_t is_priv; uint8_t is_switchless;} ecall_table[5];
 } g_ecall_table = {
 	5,
 	{
-		{(void*)(uintptr_t)sgx_storeData, 0},
-		{(void*)(uintptr_t)sgx_init, 0},
-		{(void*)(uintptr_t)sgx_execute_k_means, 0},
-		{(void*)(uintptr_t)sgx_seal, 0},
-		{(void*)(uintptr_t)sgx_unseal, 0},
+		{(void*)(uintptr_t)sgx_storeData, 0, 0},
+		{(void*)(uintptr_t)sgx_init, 0, 0},
+		{(void*)(uintptr_t)sgx_execute_k_means, 0, 0},
+		{(void*)(uintptr_t)sgx_seal, 0, 0},
+		{(void*)(uintptr_t)sgx_unseal, 0, 0},
 	}
 };
 
