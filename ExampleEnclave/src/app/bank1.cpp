@@ -65,6 +65,19 @@ const int SIZE_OF_MESSAGE = 20;
 unordered_map<string, string> capabilityKeyAccessDictionary;
 unordered_map<string, string> capabilityKeyDictionary;
 
+char* serialize(double my_array[][3]) {
+    string bar;
+    bar = "";
+    for(int i =0 ; i< 3;i++) {
+        for(int j =0 ;j<3;j++) {
+            bar += std::to_string(my_array[i][j]);
+            bar += ',';
+        }
+    }
+    char* to_ret = (char*)malloc(sizeof(char)*strlen(bar.c_str()));
+    memcpy(to_ret, bar.c_str(), sizeof(char)*strlen(bar.c_str()));
+    return to_ret;
+}
 
 //This represents the payload we are going to send to the enclave after a succesful attestation
 //We write to this value in app.cpp before the ping machine initiates the attestation request with Pong enclave

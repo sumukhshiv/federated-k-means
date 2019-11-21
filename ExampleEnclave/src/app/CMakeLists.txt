@@ -25,7 +25,7 @@ include_directories(
 )
 
 target_link_libraries(app ${CMAKE_CURRENT_SOURCE_DIR}/libOblivious.so
-        ~/Research/cs294-proj/federated-k-means/ExampleEnclave/src/app/libsample_libcrypto.so    
+        ${CMAKE_CURRENT_SOURCE_DIR}/../app/libsample_libcrypto.so
         -L${SGX_LIBRARY_PATH} -l${SGX_URTS_LIB} -l${SGX_USVC_LIB} -lsgx_ukey_exchange
         -Wl,-rpath -Wl,/usr/local/lib
         -Wl,-rpath -Wl,${SGX_LIBRARY_PATH}
