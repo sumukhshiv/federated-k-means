@@ -30,7 +30,7 @@
  */
 
 
-#include "ping_attestation.h"
+#include "bank1.h"
 #include "enclave_u.h"
 
 #include "sample_libcrypto.h"
@@ -43,7 +43,7 @@
 #include <time.h>
 #include <string.h>
 #include "ias_ra.h"
-#include "app.h"
+// #include "app.h"
 
 #ifndef SAFE_FREE
 #define SAFE_FREE(ptr) {if (NULL != (ptr)) {free(ptr); (ptr) = NULL;}}
@@ -959,7 +959,7 @@ int ocall_ping_machine_receive_encrypted_message(uint8_t *p_secret,
 
         uint32_t i;
         bool secret_match = true;
-        handle_incoming_events_ping_machine(atoi((char*) g_secret));
+        // handle_incoming_events_ping_machine(atoi((char*) g_secret));
         return 0;
 }
 
