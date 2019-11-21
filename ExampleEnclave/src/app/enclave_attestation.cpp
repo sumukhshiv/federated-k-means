@@ -57,8 +57,8 @@
 
 // Needed to query extended epid group id.
 #include "sgx_uae_service.h"
-#include "pong_enclave_attestation.h"
-#include "ping_attestation.h"
+#include "enclave_attestation.h"
+#include "bank1.h"
 
 #ifndef SAFE_FREE
 #define SAFE_FREE(ptr) {if (NULL != (ptr)) {free(ptr); (ptr) = NULL;}}
@@ -174,7 +174,7 @@ void PRINT_ATTESTATION_SERVICE_RESPONSE(
 // susceptible to S3 transitions should have logic to restart attestation in
 // these scenarios.
 // This method makes network_ra call to have the pong enclave attest to the ping machine
-int pong_enclave_start_attestation(const char* receiving_machine_name, int message_from_machine_to_enclave, char* optional_message) {
+int enclave_start_attestation(const char* receiving_machine_name, int message_from_machine_to_enclave, char* optional_message) {
     int ret = 0;
     ra_samp_request_header_t *p_msg0_full = NULL;
     ra_samp_response_header_t *p_msg0_resp_full = NULL;
@@ -772,7 +772,7 @@ CLEANUP:
 void* pong_enclave_attestation_thread(void* parameters) { //message_from_machine_to_enclave should be true when the enclave is receiving the message
                                                           //false when the enclave wants to send a message
     struct Enclave_start_attestation_wrapper_arguments* p = (struct Enclave_start_attestation_wrapper_arguments*)parameters;
-    return (void*) pong_enclave_start_attestation(p->machineName,  p->message_from_machine_to_enclave, p->optional_message);
+    return (void*) enclave_start_attestation(p->machineName,  p->message_from_machine_to_enclave, p->optional_message);
 }
 
 int ocall_pong_enclave_attestation_in_thread(char* other_machine_name, uint32_t size, int message_from_machine_to_enclave, char* optional_message) {

@@ -76,3 +76,7 @@ void execute_k_means(int num_clusters) {
     double cluster_final[k][global_dim];
     kmeans(global_dim, (double*) kirat_data, total_rows, k, (double*)cluster_initial, (int*) cluster_final);
 }
+
+
+
+

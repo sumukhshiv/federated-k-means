@@ -20,6 +20,11 @@ extern "C" {
 int storeData(double* data, int dim, int n);
 void init(void);
 void execute_k_means(int num_clusters);
+sgx_status_t enclave_init_ra(int b_pse, sgx_ra_context_t* p_context);
+sgx_status_t enclave_ra_close(sgx_ra_context_t context);
+sgx_status_t verify_att_result_mac(sgx_ra_context_t context, uint8_t* message, size_t message_size, uint8_t* mac, size_t mac_size);
+sgx_status_t put_secret_data(sgx_ra_context_t context, uint8_t* p_secret, uint32_t secret_size, uint8_t* gcm_mac);
+sgx_status_t encrypt_secure_message(sgx_ra_context_t context, uint8_t* return_encrypted_string, uint32_t requested_secret_size, uint8_t* return_payload_tag);
 sgx_status_t seal(uint8_t* plaintext, size_t plaintext_len, sgx_sealed_data_t* sealed_data, size_t sealed_size);
 sgx_status_t unseal(sgx_sealed_data_t* sealed_data, size_t sealed_size, uint8_t* plaintext, uint32_t plaintext_len);
 sgx_status_t sgx_ra_get_ga(sgx_ra_context_t context, sgx_ec256_public_t* g_a);

@@ -963,6 +963,10 @@ int ocall_ping_machine_receive_encrypted_message(uint8_t *p_secret,
         return 0;
 }
 
+void bank1_start_fn() {
+    //enclave_start_attestation("KPS", 1);
+}
+
 
 int createCapabilityKey(char* newMachinePublicIDKey, char* parentTrustedMachinePublicIDKey) {
     //TODO Make this generate a random key

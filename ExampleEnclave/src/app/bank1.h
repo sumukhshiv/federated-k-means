@@ -39,18 +39,21 @@
 #include "network_ra.h"
 #include <unordered_map>
 #include <string>
+// #include "enclave_attestation.h"
 // #include "app.h"
 
 
 using namespace std;
 
-const int ENABLE_KPS_ATTESTATION_PRINT = 0;
+const int ENABLE_KPS_ATTESTATION_PRINT = 1;
 
 extern unordered_map<string, string> capabilityKeyAccessDictionary;
 extern unordered_map<string, string> capabilityKeyDictionary;
 
 const int CREATE_CAPABILITY_KEY_CONSTANT = 1;
 const int RETRIEVE_CAPABLITY_KEY_CONSTANT = 2;
+
+void bank1_start_fn();
 
 #ifdef  __cplusplus
 extern "C" {
