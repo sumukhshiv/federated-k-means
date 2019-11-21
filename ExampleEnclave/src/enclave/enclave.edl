@@ -1,6 +1,10 @@
 enclave {
     from "sealing/sealing.edl" import *;
     from "sgx_tstdc.edl" import *;
+    from "sgx_tstdc.edl" import *;
+    from "sgx_tkey_exchange.edl" import *;
+
+    include "sgx_key_exchange.h"
 
     trusted {
         /* define ECALLs here. */

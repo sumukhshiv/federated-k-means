@@ -7,7 +7,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "kmeans.h"
-
+#include "enclave.h"
 
 struct node_t {
     uint32_t value;
