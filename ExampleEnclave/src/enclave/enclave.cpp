@@ -7,7 +7,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "kmeans.h"
-
+#include "enclave.h"
 
 struct node_t {
     uint32_t value;
@@ -51,3 +51,7 @@ void execute_k_means(int num_clusters) {
     
     kmeans(global_dim, (double*)data_points, total_rows, k, (double*)cluster_initial, (int*) cluster_final);
 }
+
+
+
+
