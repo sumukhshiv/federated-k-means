@@ -831,18 +831,18 @@ int sp_ra_proc_msg3_req(const sample_ra_msg3_t *p_msg3,
         //We need to send the secure message in this case to the enclave 
         if (message_from_machine_to_enclave == CREATE_CAPABILITY_KEY_CONSTANT) { 
 
-            //Generate the capability key
-            char* split = strtok(optional_message, ":");
-            char* childID = split;
-            split = strtok(NULL, ":");
-            char* parentID = split;
+            // //Generate the capability key
+            // char* split = strtok(optional_message, ":");
+            // char* childID = split;
+            // split = strtok(NULL, ":");
+            // char* parentID = split;
 
-            createCapabilityKey(childID, parentID);
+            // createCapabilityKey(childID, parentID);
 
-            strcpy((char*)g_secret, secure_message);
+            strcpy((char*)g_secret, "HELLLO");
 
 
-            // Generate shared secret and encrypt it with SK, if attestation passed.
+            // // Generate shared secret and encrypt it with SK, if attestation passed.
             uint8_t aes_gcm_iv[SAMPLE_SP_IV_SIZE] = {0};
             p_att_result_msg->secret.payload_size = SIZE_OF_MESSAGE;
             if((IAS_QUOTE_OK == attestation_report.status) &&
@@ -862,64 +862,64 @@ int sp_ra_proc_msg3_req(const sample_ra_msg3_t *p_msg3,
 
         } else if (message_from_machine_to_enclave == RETRIEVE_CAPABLITY_KEY_CONSTANT) { 
 
-            //Retrieve the capability key
-            char* split = strtok(optional_message, ":");
-            printf("Message is %s\n", optional_message);
-            char* currentMachineID = split;
-            split = strtok(NULL, ":");
-            char* childID = split;
+            // //Retrieve the capability key
+            // char* split = strtok(optional_message, ":");
+            // printf("Message is %s\n", optional_message);
+            // char* currentMachineID = split;
+            // split = strtok(NULL, ":");
+            // char* childID = split;
 
-            char* capabilityKey = retrieveCapabilityKey(currentMachineID, childID);
-
-
-            strcpy((char*)g_secret, capabilityKey);
+            // char* capabilityKey = retrieveCapabilityKey(currentMachineID, childID);
 
 
-            // Generate shared secret and encrypt it with SK, if attestation passed.
-            uint8_t aes_gcm_iv[SAMPLE_SP_IV_SIZE] = {0};
-            p_att_result_msg->secret.payload_size = SIZE_OF_MESSAGE;
-            if((IAS_QUOTE_OK == attestation_report.status) &&
-            (IAS_PSE_OK == attestation_report.pse_status) &&
-            (isv_policy_passed == true))
-            {
-                ret = sample_rijndael128GCM_encrypt(&g_sp_db.sk_key,
-                            &g_secret[0],
-                            p_att_result_msg->secret.payload_size,
-                            p_att_result_msg->secret.payload,
-                            &aes_gcm_iv[0],
-                            SAMPLE_SP_IV_SIZE,
-                            NULL,
-                            0,
-                            &p_att_result_msg->secret.payload_tag);
-            }
+            // strcpy((char*)g_secret, capabilityKey);
+
+
+            // // Generate shared secret and encrypt it with SK, if attestation passed.
+            // uint8_t aes_gcm_iv[SAMPLE_SP_IV_SIZE] = {0};
+            // p_att_result_msg->secret.payload_size = SIZE_OF_MESSAGE;
+            // if((IAS_QUOTE_OK == attestation_report.status) &&
+            // (IAS_PSE_OK == attestation_report.pse_status) &&
+            // (isv_policy_passed == true))
+            // {
+            //     ret = sample_rijndael128GCM_encrypt(&g_sp_db.sk_key,
+            //                 &g_secret[0],
+            //                 p_att_result_msg->secret.payload_size,
+            //                 p_att_result_msg->secret.payload,
+            //                 &aes_gcm_iv[0],
+            //                 SAMPLE_SP_IV_SIZE,
+            //                 NULL,
+            //                 0,
+            //                 &p_att_result_msg->secret.payload_tag);
+            // }
 
         } else {
-            //TODO investigage why if we don't have this else case, the old message is leaked
-            //and given to the requesting party. Ex -> comment out this else case, and 
-            //in retrieveCapabilityKey in enclave.cpp, call with message_from_machien_to_encalve = 3
-            char* capabilityKey = "INVALID REQUEST";
+        //     //TODO investigage why if we don't have this else case, the old message is leaked
+        //     //and given to the requesting party. Ex -> comment out this else case, and 
+        //     //in retrieveCapabilityKey in enclave.cpp, call with message_from_machien_to_encalve = 3
+        //     char* capabilityKey = "INVALID REQUEST";
 
 
-            strcpy((char*)g_secret, capabilityKey);
+        //     strcpy((char*)g_secret, capabilityKey);
 
 
-            // Generate shared secret and encrypt it with SK, if attestation passed.
-            uint8_t aes_gcm_iv[SAMPLE_SP_IV_SIZE] = {0};
-            p_att_result_msg->secret.payload_size = SIZE_OF_MESSAGE;
-            if((IAS_QUOTE_OK == attestation_report.status) &&
-            (IAS_PSE_OK == attestation_report.pse_status) &&
-            (isv_policy_passed == true))
-            {
-                ret = sample_rijndael128GCM_encrypt(&g_sp_db.sk_key,
-                            &g_secret[0],
-                            p_att_result_msg->secret.payload_size,
-                            p_att_result_msg->secret.payload,
-                            &aes_gcm_iv[0],
-                            SAMPLE_SP_IV_SIZE,
-                            NULL,
-                            0,
-                            &p_att_result_msg->secret.payload_tag);
-            }
+        //     // Generate shared secret and encrypt it with SK, if attestation passed.
+        //     uint8_t aes_gcm_iv[SAMPLE_SP_IV_SIZE] = {0};
+        //     p_att_result_msg->secret.payload_size = SIZE_OF_MESSAGE;
+        //     if((IAS_QUOTE_OK == attestation_report.status) &&
+        //     (IAS_PSE_OK == attestation_report.pse_status) &&
+        //     (isv_policy_passed == true))
+        //     {
+        //         ret = sample_rijndael128GCM_encrypt(&g_sp_db.sk_key,
+        //                     &g_secret[0],
+        //                     p_att_result_msg->secret.payload_size,
+        //                     p_att_result_msg->secret.payload,
+        //                     &aes_gcm_iv[0],
+        //                     SAMPLE_SP_IV_SIZE,
+        //                     NULL,
+        //                     0,
+        //                     &p_att_result_msg->secret.payload_tag);
+        //     }
 
         }
 
