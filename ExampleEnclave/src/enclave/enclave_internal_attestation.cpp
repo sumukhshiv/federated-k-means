@@ -452,6 +452,8 @@ sgx_status_t put_secret_data(
         ocall_print((char*) g_secret);
         double* kirat_data = deserialize((char*) g_secret);
         ocall_print_double(kirat_data[299]);
+        int x = storeData(kirat_data, 3, 100);
+        execute_k_means(3);
         //handle_incoming_events_pong_enclave(atoi((char*) g_secret));
   
         if(!secret_match)
