@@ -31,6 +31,7 @@
 
 
 #include "bank1.h"
+#include "bank2.h"
 #include "enclave_u.h"
 
 #include "sample_libcrypto.h"
@@ -201,7 +202,7 @@ inline char* extract_measurement(FILE* fp)
 
 
 // Verify message 0 then configure extended epid group.
-int bank1_sp_ra_proc_msg0_req(const sample_ra_msg0_t *p_msg0,
+int bank2_sp_ra_proc_msg0_req(const sample_ra_msg0_t *p_msg0,
     uint32_t msg0_size)
 {
     int ret = -1;
@@ -254,7 +255,7 @@ int bank1_sp_ra_proc_msg0_req(const sample_ra_msg0_t *p_msg0,
 }
 
 // Verify message 1 then generate and return message 2 to isv.
-int bank1_sp_ra_proc_msg1_req(const sample_ra_msg1_t *p_msg1,
+int bank2_sp_ra_proc_msg1_req(const sample_ra_msg1_t *p_msg1,
 						uint32_t msg1_size,
 						ra_samp_response_header_t **pp_msg2)
 {
@@ -524,7 +525,7 @@ int bank1_sp_ra_proc_msg1_req(const sample_ra_msg1_t *p_msg1,
 }
 
 // Process remote attestation message 3
-int bank1_sp_ra_proc_msg3_req(const sample_ra_msg3_t *p_msg3,
+int bank2_sp_ra_proc_msg3_req(const sample_ra_msg3_t *p_msg3,
                         uint32_t msg3_size,
                         ra_samp_response_header_t **pp_att_result_msg,
                         int message_from_machine_to_enclave,
@@ -979,8 +980,8 @@ inline int ocall_ping_machine_receive_encrypted_message(uint8_t *p_secret,
         return 0;
 }
 
-void bank1_start_fn() {
-    enclave_start_attestation("KPS2", 1);
+void bank2_start_fn() {
+    enclave_start_attestation("KPS", 1);
 }
 
 

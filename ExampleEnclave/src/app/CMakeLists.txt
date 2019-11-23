@@ -1,7 +1,7 @@
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${SGX_COMMON_CFLAGS} -fPIC -Wno-attributes")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CMAKE_C_FLAGS} -std=c++17")
 
-set(CLIENT_SRC_FILES enclave_u.c app.cpp bank1.cpp enclave_attestation.cpp sgx_utils/sgx_utils.cpp attestation_utils/network_ra.cpp bank1.cpp attestation_utils/ias_ra.cpp attestation_utils/ecp.cpp)
+set(CLIENT_SRC_FILES enclave_u.c app.cpp bank1.cpp bank2.cpp enclave_attestation.cpp sgx_utils/sgx_utils.cpp attestation_utils/network_ra.cpp bank1.cpp attestation_utils/ias_ra.cpp attestation_utils/ecp.cpp)
 
 set_directory_properties(PROPERTIES
         ADDITIONAL_MAKE_CLEAN_FILES "enclave_u.c; enclave_u.h")

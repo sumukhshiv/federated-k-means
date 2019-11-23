@@ -5,6 +5,8 @@
 #include "sgx_urts.h"
 #include "sgx_utils/sgx_utils.h"
 #include "bank1.h"
+#include "bank2.h"
+
 
 
 /* Global EID shared by multiple threads */
@@ -42,5 +44,6 @@ int main(int argc, char const *argv[]) {
 //     status = execute_k_means(global_eid, 3); 
 //     assert (status == SGX_SUCCESS);
     bank1_start_fn();
+    bank2_start_fn();
     return 0;
 }
