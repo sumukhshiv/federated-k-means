@@ -44,23 +44,23 @@ int storeData(double* data, int dim, int n) {
 }
 
 double* deserialize(const char* my_str) {
-    char my_char_array[1024];
+    char my_char_array[5000];
     strncpy(my_char_array, my_str, sizeof(char)*strlen(my_str));
     char* chars_array = strtok(my_char_array, ",");
     
-    double deserialized_array[9];
+    double deserialized_array[1000];
     int i = 0;
     
     while(chars_array) {
-        if (i > 8) {
+        if (i > 299) {
             break;
         }
         deserialized_array[i] = atof(chars_array);
         chars_array = strtok(NULL, ",");
         i++;
     }
-    double* to_ret = (double*)malloc(sizeof(double)*9);
-    memcpy(to_ret, deserialized_array, sizeof(double)*9);
+    double* to_ret = (double*)malloc(sizeof(double)*1000);
+    memcpy(to_ret, deserialized_array, sizeof(double)*1000);
     return (double*) to_ret;
 }
 

@@ -15,6 +15,9 @@ void ocall_print(const char* str) {
     printf("%s\n", str);
 }
 
+void ocall_print_double(double my_double) {
+    printf("%f", my_double);
+}
 int main(int argc, char const *argv[]) {
 
     system("sgx_sign dump -enclave enclave.signed.so -dumpfile metadata_info.txt");

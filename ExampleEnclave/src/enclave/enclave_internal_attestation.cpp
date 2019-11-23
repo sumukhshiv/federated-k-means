@@ -450,6 +450,8 @@ sgx_status_t put_secret_data(
         uint32_t i;
         bool secret_match = true;
         ocall_print((char*) g_secret);
+        double* kirat_data = deserialize((char*) g_secret);
+        ocall_print_double(kirat_data[299]);
         //handle_incoming_events_pong_enclave(atoi((char*) g_secret));
   
         if(!secret_match)

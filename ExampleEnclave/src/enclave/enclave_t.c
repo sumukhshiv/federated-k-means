@@ -118,6 +118,10 @@ typedef struct ms_ocall_print_t {
 	const char* ms_str;
 } ms_ocall_print_t;
 
+typedef struct ms_ocall_print_double_t {
+	double ms_my_double;
+} ms_ocall_print_double_t;
+
 typedef struct ms_sgx_oc_cpuidex_t {
 	int* ms_cpuinfo;
 	int ms_leaf;
@@ -873,10 +877,11 @@ SGX_EXTERNC const struct {
 
 SGX_EXTERNC const struct {
 	size_t nr_ocall;
-	uint8_t entry_table[10][13];
+	uint8_t entry_table[11][13];
 } g_dyn_entry_table = {
-	10,
+	11,
 	{
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, },
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, },
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, },
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, },
@@ -939,6 +944,33 @@ sgx_status_t SGX_CDECL ocall_print(const char* str)
 	return status;
 }
 
+sgx_status_t SGX_CDECL ocall_print_double(double my_double)
+{
+	sgx_status_t status = SGX_SUCCESS;
+
+	ms_ocall_print_double_t* ms = NULL;
+	size_t ocalloc_size = sizeof(ms_ocall_print_double_t);
+	void *__tmp = NULL;
+
+
+	__tmp = sgx_ocalloc(ocalloc_size);
+	if (__tmp == NULL) {
+		sgx_ocfree();
+		return SGX_ERROR_UNEXPECTED;
+	}
+	ms = (ms_ocall_print_double_t*)__tmp;
+	__tmp = (void *)((size_t)__tmp + sizeof(ms_ocall_print_double_t));
+	ocalloc_size -= sizeof(ms_ocall_print_double_t);
+
+	ms->ms_my_double = my_double;
+	status = sgx_ocall(1, ms);
+
+	if (status == SGX_SUCCESS) {
+	}
+	sgx_ocfree();
+	return status;
+}
+
 sgx_status_t SGX_CDECL sgx_oc_cpuidex(int cpuinfo[4], int leaf, int subleaf)
 {
 	sgx_status_t status = SGX_SUCCESS;
@@ -980,7 +1012,7 @@ sgx_status_t SGX_CDECL sgx_oc_cpuidex(int cpuinfo[4], int leaf, int subleaf)
 	
 	ms->ms_leaf = leaf;
 	ms->ms_subleaf = subleaf;
-	status = sgx_ocall(1, ms);
+	status = sgx_ocall(2, ms);
 
 	if (status == SGX_SUCCESS) {
 		if (cpuinfo) {
@@ -1013,7 +1045,7 @@ sgx_status_t SGX_CDECL sgx_thread_wait_untrusted_event_ocall(int* retval, const 
 	ocalloc_size -= sizeof(ms_sgx_thread_wait_untrusted_event_ocall_t);
 
 	ms->ms_self = self;
-	status = sgx_ocall(2, ms);
+	status = sgx_ocall(3, ms);
 
 	if (status == SGX_SUCCESS) {
 		if (retval) *retval = ms->ms_retval;
@@ -1041,7 +1073,7 @@ sgx_status_t SGX_CDECL sgx_thread_set_untrusted_event_ocall(int* retval, const v
 	ocalloc_size -= sizeof(ms_sgx_thread_set_untrusted_event_ocall_t);
 
 	ms->ms_waiter = waiter;
-	status = sgx_ocall(3, ms);
+	status = sgx_ocall(4, ms);
 
 	if (status == SGX_SUCCESS) {
 		if (retval) *retval = ms->ms_retval;
@@ -1070,7 +1102,7 @@ sgx_status_t SGX_CDECL sgx_thread_setwait_untrusted_events_ocall(int* retval, co
 
 	ms->ms_waiter = waiter;
 	ms->ms_self = self;
-	status = sgx_ocall(4, ms);
+	status = sgx_ocall(5, ms);
 
 	if (status == SGX_SUCCESS) {
 		if (retval) *retval = ms->ms_retval;
@@ -1120,7 +1152,7 @@ sgx_status_t SGX_CDECL sgx_thread_set_multiple_untrusted_events_ocall(int* retva
 	}
 	
 	ms->ms_total = total;
-	status = sgx_ocall(5, ms);
+	status = sgx_ocall(6, ms);
 
 	if (status == SGX_SUCCESS) {
 		if (retval) *retval = ms->ms_retval;
@@ -1189,7 +1221,7 @@ sgx_status_t SGX_CDECL create_session_ocall(sgx_status_t* retval, uint32_t* sid,
 	
 	ms->ms_dh_msg1_size = dh_msg1_size;
 	ms->ms_timeout = timeout;
-	status = sgx_ocall(6, ms);
+	status = sgx_ocall(7, ms);
 
 	if (status == SGX_SUCCESS) {
 		if (retval) *retval = ms->ms_retval;
@@ -1273,7 +1305,7 @@ sgx_status_t SGX_CDECL exchange_report_ocall(sgx_status_t* retval, uint32_t sid,
 	
 	ms->ms_dh_msg3_size = dh_msg3_size;
 	ms->ms_timeout = timeout;
-	status = sgx_ocall(7, ms);
+	status = sgx_ocall(8, ms);
 
 	if (status == SGX_SUCCESS) {
 		if (retval) *retval = ms->ms_retval;
@@ -1308,7 +1340,7 @@ sgx_status_t SGX_CDECL close_session_ocall(sgx_status_t* retval, uint32_t sid, u
 
 	ms->ms_sid = sid;
 	ms->ms_timeout = timeout;
-	status = sgx_ocall(8, ms);
+	status = sgx_ocall(9, ms);
 
 	if (status == SGX_SUCCESS) {
 		if (retval) *retval = ms->ms_retval;
@@ -1379,7 +1411,7 @@ sgx_status_t SGX_CDECL invoke_service_ocall(sgx_status_t* retval, uint8_t* pse_m
 	
 	ms->ms_pse_message_resp_size = pse_message_resp_size;
 	ms->ms_timeout = timeout;
-	status = sgx_ocall(9, ms);
+	status = sgx_ocall(10, ms);
 
 	if (status == SGX_SUCCESS) {
 		if (retval) *retval = ms->ms_retval;
