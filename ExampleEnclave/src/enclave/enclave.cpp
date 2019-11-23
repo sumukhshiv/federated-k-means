@@ -23,7 +23,7 @@ int current_j = 0;
 int global_dim = 0;
 int total_rows = 0;
 
-double static data_points[100][3];
+double static data_points[200][3];
 
 void init(){
     ocall_print("Initializing...");
@@ -39,6 +39,12 @@ int storeData(double* data, int dim, int n) {
         }
         current_j = 0;
         current_i += 1;
+    }
+    ocall_print("SIDHU");
+    for (int i = 0; i < total_rows; i++) {
+        for (int j = 0; j < 3; j++) {
+            ocall_print_double(data_points[i][j]);
+        }
     }
     return 1;
 }
@@ -66,9 +72,9 @@ double* deserialize(const char* my_str) {
 
 void execute_k_means(int num_clusters) {
     global_dim = 3;
-    total_rows = 100;
+    total_rows = 200;
 
-    double weird_necessary_array[10][3];
+    double weird_necessary_array[100][3];
     double cluster_initial[num_clusters][global_dim] = {{0.3, 0.3, 0.3}, {0.6, 0.6, 0.6}, {0.9, 0.9, 0.9}};
     double cluster_final[num_clusters][global_dim];
 
