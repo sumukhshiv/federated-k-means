@@ -1,3 +1,3 @@
 
 
-const int SIZE_OF_MESSAGE = 20;
+const int SIZE_OF_MESSAGE = 5000;
