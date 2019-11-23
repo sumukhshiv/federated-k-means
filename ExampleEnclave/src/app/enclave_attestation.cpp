@@ -69,7 +69,7 @@
 // messages and the information flow.
 #include "sample_messages.h"
 
-const int SIZE_OF_MESSAGE = 20;
+const int SIZE_OF_MESSAGE = 100;
 
 extern sgx_enclave_id_t global_eid;
 

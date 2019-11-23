@@ -851,23 +851,23 @@ err:
 
 SGX_EXTERNC const struct {
 	size_t nr_ecall;
-	struct {void* ecall_addr; uint8_t is_priv; uint8_t is_switchless;} ecall_table[13];
+	struct {void* ecall_addr; uint8_t is_priv;} ecall_table[13];
 } g_ecall_table = {
 	13,
 	{
-		{(void*)(uintptr_t)sgx_storeData, 0, 0},
-		{(void*)(uintptr_t)sgx_init, 0, 0},
-		{(void*)(uintptr_t)sgx_execute_k_means, 0, 0},
-		{(void*)(uintptr_t)sgx_enclave_init_ra, 0, 0},
-		{(void*)(uintptr_t)sgx_enclave_ra_close, 0, 0},
-		{(void*)(uintptr_t)sgx_verify_att_result_mac, 0, 0},
-		{(void*)(uintptr_t)sgx_put_secret_data, 0, 0},
-		{(void*)(uintptr_t)sgx_encrypt_secure_message, 0, 0},
-		{(void*)(uintptr_t)sgx_seal, 0, 0},
-		{(void*)(uintptr_t)sgx_unseal, 0, 0},
-		{(void*)(uintptr_t)sgx_sgx_ra_get_ga, 0, 0},
-		{(void*)(uintptr_t)sgx_sgx_ra_proc_msg2_trusted, 0, 0},
-		{(void*)(uintptr_t)sgx_sgx_ra_get_msg3_trusted, 0, 0},
+		{(void*)(uintptr_t)sgx_storeData, 0},
+		{(void*)(uintptr_t)sgx_init, 0},
+		{(void*)(uintptr_t)sgx_execute_k_means, 0},
+		{(void*)(uintptr_t)sgx_enclave_init_ra, 0},
+		{(void*)(uintptr_t)sgx_enclave_ra_close, 0},
+		{(void*)(uintptr_t)sgx_verify_att_result_mac, 0},
+		{(void*)(uintptr_t)sgx_put_secret_data, 0},
+		{(void*)(uintptr_t)sgx_encrypt_secure_message, 0},
+		{(void*)(uintptr_t)sgx_seal, 0},
+		{(void*)(uintptr_t)sgx_unseal, 0},
+		{(void*)(uintptr_t)sgx_sgx_ra_get_ga, 0},
+		{(void*)(uintptr_t)sgx_sgx_ra_proc_msg2_trusted, 0},
+		{(void*)(uintptr_t)sgx_sgx_ra_get_msg3_trusted, 0},
 	}
 };
 
