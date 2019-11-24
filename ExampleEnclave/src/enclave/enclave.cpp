@@ -22,8 +22,9 @@ int current_i = 0;
 int current_j = 0;
 int global_dim = 0;
 int total_rows = 0;
+int total_calls = 0;
 
-double static data_points[200][3];
+double static data_points[30][3]; //TODO HARDCODED TO TOTAL NUM OF POINTS AND DIMENSION OF THE POINTS 
 
 void init(){
     ocall_print("Initializing...");
@@ -46,33 +47,41 @@ int storeData(double* data, int dim, int n) {
             ocall_print_double(data_points[i][j]);
         }
     }
+    
+    total_calls++;
+
+    if (total_calls == 2) {
+        execute_k_means(3);
+    }
+
     return 1;
 }
 
-double* deserialize(const char* my_str) {
-    char my_char_array[5000];
+double* deserialize(const char* my_str, int arr_len) {
+    char my_char_array[sizeof(char)*strlen(my_str)+1];
     strncpy(my_char_array, my_str, sizeof(char)*strlen(my_str));
     char* chars_array = strtok(my_char_array, ",");
     
-    double deserialized_array[1000];
+    double deserialized_array[1000]; // TODO: maxed out to 1000 numbers total (flattened version of the 2D array) - HARDCODED
     int i = 0;
     
     while(chars_array) {
-        if (i > 299) {
+        if (i > arr_len-1) {
             break;
         }
         deserialized_array[i] = atof(chars_array);
         chars_array = strtok(NULL, ",");
         i++;
     }
+
     double* to_ret = (double*)malloc(sizeof(double)*1000);
     memcpy(to_ret, deserialized_array, sizeof(double)*1000);
     return (double*) to_ret;
 }
 
 void execute_k_means(int num_clusters) {
-    global_dim = 3;
-    total_rows = 200;
+    global_dim = 3;   // TODO: HARDCODED dimension of points
+    total_rows = 60; // TODO: HARDCODED total num of points recieved
 
     double weird_necessary_array[100][3];
     double cluster_initial[num_clusters][global_dim] = {{0.3, 0.3, 0.3}, {0.6, 0.6, 0.6}, {0.9, 0.9, 0.9}};

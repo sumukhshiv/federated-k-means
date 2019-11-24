@@ -200,34 +200,6 @@ int enclave_start_attestation(const char* receiving_machine_name, int message_fr
         OUTPUT = fopen ("temper.txt" , "w");
     }
 
-// #define VERIFICATION_INDEX_IS_VALID() (verify_index > 0 && \
-//                                        verify_index <= verification_samples)
-// #define GET_VERIFICATION_ARRAY_INDEX() (verify_index-1)
-
-//     if(argc > 1)
-//     {
-
-//         verify_index = atoi(argv[1]);
-
-//         if( VERIFICATION_INDEX_IS_VALID())
-//         {
-//             fprintf(OUTPUT, "\nVerifying precomputed attestation messages "
-//                             "using precomputed values# %d\n", verify_index);
-//         }
-//         else
-//         {
-//             fprintf(OUTPUT, "\nValid invocations are:\n");
-//             fprintf(OUTPUT, "\n\tisv_app\n");
-//             fprintf(OUTPUT, "\n\tisv_app <verification index>\n");
-//             fprintf(OUTPUT, "\nValid indices are [1 - %d]\n",
-//                     verification_samples);
-//             fprintf(OUTPUT, "\nUsing a verification index uses precomputed "
-//                     "messages to assist debugging the remote attestation "
-//                     "service provider.\n");
-//             return -1;
-//         }
-//     }
-
     // Preparation for remote attestation by configuring extended epid group id.
     {
         uint32_t extended_epid_group_id = 0;
