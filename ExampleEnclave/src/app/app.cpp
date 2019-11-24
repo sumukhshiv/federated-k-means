@@ -12,7 +12,7 @@
 /* Global EID shared by multiple threads */
 sgx_enclave_id_t global_eid = 0;
 
-const int TEST_CONSTANT = 1; //TODO if you change this, also change this in enclave.cpp
+const int TEST_CONSTANT = 2; //TODO if you change this, also change this in enclave.cpp
 
 // OCall implementations
 void ocall_print(const char* str) {

@@ -25,10 +25,11 @@ int global_dim = 0;
 int total_rows = 0;
 int total_calls = 0;
 
-const int TEST_CONSTANT = 1; //TODO if you change this, also change this in app.cpp
+const int TEST_CONSTANT = 2; //TODO if you change this, also change this in app.cpp
 
 //TODO Double hardcoded
-double static data_points[180][3];
+double static data_points[360][3];
+// double static data_points[180][3];
 // double static data_points[90][3]; //TODO HARDCODED TO TOTAL NUM OF POINTS AND DIMENSION OF THE POINTS 
 
 void init(){
@@ -96,6 +97,14 @@ void execute_k_means(int num_clusters) {
     } else if (TEST_CONSTANT == 1) {
         global_dim = 3;   // TODO: HARDCODED dimension of points
         total_rows = 180; // TODO: HARDCODED total num of points recieved
+        double weird_necessary_array[100][3];
+        double cluster_initial[num_clusters][global_dim] = {{0.3, 0.3, 0.3}, {0.6, 0.6, 0.6}, {0.9, 0.9, 0.9}};
+        double cluster_final[num_clusters][global_dim];
+
+        kmeans(global_dim, (double*)data_points, total_rows, num_clusters, (double*)cluster_initial, (int*) cluster_final);
+    } else if (TEST_CONSTANT == 2) {
+        global_dim = 3;   // TODO: HARDCODED dimension of points
+        total_rows = 360; // TODO: HARDCODED total num of points recieved
         double weird_necessary_array[100][3];
         double cluster_initial[num_clusters][global_dim] = {{0.3, 0.3, 0.3}, {0.6, 0.6, 0.6}, {0.9, 0.9, 0.9}};
         double cluster_final[num_clusters][global_dim];
