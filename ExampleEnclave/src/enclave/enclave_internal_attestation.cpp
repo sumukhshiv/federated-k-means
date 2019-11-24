@@ -467,6 +467,11 @@ sgx_status_t put_secret_data(
             double* kirat_data = deserialize((char*) g_secret, 720); //TODO: HARCODED num of points to be 300 (100 x 3)
             ocall_print_double(kirat_data[3]);
             int x = storeData(kirat_data, 3, 240); //TODO: HARDED num of points and dimension for storing data
+        } else if (TEST_CONSTANT == 4) {
+            int n = 480;
+            double* kirat_data = deserialize((char*) g_secret, n * 3); //TODO: HARCODED num of points to be 300 (100 x 3)
+            ocall_print_double(kirat_data[3]);
+            int x = storeData(kirat_data, 3, n); //TODO: HARDED num of points and dimension for storing data
         }
         
         //handle_incoming_events_pong_enclave(atoi((char*) g_secret));
