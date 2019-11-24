@@ -41,6 +41,7 @@
 #include <string>
 // #include "enclave_attestation.h"
 // #include "app.h"
+#include "data_testing.h"
 
 
 using namespace std;

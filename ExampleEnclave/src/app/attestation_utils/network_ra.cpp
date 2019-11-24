@@ -36,6 +36,7 @@
 #include "network_ra.h"
 #include "bank1.h"
 #include "bank2.h"
+#include "bank3.h"
 #include "enclave_u.h"
 #include "sgx_urts.h"
 #include "sgx_utils/sgx_utils.h"
@@ -173,6 +174,75 @@ int ra_network_send_receive(const char *sending_machine_name,
 
         case TYPE_RA_MSG3:
             ret =bank2_sp_ra_proc_msg3_req((const sample_ra_msg3_t*)((size_t)p_req +
+                sizeof(ra_samp_request_header_t)),
+                p_req->size,
+                &p_resp_msg,
+                *(optional_Message.encrypted_message),
+                plain_text_message);
+            if(0 != ret)
+            {
+                fprintf(stderr, "\nError, call sp_ra_proc_msg3_req fail [%s].",
+                    __FUNCTION__);
+            }
+            else
+            {
+                *p_resp = p_resp_msg;
+            }
+            break;
+
+        default:
+            ret = -1;
+            fprintf(stderr, "\nError, unknown ra message type. Type = %d [%s].",
+                p_req->type, __FUNCTION__);
+            break;
+        }
+
+        return ret;
+
+     //Request to KPS to send encrypted data based on previous secure channel
+     } else if (strcmp(receiving_machine_name, "KPS3") == 0 && optional_Message.secret_size == 0) {
+        int ret = 0;
+        ra_samp_response_header_t* p_resp_msg;
+
+        if((NULL == receiving_machine_name) ||
+            (NULL == p_req) ||
+            (NULL == p_resp))
+        {
+            return -1;
+        }
+
+        switch(p_req->type)
+        {
+
+        case TYPE_RA_MSG0:
+            ret = bank3_sp_ra_proc_msg0_req((const sample_ra_msg0_t*)((size_t)p_req
+                + sizeof(ra_samp_request_header_t)),
+                p_req->size);
+            if (0 != ret)
+            {
+                fprintf(stderr, "\nError, call sp_ra_proc_msg1_req fail [%s].",
+                    __FUNCTION__);
+            }
+            break;
+
+        case TYPE_RA_MSG1:
+            ret = bank3_sp_ra_proc_msg1_req((const sample_ra_msg1_t*)((size_t)p_req
+                + sizeof(ra_samp_request_header_t)),
+                p_req->size,
+                &p_resp_msg);
+            if(0 != ret)
+            {
+                fprintf(stderr, "\nError, call sp_ra_proc_msg1_req fail [%s].",
+                    __FUNCTION__);
+            }
+            else
+            {
+                *p_resp = p_resp_msg;
+            }
+            break;
+
+        case TYPE_RA_MSG3:
+            ret =bank3_sp_ra_proc_msg3_req((const sample_ra_msg3_t*)((size_t)p_req +
                 sizeof(ra_samp_request_header_t)),
                 p_req->size,
                 &p_resp_msg,

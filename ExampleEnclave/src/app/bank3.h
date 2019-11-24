@@ -55,7 +55,7 @@ using namespace std;
 // const int CREATE_CAPABILITY_KEY_CONSTANT = 1;
 // const int RETRIEVE_CAPABLITY_KEY_CONSTANT = 2;
 
-void bank2_start_fn();
+void bank3_start_fn();
 
 // #ifdef  __cplusplus
 // extern "C" {
@@ -140,14 +140,14 @@ void bank2_start_fn();
 //     uint8_t                     quote[];
 // } sample_ra_msg3_t;
 
-int bank2_sp_ra_proc_msg0_req(const sample_ra_msg0_t *p_msg0,
+int bank3_sp_ra_proc_msg0_req(const sample_ra_msg0_t *p_msg0,
     uint32_t msg0_size);
 
-int bank2_sp_ra_proc_msg1_req(const sample_ra_msg1_t *p_msg1,
+int bank3_sp_ra_proc_msg1_req(const sample_ra_msg1_t *p_msg1,
 						uint32_t msg1_size,
 						ra_samp_response_header_t **pp_msg2);
 
-int bank2_sp_ra_proc_msg3_req(const sample_ra_msg3_t *p_msg3,
+int bank3_sp_ra_proc_msg3_req(const sample_ra_msg3_t *p_msg3,
                         uint32_t msg3_size,
                         ra_samp_response_header_t **pp_att_result_msg, 
                         int message_from_machine_to_enclave,
