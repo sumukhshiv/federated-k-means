@@ -50,7 +50,7 @@ int storeData(double* data, int dim, int n) {
     
     total_calls++;
 
-    if (total_calls == 2) {
+    if (total_calls == 3) {
         execute_k_means(3);
     }
 
@@ -81,7 +81,7 @@ double* deserialize(const char* my_str, int arr_len) {
 
 void execute_k_means(int num_clusters) {
     global_dim = 3;   // TODO: HARDCODED dimension of points
-    total_rows = 60; // TODO: HARDCODED total num of points recieved
+    total_rows = 90; // TODO: HARDCODED total num of points recieved
 
     double weird_necessary_array[100][3];
     double cluster_initial[num_clusters][global_dim] = {{0.3, 0.3, 0.3}, {0.6, 0.6, 0.6}, {0.9, 0.9, 0.9}};
