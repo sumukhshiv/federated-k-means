@@ -39,6 +39,8 @@
 #include "network_ra.h"
 #include <unordered_map>
 #include <string>
+#include "data_testing.h"
+
 // #include "enclave_attestation.h"
 // #include "app.h"
 
