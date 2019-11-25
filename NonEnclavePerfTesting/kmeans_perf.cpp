@@ -199,9 +199,6 @@ void  perform_move(int dim, int n, int k, double *X, int *cluster_assignment, do
     cluster_member_count[cluster_old]--;
     cluster_member_count[cluster_new]++;
     
-    if (cluster_member_count[cluster_old] <= 1)
-      printf("WARNING: Can't handle single-member clusters! \n");
-    
    // update centroid array
     for (int ii = 0; ii < dim; ii++)
       {
