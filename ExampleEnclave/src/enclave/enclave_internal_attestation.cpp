@@ -450,32 +450,32 @@ sgx_status_t put_secret_data(
 
         uint32_t i;
         bool secret_match = true;
-        ocall_print((char*) g_secret);
+        // ocall_print((char*) g_secret);
         if (TEST_CONSTANT == 0) {
             double* kirat_data = deserialize((char*) g_secret, 90); //TODO: HARCODED num of points to be 300 (100 x 3)
-            ocall_print_double(kirat_data[3]);
+            // ocall_print_double(kirat_data[3]);
             int x = storeData(kirat_data, 3, 30); //TODO: HARDED num of points and dimension for storing data
         } else if (TEST_CONSTANT == 1) {
             double* kirat_data = deserialize((char*) g_secret, 180); //TODO: HARCODED num of points to be 300 (100 x 3)
-            ocall_print_double(kirat_data[3]);
+            // ocall_print_double(kirat_data[3]);
             int x = storeData(kirat_data, 3, 60); //TODO: HARDED num of points and dimension for storing data
         } else if (TEST_CONSTANT == 2) {
             double* kirat_data = deserialize((char*) g_secret, 360); //TODO: HARCODED num of points to be 300 (100 x 3)
-            ocall_print_double(kirat_data[3]);
+            // ocall_print_double(kirat_data[3]);
             int x = storeData(kirat_data, 3, 120); //TODO: HARDED num of points and dimension for storing data
         } else if (TEST_CONSTANT == 3) {
             double* kirat_data = deserialize((char*) g_secret, 720); //TODO: HARCODED num of points to be 300 (100 x 3)
-            ocall_print_double(kirat_data[3]);
+            // ocall_print_double(kirat_data[3]);
             int x = storeData(kirat_data, 3, 240); //TODO: HARDED num of points and dimension for storing data
         } else if (TEST_CONSTANT == 4) {
             int n = 480;
             double* kirat_data = deserialize((char*) g_secret, n * 3); //TODO: HARCODED num of points to be 300 (100 x 3)
-            ocall_print_double(kirat_data[3]);
+            // ocall_print_double(kirat_data[3]);
             int x = storeData(kirat_data, 3, n); //TODO: HARDED num of points and dimension for storing data
         } else if (TEST_CONSTANT == 5) {
             int n = 960;
             double* kirat_data = deserialize((char*) g_secret, n * 3); //TODO: HARCODED num of points to be 300 (100 x 3)
-            ocall_print_double(kirat_data[3]);
+            // ocall_print_double(kirat_data[3]);
             int x = storeData(kirat_data, 3, n); //TODO: HARDED num of points and dimension for storing data
         }
         

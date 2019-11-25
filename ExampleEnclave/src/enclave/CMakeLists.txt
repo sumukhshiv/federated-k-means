@@ -1,6 +1,7 @@
 set(ENCLAVE_SOURCE_FILES
         enclave.cpp
         kmeans.cpp
+        kmeans_non_obliv.cpp
         enclave_t.c
         sealing/sealing.cpp
         enclave_internal_attestation.cpp

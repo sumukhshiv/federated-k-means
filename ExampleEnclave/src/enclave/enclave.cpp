@@ -7,6 +7,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "kmeans.h"
+#include "kmeans_nonobliv.h"
 #include "enclave.h"
 #include <cstring>
 #include <string.h>
@@ -26,6 +27,7 @@ int total_rows = 0;
 int total_calls = 0;
 
 const int TEST_CONSTANT = 5; //TODO if you change this, also change this in app.cpp
+const int OBLIV = 1;
 
 //TODO Double hardcoded
  double static data_points[2880][3];
@@ -50,12 +52,12 @@ int storeData(double* data, int dim, int n) {
         current_j = 0;
         current_i += 1;
     }
-    ocall_print("SIDHU");
-    for (int i = 0; i < total_rows; i++) {
-        for (int j = 0; j < 3; j++) {
-            ocall_print_double(data_points[i][j]);
-        }
-    }
+    // ocall_print("SIDHU");
+    // for (int i = 0; i < total_rows; i++) {
+    //     for (int j = 0; j < 3; j++) {
+    //         ocall_print_double(data_points[i][j]);
+    //     }
+    // }
     
     total_calls++;
 
@@ -96,7 +98,12 @@ void execute_k_means(int num_clusters) {
         double cluster_initial[num_clusters][global_dim] = {{0.3, 0.3, 0.3}, {0.6, 0.6, 0.6}, {0.9, 0.9, 0.9}};
         double cluster_final[num_clusters][global_dim];
 
-        kmeans(global_dim, (double*)data_points, total_rows, num_clusters, (double*)cluster_initial, (int*) cluster_final);
+        if (OBLIV) {
+            kmeans(global_dim, (double*)data_points, total_rows, num_clusters, (double*)cluster_initial, (int*) cluster_final);
+        } else {
+            kmeans_nonobliv(global_dim, (double*)data_points, total_rows, num_clusters, (double*)cluster_initial, (int*) cluster_final);
+        }
+
     } else if (TEST_CONSTANT == 1) {
         global_dim = 3;   // TODO: HARDCODED dimension of points
         total_rows = 180; // TODO: HARDCODED total num of points recieved
@@ -104,7 +111,12 @@ void execute_k_means(int num_clusters) {
         double cluster_initial[num_clusters][global_dim] = {{0.3, 0.3, 0.3}, {0.6, 0.6, 0.6}, {0.9, 0.9, 0.9}};
         double cluster_final[num_clusters][global_dim];
 
-        kmeans(global_dim, (double*)data_points, total_rows, num_clusters, (double*)cluster_initial, (int*) cluster_final);
+        if (OBLIV) {
+            kmeans(global_dim, (double*)data_points, total_rows, num_clusters, (double*)cluster_initial, (int*) cluster_final);
+        } else {
+            kmeans_nonobliv(global_dim, (double*)data_points, total_rows, num_clusters, (double*)cluster_initial, (int*) cluster_final);
+        }
+
     } else if (TEST_CONSTANT == 2) {
         global_dim = 3;   // TODO: HARDCODED dimension of points
         total_rows = 360; // TODO: HARDCODED total num of points recieved
@@ -112,7 +124,12 @@ void execute_k_means(int num_clusters) {
         double cluster_initial[num_clusters][global_dim] = {{0.3, 0.3, 0.3}, {0.6, 0.6, 0.6}, {0.9, 0.9, 0.9}};
         double cluster_final[num_clusters][global_dim];
 
-        kmeans(global_dim, (double*)data_points, total_rows, num_clusters, (double*)cluster_initial, (int*) cluster_final);
+        if (OBLIV) {
+            kmeans(global_dim, (double*)data_points, total_rows, num_clusters, (double*)cluster_initial, (int*) cluster_final);
+        } else {
+            kmeans_nonobliv(global_dim, (double*)data_points, total_rows, num_clusters, (double*)cluster_initial, (int*) cluster_final);
+        }
+
     } else if (TEST_CONSTANT == 3) {
         global_dim = 3;   // TODO: HARDCODED dimension of points
         total_rows = 720; // TODO: HARDCODED total num of points recieved
@@ -120,7 +137,12 @@ void execute_k_means(int num_clusters) {
         double cluster_initial[num_clusters][global_dim] = {{0.3, 0.3, 0.3}, {0.6, 0.6, 0.6}, {0.9, 0.9, 0.9}};
         double cluster_final[num_clusters][global_dim];
 
-        kmeans(global_dim, (double*)data_points, total_rows, num_clusters, (double*)cluster_initial, (int*) cluster_final);
+        if (OBLIV) {
+            kmeans(global_dim, (double*)data_points, total_rows, num_clusters, (double*)cluster_initial, (int*) cluster_final);
+        } else {
+            kmeans_nonobliv(global_dim, (double*)data_points, total_rows, num_clusters, (double*)cluster_initial, (int*) cluster_final);
+        }
+
     } else if (TEST_CONSTANT == 4) {
         int n = 480;
         global_dim = 3;   // TODO: HARDCODED dimension of points
@@ -129,7 +151,12 @@ void execute_k_means(int num_clusters) {
         double cluster_initial[num_clusters][global_dim] = {{0.3, 0.3, 0.3}, {0.6, 0.6, 0.6}, {0.9, 0.9, 0.9}};
         double cluster_final[num_clusters][global_dim];
 
-        kmeans(global_dim, (double*)data_points, total_rows, num_clusters, (double*)cluster_initial, (int*) cluster_final);
+        if (OBLIV) {
+            kmeans(global_dim, (double*)data_points, total_rows, num_clusters, (double*)cluster_initial, (int*) cluster_final);
+        } else {
+            kmeans_nonobliv(global_dim, (double*)data_points, total_rows, num_clusters, (double*)cluster_initial, (int*) cluster_final);
+        }
+
     } else if (TEST_CONSTANT == 5) {
         int n = 960;
         global_dim = 3;   // TODO: HARDCODED dimension of points
@@ -138,7 +165,12 @@ void execute_k_means(int num_clusters) {
         double cluster_initial[num_clusters][global_dim] = {{0.3, 0.3, 0.3}, {0.6, 0.6, 0.6}, {0.9, 0.9, 0.9}};
         double cluster_final[num_clusters][global_dim];
 
-        kmeans(global_dim, (double*)data_points, total_rows, num_clusters, (double*)cluster_initial, (int*) cluster_final);
+        if (OBLIV) {
+            kmeans(global_dim, (double*)data_points, total_rows, num_clusters, (double*)cluster_initial, (int*) cluster_final);
+        } else {
+            kmeans_nonobliv(global_dim, (double*)data_points, total_rows, num_clusters, (double*)cluster_initial, (int*) cluster_final);
+        }
+
     }
 }
 
