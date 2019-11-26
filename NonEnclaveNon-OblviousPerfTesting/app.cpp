@@ -11,13 +11,8 @@
 #include "bank1_perf.h"
 #include "bank2_perf.h"
 #include "bank3_perf.h"
+#include "utils.h"
 using namespace std;
-
-struct node_t {
-    uint32_t value;
-    struct node_t* next;
-    struct node_t* prev;
-};
 
 int current_i = 0;
 int current_j = 0;
@@ -26,10 +21,8 @@ const int NUM_DATA_POINTS_AT_ONCE = 1000;
 const int GLOBAL_DIM = 3;
 const int NUM_CLUSTERS = 3;
 
-double static data_points[3840][GLOBAL_DIM]; //TODO HARDCODED
-
-const int TEST_CONSTANT = 6;
-
+double static data_points[960*3][GLOBAL_DIM]; //TODO HARDCODED
+const int TEST_CONSTANT = 4;
 
 int storeData(double* data, int dim, int n) {
     total_rows += n;
@@ -40,12 +33,6 @@ int storeData(double* data, int dim, int n) {
         }
         current_j = 0;
         current_i += 1;
-    }
-    //printf("SIDHU");
-    for (int i = 0; i < total_rows; i++) {
-        for (int j = 0; j < 3; j++) {
-            //printf("%f", data_points[i][j]);
-        }
     }
     return 1;
 }
@@ -81,7 +68,7 @@ void execute_k_means(int num_clusters) {
         kmeans(GLOBAL_DIM, (double*)data_points, ttl_rows, num_clusters, (double*)cluster_initial, (int*) cluster_final);
 
     } else if (TEST_CONSTANT == 5) {
-        int n = 960;
+        int n = 1920;
         int ttl_rows = n * 3;
         double weird_necessary_array[n][GLOBAL_DIM];
         double cluster_initial[num_clusters][GLOBAL_DIM] = {{0.3, 0.3, 0.3}, {0.6, 0.6, 0.6}, {0.9, 0.9, 0.9}};
@@ -89,56 +76,50 @@ void execute_k_means(int num_clusters) {
         kmeans(GLOBAL_DIM, (double*)data_points, ttl_rows, num_clusters, (double*)cluster_initial, (int*) cluster_final);
 
     }
+    else if (TEST_CONSTANT == 4) {
+        int n = 960;
+        int ttl_rows = n*3;
+        double weird_necessary_array[n][GLOBAL_DIM];
+        double cluster_initial[num_clusters][GLOBAL_DIM] = {{0.3, 0.3, 0.3}, {0.6, 0.6, 0.6}, {0.9, 0.9, 0.9}};
+        double cluster_final[num_clusters][GLOBAL_DIM];
+        kmeans(GLOBAL_DIM, (double*)data_points, ttl_rows, num_clusters, (double*)cluster_initial, (int*) cluster_final);
+    }
     
 }
 
 int main(int argc, char const *argv[]) {
-    // char* bank1_data = (char*)malloc(sizeof(char) * NUM_DATA_POINTS_AT_ONCE);
-    char* num_points_bank1_str = send_data_1(GLOBAL_DIM);
+    char* points_bank1_str = send_data_1(GLOBAL_DIM);
+    char* points_bank2_str = send_data_2(GLOBAL_DIM); 
+    char* points_bank3_str = send_data_3(GLOBAL_DIM); 
 
     if (TEST_CONSTANT == 6) {
         int n = 960*4;
-        double* bank_1_points = deserialize(n, GLOBAL_DIM, num_points_bank1_str);
+        double* bank_1_points = deserialize(n, GLOBAL_DIM, points_bank1_str);
         storeData(bank_1_points, GLOBAL_DIM, n);
-        //free(bank1_data);
-
-        // //printf("\n HERE\n");
-        // char* bank2_data = (char*)malloc(sizeof(char) * NUM_DATA_POINTS_AT_ONCE);
-        //char* num_points_bank2_str = send_data_2(GLOBAL_DIM);
-        double* bank_2_points = deserialize(n, GLOBAL_DIM, num_points_bank2_str);
+        double* bank_2_points = deserialize(n, GLOBAL_DIM, points_bank2_str);
         storeData(bank_2_points, GLOBAL_DIM, n);
-        // //free(bank2_data);
-
-        char* bank3_data = (char*)malloc(sizeof(char) * NUM_DATA_POINTS_AT_ONCE);
-        int num_points_bank3 = send_data_3(bank3_data, GLOBAL_DIM);
-        double* bank_3_points = deserialize(num_points_bank3, GLOBAL_DIM, bank3_data);
-        storeData(bank_3_points, GLOBAL_DIM, num_points_bank3);
-        //free(bank3_data);
-        
-        execute_k_means(NUM_CLUSTERS);
-    } else if (TEST_CONSTANT == 5) {
+        double* bank_3_points = deserialize(n, GLOBAL_DIM, points_bank3_str);
+        storeData(bank_3_points, GLOBAL_DIM, n);
+    } 
+    else if (TEST_CONSTANT == 5) {
         int n = 1920;
-        double* bank_1_points = deserialize(n, GLOBAL_DIM, num_points_bank1_str);
+        double* bank_1_points = deserialize(n, GLOBAL_DIM, points_bank1_str);
         storeData(bank_1_points, GLOBAL_DIM, n);
-        //free(bank1_data);
-
-        // //printf("\n HERE\n");
-        // char* bank2_data = (char*)malloc(sizeof(char) * NUM_DATA_POINTS_AT_ONCE);
-        char* num_points_bank2_str = send_data_2(GLOBAL_DIM);
-        double* bank_2_points = deserialize(100, GLOBAL_DIM, num_points_bank2_str);
-        storeData(bank_2_points, GLOBAL_DIM, 100);
-        // //free(bank2_data);
-
-        char* bank3_data = (char*)malloc(sizeof(char) * NUM_DATA_POINTS_AT_ONCE);
-        int num_points_bank3 = send_data_3(bank3_data, GLOBAL_DIM);
-        double* bank_3_points = deserialize(num_points_bank3, GLOBAL_DIM, bank3_data);
-        storeData(bank_3_points, GLOBAL_DIM, num_points_bank3);
-        //free(bank3_data);
-        
-        execute_k_means(NUM_CLUSTERS);
-
+        double* bank_2_points = deserialize(n, GLOBAL_DIM, points_bank2_str);
+        storeData(bank_2_points, GLOBAL_DIM, n);
+        double* bank_3_points = deserialize(n, GLOBAL_DIM, points_bank3_str);
+        storeData(bank_3_points, GLOBAL_DIM, n);
     }
-    
+    else if (TEST_CONSTANT == 4){
+        int n = 960;
+        double* bank_1_points = deserialize(n, GLOBAL_DIM, points_bank1_str);
+        storeData(bank_1_points, GLOBAL_DIM, n);
+        double* bank_2_points = deserialize(n, GLOBAL_DIM, points_bank2_str);
+        storeData(bank_2_points, GLOBAL_DIM, n);
+        double* bank_3_points = deserialize(n, GLOBAL_DIM, points_bank3_str);
+        storeData(bank_3_points, GLOBAL_DIM, n);
+    }
+    execute_k_means(NUM_CLUSTERS);
     return 0;
 }
 

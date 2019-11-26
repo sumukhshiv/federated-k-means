@@ -1,1 +1,1 @@
-int send_data_3(char* data_storage, int dim);
+char* send_data_3(int dim);

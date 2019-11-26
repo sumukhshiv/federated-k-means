@@ -12,7 +12,7 @@
 
 #define MAX_ITERATIONS 100
 
-#define BIG_double (INFINITY)
+#define BIG_double (100000000)
 
 void fail(char *str)
   {
@@ -123,9 +123,10 @@ void calc_cluster_centroids(int dim, int n, int k, double *X, int *cluster_assig
           printf("WARNING: Empty cluster %d! \n", ii);
           
        // for each dimension
-        for (int jj = 0; jj < dim; jj++)
+        for (int jj = 0; jj < dim; jj++){
           new_cluster_centroid[ii*dim + jj] /= cluster_member_count[ii];  /// XXXX will divide by zero here for any empty clusters!
 
+        }
       }
   }
 
@@ -190,7 +191,7 @@ void cluster_diag(int dim, int n, int k, double *X, int *cluster_assignment_inde
      
     printf("  Final clusters \n");
     for (int ii = 0; ii < k; ii++) {
-      printf("    cluster %d:     members: %8d, centroid (%.1f %.1f) \n", ii, cluster_member_count[ii], cluster_centroid[ii*dim + 0], cluster_centroid[ii*dim + 1]);
+      printf("    cluster %d:     members: %8d, centroid (%.1f %.1f %.1f) \n", ii, cluster_member_count[ii], cluster_centroid[ii*dim + 0], cluster_centroid[ii*dim + 1], cluster_centroid[ii*dim + 2]);
       // printf("    cluster %d:     members: %8d, centroid (%.1f %.1f %.1f) \n", ii, cluster_member_count[ii], cluster_centroid[ii*dim + 0], cluster_centroid[ii*dim + 1], cluster_centroid[ii*dim + 2]);
 
     }
