@@ -275,7 +275,6 @@ void kmeans(
         // done with this phase if nothing has changed
          if (change_count == 0)
            {
-             printf("  no change made on this step - iteration completed \n");
              break;
            }
 
