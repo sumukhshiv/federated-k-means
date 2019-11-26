@@ -12,7 +12,7 @@
 /* Global EID shared by multiple threads */
 sgx_enclave_id_t global_eid = 0;
 
-const int TEST_CONSTANT = 5; //TODO if you change this, also change this in enclave.cpp
+const int TEST_CONSTANT = 6; //TODO if you change this, also change this in enclave.cpp
 
 // OCall implementations
 void ocall_print(const char* str) {
@@ -29,7 +29,6 @@ int main(int argc, char const *argv[]) {
         std::cout << "Fail to initialize enclave." << std::endl;
         return 1;
     }
-    
     bank1_start_fn();
     bank2_start_fn();
     bank3_start_fn();

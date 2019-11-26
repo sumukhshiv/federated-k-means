@@ -46,7 +46,7 @@
 
 using namespace std;
 
-const int ENABLE_KPS_ATTESTATION_PRINT = 0;
+const int ENABLE_KPS_ATTESTATION_PRINT = 1;
 
 extern unordered_map<string, string> capabilityKeyAccessDictionary;
 extern unordered_map<string, string> capabilityKeyDictionary;

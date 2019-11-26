@@ -14,23 +14,17 @@
 #include "data_testing_enclave.h"
 using namespace std;
 
-struct node_t {
-    uint32_t value;
-    struct node_t* next;
-    struct node_t* prev;
-};
-
 int current_i = 0;
 int current_j = 0;
 int global_dim = 0;
 int total_rows = 0;
 int total_calls = 0;
 
-const int TEST_CONSTANT = 5; //TODO if you change this, also change this in app.cpp
+const int TEST_CONSTANT = 6; //TODO if you change this, also change this in app.cpp
 const int OBLIV = 1;
 
 //TODO Double hardcoded
- double static data_points[2880][3];
+ double static data_points[11520][3];
 //  double static data_points[1440][3];
 // double static data_points[720][3];
 // double static data_points[360][3];
@@ -52,19 +46,10 @@ int storeData(double* data, int dim, int n) {
         current_j = 0;
         current_i += 1;
     }
-    // ocall_print("SIDHU");
-    // for (int i = 0; i < total_rows; i++) {
-    //     for (int j = 0; j < 3; j++) {
-    //         ocall_print_double(data_points[i][j]);
-    //     }
-    // }
-    
     total_calls++;
-
     if (total_calls == 3) {
         execute_k_means(3);
     }
-
     return 1;
 }
 
@@ -72,7 +57,7 @@ double* deserialize(const char* my_str, int arr_len) {
     char my_char_array[sizeof(char)*strlen(my_str)+1];
     strncpy(my_char_array, my_str, sizeof(char)*strlen(my_str));
     char* chars_array = strtok(my_char_array, ",");
-    int n= 10000;
+    int n= 12000;
     double deserialized_array[n]; // TODO: maxed out to 1000 numbers total (flattened version of the 2D array) - HARDCODED
     int i = 0;
     
@@ -162,6 +147,20 @@ void execute_k_means(int num_clusters) {
         global_dim = 3;   // TODO: HARDCODED dimension of points
         total_rows = n*3; // TODO: HARDCODED total num of points recieved
         double weird_necessary_array[1000][3];
+        double cluster_initial[num_clusters][global_dim] = {{0.3, 0.3, 0.3}, {0.6, 0.6, 0.6}, {0.9, 0.9, 0.9}};
+        double cluster_final[num_clusters][global_dim];
+
+        if (OBLIV) {
+            kmeans(global_dim, (double*)data_points, total_rows, num_clusters, (double*)cluster_initial, (int*) cluster_final);
+        } else {
+            kmeans_nonobliv(global_dim, (double*)data_points, total_rows, num_clusters, (double*)cluster_initial, (int*) cluster_final);
+        }
+
+    } else if (TEST_CONSTANT == 6) {
+        int n = 960*4;
+        global_dim = 3;   // TODO: HARDCODED dimension of points
+        total_rows = n*3; // TODO: HARDCODED total num of points recieved
+        double weird_necessary_array[2000][3];
         double cluster_initial[num_clusters][global_dim] = {{0.3, 0.3, 0.3}, {0.6, 0.6, 0.6}, {0.9, 0.9, 0.9}};
         double cluster_final[num_clusters][global_dim];
 
