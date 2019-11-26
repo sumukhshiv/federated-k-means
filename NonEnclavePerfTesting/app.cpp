@@ -2,7 +2,8 @@
 #include <cassert>
 #include <stdlib.h>
 #include <stdio.h>
-#include "kmeans_perf.h"
+#include "kmeans_perf_nonobliv.h"
+#include "kmeans_perf_obliv.h"
 #include <cstring>
 #include <string.h>
 #include <stdio.h>
@@ -14,6 +15,7 @@
 #include "utils.h"
 using namespace std;
 
+
 int current_i = 0;
 int current_j = 0;
 int total_rows = 0;
@@ -21,8 +23,9 @@ const int NUM_DATA_POINTS_AT_ONCE = 1000;
 const int GLOBAL_DIM = 3;
 const int NUM_CLUSTERS = 3;
 
-double static data_points[960*3][GLOBAL_DIM]; //TODO HARDCODED
-const int TEST_CONSTANT = 4;
+double static data_points[960*12][GLOBAL_DIM]; //TODO HARDCODED
+const int TEST_CONSTANT = 6;
+const int OBLIV = 1;
 
 int storeData(double* data, int dim, int n) {
     total_rows += n;
@@ -65,16 +68,24 @@ void execute_k_means(int num_clusters) {
         double weird_necessary_array[n][GLOBAL_DIM];
         double cluster_initial[num_clusters][GLOBAL_DIM] = {{0.3, 0.3, 0.3}, {0.6, 0.6, 0.6}, {0.9, 0.9, 0.9}};
         double cluster_final[num_clusters][GLOBAL_DIM];
-        kmeans(GLOBAL_DIM, (double*)data_points, ttl_rows, num_clusters, (double*)cluster_initial, (int*) cluster_final);
-
+        if (OBLIV == 0){
+            kmeans(GLOBAL_DIM, (double*)data_points, ttl_rows, num_clusters, (double*)cluster_initial, (int*) cluster_final);
+        }
+        else{
+            kmeans_obliv(GLOBAL_DIM, (double*)data_points, ttl_rows, num_clusters, (double*)cluster_initial, (int*) cluster_final);
+        }
     } else if (TEST_CONSTANT == 5) {
         int n = 1920;
         int ttl_rows = n * 3;
         double weird_necessary_array[n][GLOBAL_DIM];
         double cluster_initial[num_clusters][GLOBAL_DIM] = {{0.3, 0.3, 0.3}, {0.6, 0.6, 0.6}, {0.9, 0.9, 0.9}};
         double cluster_final[num_clusters][GLOBAL_DIM];
-        kmeans(GLOBAL_DIM, (double*)data_points, ttl_rows, num_clusters, (double*)cluster_initial, (int*) cluster_final);
-
+        if (OBLIV == 0){
+            kmeans(GLOBAL_DIM, (double*)data_points, ttl_rows, num_clusters, (double*)cluster_initial, (int*) cluster_final);
+        }
+        else{
+            kmeans_obliv(GLOBAL_DIM, (double*)data_points, ttl_rows, num_clusters, (double*)cluster_initial, (int*) cluster_final);
+        }
     }
     else if (TEST_CONSTANT == 4) {
         int n = 960;
@@ -82,7 +93,12 @@ void execute_k_means(int num_clusters) {
         double weird_necessary_array[n][GLOBAL_DIM];
         double cluster_initial[num_clusters][GLOBAL_DIM] = {{0.3, 0.3, 0.3}, {0.6, 0.6, 0.6}, {0.9, 0.9, 0.9}};
         double cluster_final[num_clusters][GLOBAL_DIM];
-        kmeans(GLOBAL_DIM, (double*)data_points, ttl_rows, num_clusters, (double*)cluster_initial, (int*) cluster_final);
+        if (OBLIV == 0){
+            kmeans(GLOBAL_DIM, (double*)data_points, ttl_rows, num_clusters, (double*)cluster_initial, (int*) cluster_final);
+        }
+        else{
+            kmeans_obliv(GLOBAL_DIM, (double*)data_points, ttl_rows, num_clusters, (double*)cluster_initial, (int*) cluster_final);
+        }
     }
     
 }

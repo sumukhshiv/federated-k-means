@@ -17,8 +17,6 @@ char* serialize(double my_array[][3], int num_points) {
             bar += ',';
         }
     }
-    //printf("INSIDE SERIALIZE AFTER FOR LOOP\n");    
-
     char* to_ret = (char*)malloc(sizeof(char)*strlen(bar.c_str()));
     memcpy(to_ret, bar.c_str(), sizeof(char)*strlen(bar.c_str()));
     return to_ret;

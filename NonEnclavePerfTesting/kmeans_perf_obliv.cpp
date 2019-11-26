@@ -1,7 +1,7 @@
 #include <math.h>
 #include <stdlib.h>
 #include <stdio.h>
-#include "kmeans_perf.h"
+#include "kmeans_perf_obliv.h"
 #include <algorithm>
 
 
@@ -13,12 +13,12 @@
 
 #define BIG_double (100000000)
 
-void fail(char *str)
+void fail_obliv(char *str)
   {
       exit(-1);
   }
   
-double calc_distance(int dim, double *p1, double *p2)
+double calc_distance_obliv(int dim, double *p1, double *p2)
   {
     double distance_sq_sum = 0;
     
@@ -29,17 +29,17 @@ double calc_distance(int dim, double *p1, double *p2)
     
   }
 
-void calc_all_distances(int dim, int n, int k, double *X, double *centroid, double *distance_output)
+void calc_all_distances_obliv(int dim, int n, int k, double *X, double *centroid, double *distance_output)
   {
     for (int ii = 0; ii < n; ii++) // for each point
       for (int jj = 0; jj < k; jj++) // for each cluster
         {
          // calculate distance between point and cluster centroid
-          distance_output[ii*k + jj] = calc_distance(dim, &X[ii*dim], &centroid[jj*dim]);
+          distance_output[ii*k + jj] = calc_distance_obliv(dim, &X[ii*dim], &centroid[jj*dim]);
         }
   }
   
-double calc_total_distance(int dim, int n, int k, double *X, double *centroids, int *cluster_assignment_index)
+double calc_total_distance_obliv(int dim, int n, int k, double *X, double *centroids, int *cluster_assignment_index)
  // NOTE: a point with cluster assignment -1 is ignored
   {
     double tot_D = 0;
@@ -53,14 +53,14 @@ double calc_total_distance(int dim, int n, int k, double *X, double *centroids, 
        // sum distance
        //OBLIV-EDIT
         int cond = active_cluster != -1;
-        int exec = calc_distance(dim, &X[ii*dim], &centroids[active_cluster*dim]);
+        int exec = calc_distance_obliv(dim, &X[ii*dim], &centroids[active_cluster*dim]);
         tot_D = tot_D * (1 - cond) + (exec + tot_D) * (cond);
       }
       
     return tot_D;
   }
 
-void choose_all_clusters_from_distances(int dim, int n, int k, double *distance_array, int *cluster_assignment_index)
+void choose_all_clusters_from_distances_obliv(int dim, int n, int k, double *distance_array, int *cluster_assignment_index)
   {
    // for each point
     for (int ii = 0; ii < n; ii++)
@@ -75,22 +75,9 @@ void choose_all_clusters_from_distances(int dim, int n, int k, double *distance_
            
             double cur_distance = distance_array[ii*k + jj];
             int cond = cur_distance < closest_distance;
-            // printf("COND %d\n", cond);
-            // int tmp1 = jj;
-            // double tmp2 = cur_distance;
+
             best_index = (cond*jj) + ((1-cond)*best_index);
             closest_distance = (double)((cond*cur_distance)+ ((1.0-cond)*closest_distance));
-            // if (cur_distance < closest_distance)
-            //   {
-            //     // best_index = jj;
-            //     closest_distance = (double)cur_distance;
-            //   }
-
-            // if (closest_distance - closest_distance1) {
-            //   printf("CLOSEST DISTANCE %f, CLOSEST DISTANCE1 %f\n", closest_distance, closest_distance1);
-            // }
-            // closest_distance = closest_distance1;
-
           }
 
        // record in array
@@ -98,7 +85,7 @@ void choose_all_clusters_from_distances(int dim, int n, int k, double *distance_
       }
   }
 
-void calc_cluster_centroids(int dim, int n, int k, double *X, int *cluster_assignment_index, double *new_cluster_centroid)
+void calc_cluster_centroids_obliv(int dim, int n, int k, double *X, int *cluster_assignment_index, double *new_cluster_centroid)
   {
     //Obliviously fix NaN cluster centroids by adding a padding of 1 when a cluster has 0 members
     int temp_cluster_member_count[MAX_CLUSTERS];
@@ -157,7 +144,7 @@ void calc_cluster_centroids(int dim, int n, int k, double *X, int *cluster_assig
       }
   }
 
-void get_cluster_member_count(int n, int k, int *cluster_assignment_index, int *cluster_member_count)
+void get_cluster_member_count_obliv(int n, int k, int *cluster_assignment_index, int *cluster_member_count)
   {
    // initialize cluster member counts
     for (int ii = 0; ii < k; ii++) 
@@ -168,7 +155,7 @@ void get_cluster_member_count(int n, int k, int *cluster_assignment_index, int *
       cluster_member_count[cluster_assignment_index[ii]]++;
   }
 
-void update_delta_score_table(int dim, int n, int k, double *X, int *cluster_assignment_cur, double *cluster_centroid, int *cluster_member_count, double *point_move_score_table, int cc)
+void update_delta_score_table_obliv(int dim, int n, int k, double *X, int *cluster_assignment_cur, double *cluster_centroid, int *cluster_member_count, double *point_move_score_table, int cc)
   {
    // for every point (both in and not in the cluster)
     for (int ii = 0; ii < n; ii++)
@@ -187,7 +174,7 @@ void update_delta_score_table(int dim, int n, int k, double *X, int *cluster_ass
   }
   
   
-void  perform_move(int dim, int n, int k, double *X, int *cluster_assignment, double *cluster_centroid, int *cluster_member_count, int move_point, int move_target_cluster)
+void  perform_move_obliv(int dim, int n, int k, double *X, int *cluster_assignment, double *cluster_centroid, int *cluster_member_count, int move_point, int move_target_cluster)
   {
     int cluster_old = cluster_assignment[move_point];
     int cluster_new = move_target_cluster;
@@ -207,9 +194,9 @@ void  perform_move(int dim, int n, int k, double *X, int *cluster_assignment, do
       }
   }  
   
-void cluster_diag(int dim, int n, int k, double *X, int *cluster_assignment_index, double *cluster_centroid) {
+void cluster_diag_obliv(int dim, int n, int k, double *X, int *cluster_assignment_index, double *cluster_centroid) {
   int cluster_member_count[MAX_CLUSTERS];
-  get_cluster_member_count(n, k, cluster_assignment_index, cluster_member_count);
+  get_cluster_member_count_obliv(n, k, cluster_assignment_index, cluster_member_count);
   
   // printf("  Final clusters \n");
   for (int ii = 0; ii < k; ii++) {
@@ -219,13 +206,13 @@ void cluster_diag(int dim, int n, int k, double *X, int *cluster_assignment_inde
   }
 }
 
-void copy_assignment_array(int n, int *src, int *tgt)
+void copy_assignment_array_obliv(int n, int *src, int *tgt)
   {
     for (int ii = 0; ii < n; ii++)
       tgt[ii] = src[ii];
   }
   
-int assignment_change_count(int n, int a[], int b[])
+int assignment_change_count_obliv(int n, int a[], int b[])
   {
     int change_count = 0;
     for (int ii = 0; ii < n; ii++) {
@@ -235,7 +222,7 @@ int assignment_change_count(int n, int a[], int b[])
   return change_count;
   }
 
-void kmeans(
+void kmeans_obliv(
             int  dim,		                     // dimension of data 
 
             double *X,                        // pointer to data
@@ -253,142 +240,42 @@ void kmeans(
     
     
     if (!dist || !cluster_assignment_cur || !cluster_assignment_prev || !point_move_score)
-      fail("Error allocating dist arrays");
+      fail_obliv("Error allocating dist arrays");
     
    // initial setup  
-    calc_all_distances(dim, n, k, X, cluster_centroid, dist);
-    choose_all_clusters_from_distances(dim, n, k, dist, cluster_assignment_cur);
-    copy_assignment_array(n, cluster_assignment_cur, cluster_assignment_prev);
+    calc_all_distances_obliv(dim, n, k, X, cluster_centroid, dist);
+    choose_all_clusters_from_distances_obliv(dim, n, k, dist, cluster_assignment_cur);
+    copy_assignment_array_obliv(n, cluster_assignment_cur, cluster_assignment_prev);
 
    // BATCH UPDATE
     double prev_totD = BIG_double;
     int batch_iteration = 0;
     while (batch_iteration < MAX_ITERATIONS) {
     // update cluster centroids
-    calc_cluster_centroids(dim, n, k, X, cluster_assignment_cur, cluster_centroid);
+    calc_cluster_centroids_obliv(dim, n, k, X, cluster_assignment_cur, cluster_centroid);
     // see if we've failed to improve
-    double totD = calc_total_distance(dim, n, k, X, cluster_centroid, cluster_assignment_cur);
+    double totD = calc_total_distance_obliv(dim, n, k, X, cluster_centroid, cluster_assignment_cur);
     int cond = (totD > prev_totD);
     //  int *cluster_assignment_cur = (cluster_assignment_prev)*cond + (cluster_assignment_cur)*(1-cond);
     for (int i = 0; i < n; i++) {
       cluster_assignment_cur[i] = (cluster_assignment_prev[i])*cond + (cluster_assignment_cur[i])*(1-cond);
     }
-    calc_cluster_centroids(dim, n, k, X, cluster_assignment_cur, cluster_centroid);
+    calc_cluster_centroids_obliv(dim, n, k, X, cluster_assignment_cur, cluster_centroid);
     // save previous step
-    copy_assignment_array(n, cluster_assignment_cur, cluster_assignment_prev);
+    copy_assignment_array_obliv(n, cluster_assignment_cur, cluster_assignment_prev);
     
     // move all points to nearest cluster
-    calc_all_distances(dim, n, k, X, cluster_centroid, dist);
-    choose_all_clusters_from_distances(dim, n, k, dist, cluster_assignment_cur);
+    calc_all_distances_obliv(dim, n, k, X, cluster_centroid, dist);
+    choose_all_clusters_from_distances_obliv(dim, n, k, dist, cluster_assignment_cur);
     
     prev_totD = totD;
     batch_iteration++;
 }
 
-cluster_diag(dim, n, k, X, cluster_assignment_cur, cluster_centroid);
-
-
-   // ONLINE UPDATE
-/* The online update prtion of this code has never worked properly, but batch update has been adequate for our projects so far.
-    int online_iteration = 0;
-    int last_point_moved = 0;
-    
-    int cluster_changed[MAX_CLUSTERS];
-    for (int ii = 0; ii < k; ii++)
-      cluster_changed[ii] = 1;
-    
-    int cluster_member_count[MAX_CLUSTERS];
-    get_cluster_member_count(n, k, cluster_assignment_cur, cluster_member_count);
-    
-    while (online_iteration < MAX_ITERATIONS)
-      {
-//        printf("online iteration %d \n", online_iteration);
-
-       // for each cluster
-        for (int ii = 0; ii < k; ii++)
-          if (cluster_changed[ii])
-            update_delta_score_table(dim, n, k, X, cluster_assignment_cur, cluster_centroid, cluster_member_count, point_move_score, ii);
-            
-       // pick a point to move
-       // look at points in sequence starting at one after previously moved point
-        int make_move = 0;
-        int point_to_move = -1;
-        int target_cluster = -1;
-        for (int ii = 0; ii < n; ii++)
-          {
-            int point_to_consider = (last_point_moved + 1 + ii) % n;
-              
-           // find the best target for it
-            int best_target_cluster = -1;
-            int best_match_count    = 0;
-            double best_delta        = BIG_double;
-            
-           // for each possible target
-            for (int jj = 0; jj < k; jj++)
-              {
-                double cur_delta = point_move_score[point_to_consider*k + jj];
-
-               // is this the best move so far?
-                if (cur_delta < best_delta)
-                 // yes - record it
-                  {
-                    best_target_cluster = jj;
-                    best_delta = cur_delta;
-                    best_match_count = 1;
-                  }
-                else if (cur_delta == best_delta)
-                 // no, but it's tied with the best one
-                 best_match_count++;
-              }
-
-           // is the best cluster for this point its current cluster?
-            if (best_target_cluster == cluster_assignment_cur[point_to_consider])
-             // yes - don't move this point
-               continue;
-
-           // do we have a unique best move?
-            if (best_match_count > 1)
-             // no - don't move this point (ignore ties)
-              continue;
-            else
-             // yes - we've found a good point to move
-              {
-                point_to_move = point_to_consider;
-                target_cluster = best_target_cluster;
-                make_move = 1;
-                break;
-              }
-          }
-
-        if (make_move)
-          {
-           // where should we move it to?            
-            printf("  %10d: moved %d to %d \n", point_to_move, cluster_assignment_cur[point_to_move], target_cluster);
-
-           // mark which clusters have been modified          
-            for (int ii = 0; ii < k; ii++)
-              cluster_changed[ii] = 0;
-            cluster_changed[cluster_assignment_cur[point_to_move]] = 1;
-            cluster_changed[target_cluster] = 1;
-
-           // perform move
-            perform_move(dim, n, k, X, cluster_assignment_cur, cluster_centroid, cluster_member_count, point_to_move, target_cluster);
-
-           // count an iteration every time we've cycled through all the points
-            if (point_to_move < last_point_moved)
-              online_iteration++;
-
-            last_point_moved = point_to_move;
-          }
-
-      }
-
-*/
-      
-//    printf("iterations: %3d %3d \n", batch_iteration, online_iteration);
+cluster_diag_obliv(dim, n, k, X, cluster_assignment_cur, cluster_centroid);
       
    // write to output array
-    copy_assignment_array(n, cluster_assignment_cur, cluster_assignment_final);    
+    copy_assignment_array_obliv(n, cluster_assignment_cur, cluster_assignment_final);    
     
     free(dist);
     free(cluster_assignment_cur);

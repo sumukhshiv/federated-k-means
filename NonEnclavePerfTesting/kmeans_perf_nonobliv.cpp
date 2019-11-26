@@ -16,7 +16,6 @@
 
 void fail(char *str)
   {
-    printf(str);
     exit(-1);
   }
   
@@ -118,10 +117,7 @@ void calc_cluster_centroids(int dim, int n, int k, double *X, int *cluster_assig
    // now divide each coordinate sum by number of members to find mean/centroid
    // for each cluster
     for (int ii = 0; ii < k; ii++) 
-      {
-        if (cluster_member_count[ii] == 0)
-          printf("WARNING: Empty cluster %d! \n", ii);
-          
+      {          
        // for each dimension
         for (int jj = 0; jj < dim; jj++){
           new_cluster_centroid[ii*dim + jj] /= cluster_member_count[ii];  /// XXXX will divide by zero here for any empty clusters!
@@ -170,11 +166,7 @@ void  perform_move(int dim, int n, int k, double *X, int *cluster_assignment, do
     
    // update cluster count array
     cluster_member_count[cluster_old]--;
-    cluster_member_count[cluster_new]++;
-    
-    if (cluster_member_count[cluster_old] <= 1)
-      printf("WARNING: Can't handle single-member clusters! \n");
-    
+    cluster_member_count[cluster_new]++;    
    // update centroid array
     for (int ii = 0; ii < dim; ii++)
       {
@@ -244,8 +236,6 @@ void kmeans(
     int batch_iteration = 0;
     while (batch_iteration < MAX_ITERATIONS)
       {
-//        printf("batch iteration %d \n", batch_iteration);
-//        cluster_diag(dim, n, k, X, cluster_assignment_cur, cluster_centroid);
         
         // update cluster centroids
          calc_cluster_centroids(dim, n, k, X, cluster_assignment_cur, cluster_centroid);
@@ -264,7 +254,7 @@ void kmeans(
             // recalc centroids
              calc_cluster_centroids(dim, n, k, X, cluster_assignment_cur, cluster_centroid);
              
-             printf("  negative progress made on this step - iteration completed (%.2f) \n", totD - prev_totD);
+             //printf("  negative progress made on this step - iteration completed (%.2f) \n", totD - prev_totD);
              
             // done with this phase
              break;
@@ -279,7 +269,7 @@ void kmeans(
          
          int change_count = assignment_change_count(n, cluster_assignment_cur, cluster_assignment_prev);
          
-         printf("%3d   %u   %9d  %16.2f %17.2f\n", batch_iteration, 1, change_count, totD, totD - prev_totD);
+         //printf("%3d   %u   %9d  %16.2f %17.2f\n", batch_iteration, 1, change_count, totD, totD - prev_totD);
          fflush(stdout);
          
         // done with this phase if nothing has changed
@@ -295,106 +285,6 @@ void kmeans(
       }
 
 cluster_diag(dim, n, k, X, cluster_assignment_cur, cluster_centroid);
-
-
-   // ONLINE UPDATE
-/* The online update prtion of this code has never worked properly, but batch update has been adequate for our projects so far.
-    int online_iteration = 0;
-    int last_point_moved = 0;
-    
-    int cluster_changed[MAX_CLUSTERS];
-    for (int ii = 0; ii < k; ii++)
-      cluster_changed[ii] = 1;
-    
-    int cluster_member_count[MAX_CLUSTERS];
-    get_cluster_member_count(n, k, cluster_assignment_cur, cluster_member_count);
-    
-    while (online_iteration < MAX_ITERATIONS)
-      {
-//        printf("online iteration %d \n", online_iteration);
-
-       // for each cluster
-        for (int ii = 0; ii < k; ii++)
-          if (cluster_changed[ii])
-            update_delta_score_table(dim, n, k, X, cluster_assignment_cur, cluster_centroid, cluster_member_count, point_move_score, ii);
-            
-       // pick a point to move
-       // look at points in sequence starting at one after previously moved point
-        int make_move = 0;
-        int point_to_move = -1;
-        int target_cluster = -1;
-        for (int ii = 0; ii < n; ii++)
-          {
-            int point_to_consider = (last_point_moved + 1 + ii) % n;
-              
-           // find the best target for it
-            int best_target_cluster = -1;
-            int best_match_count    = 0;
-            double best_delta        = BIG_double;
-            
-           // for each possible target
-            for (int jj = 0; jj < k; jj++)
-              {
-                double cur_delta = point_move_score[point_to_consider*k + jj];
-
-               // is this the best move so far?
-                if (cur_delta < best_delta)
-                 // yes - record it
-                  {
-                    best_target_cluster = jj;
-                    best_delta = cur_delta;
-                    best_match_count = 1;
-                  }
-                else if (cur_delta == best_delta)
-                 // no, but it's tied with the best one
-                 best_match_count++;
-              }
-
-           // is the best cluster for this point its current cluster?
-            if (best_target_cluster == cluster_assignment_cur[point_to_consider])
-             // yes - don't move this point
-               continue;
-
-           // do we have a unique best move?
-            if (best_match_count > 1)
-             // no - don't move this point (ignore ties)
-              continue;
-            else
-             // yes - we've found a good point to move
-              {
-                point_to_move = point_to_consider;
-                target_cluster = best_target_cluster;
-                make_move = 1;
-                break;
-              }
-          }
-
-        if (make_move)
-          {
-           // where should we move it to?            
-            printf("  %10d: moved %d to %d \n", point_to_move, cluster_assignment_cur[point_to_move], target_cluster);
-
-           // mark which clusters have been modified          
-            for (int ii = 0; ii < k; ii++)
-              cluster_changed[ii] = 0;
-            cluster_changed[cluster_assignment_cur[point_to_move]] = 1;
-            cluster_changed[target_cluster] = 1;
-
-           // perform move
-            perform_move(dim, n, k, X, cluster_assignment_cur, cluster_centroid, cluster_member_count, point_to_move, target_cluster);
-
-           // count an iteration every time we've cycled through all the points
-            if (point_to_move < last_point_moved)
-              online_iteration++;
-
-            last_point_moved = point_to_move;
-          }
-
-      }
-
-*/
-      
-//    printf("iterations: %3d %3d \n", batch_iteration, online_iteration);
       
    // write to output array
     copy_assignment_array(n, cluster_assignment_cur, cluster_assignment_final);    
