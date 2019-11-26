@@ -127,20 +127,13 @@ void calc_cluster_centroids_obliv(int dim, int n, int k, double *X, int *cluster
    // now divide each coordinate sum by number of members to find mean/centroid
    // for each cluster
     for (int ii = 0; ii < k; ii++) 
-      {
-        if (cluster_member_count[ii] == 0) {
-
-        }
-   //       printf("WARNING: Empty cluster %d! \n", ii);
-          
+      {   
        // for each dimension
        int cond = temp_cluster_member_count[ii] == 0;
         for (int jj = 0; jj < dim; jj++){
           new_cluster_centroid[ii*dim + jj] = cond*new_cluster_centroid[ii*dim + jj] + 
           (1-cond)*temp_cluster_centroid[ii*dim + jj]/cluster_member_count[ii];
         }
-          //new_cluster_centroid[ii*dim + jj] /= cluster_member_count[ii];  /// XXXX will divide by zero here for any empty clusters!
-
       }
   }
 
@@ -198,7 +191,6 @@ void cluster_diag_obliv(int dim, int n, int k, double *X, int *cluster_assignmen
   int cluster_member_count[MAX_CLUSTERS];
   get_cluster_member_count_obliv(n, k, cluster_assignment_index, cluster_member_count);
   
-  // printf("  Final clusters \n");
   for (int ii = 0; ii < k; ii++) {
     char* hello_world = (char*)malloc(150 * sizeof(char));
     snprintf(hello_world, 150, " cluster %d:     members: %8d, centroid (%.3f %.3f %.3f) \n", ii, cluster_member_count[ii], cluster_centroid[ii*dim + 0], cluster_centroid[ii*dim + 1], cluster_centroid[ii*dim + 2]);

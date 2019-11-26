@@ -253,9 +253,7 @@ void kmeans(
              
             // recalc centroids
              calc_cluster_centroids(dim, n, k, X, cluster_assignment_cur, cluster_centroid);
-             
-             //printf("  negative progress made on this step - iteration completed (%.2f) \n", totD - prev_totD);
-             
+                          
             // done with this phase
              break;
            }
@@ -269,7 +267,6 @@ void kmeans(
          
          int change_count = assignment_change_count(n, cluster_assignment_cur, cluster_assignment_prev);
          
-         //printf("%3d   %u   %9d  %16.2f %17.2f\n", batch_iteration, 1, change_count, totD, totD - prev_totD);
          fflush(stdout);
          
         // done with this phase if nothing has changed
