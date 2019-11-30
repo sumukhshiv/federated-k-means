@@ -24,7 +24,7 @@ const int GLOBAL_DIM = 3;
 const int NUM_CLUSTERS = 3;
 
 double static data_points[960*12][GLOBAL_DIM]; //TODO HARDCODED
-const int TEST_CONSTANT = 6;
+const int TEST_CONSTANT = 7;
 const int OBLIV = 1;
 
 int storeData(double* data, int dim, int n) {
@@ -62,7 +62,7 @@ double* deserialize(int num_points_bank, int dim, const char* my_str) {
 }
 
 void execute_k_means(int num_clusters) {
-    if (TEST_CONSTANT == 6) {
+    if (TEST_CONSTANT == 7) {
         int n = 960*4;
         int ttl_rows = n * 3;
         double weird_necessary_array[n][GLOBAL_DIM];
@@ -74,7 +74,7 @@ void execute_k_means(int num_clusters) {
         else{
             kmeans_obliv(GLOBAL_DIM, (double*)data_points, ttl_rows, num_clusters, (double*)cluster_initial, (int*) cluster_final);
         }
-    } else if (TEST_CONSTANT == 5) {
+    } else if (TEST_CONSTANT == 6) {
         int n = 1920;
         int ttl_rows = n * 3;
         double weird_necessary_array[n][GLOBAL_DIM];
@@ -87,8 +87,73 @@ void execute_k_means(int num_clusters) {
             kmeans_obliv(GLOBAL_DIM, (double*)data_points, ttl_rows, num_clusters, (double*)cluster_initial, (int*) cluster_final);
         }
     }
-    else if (TEST_CONSTANT == 4) {
+    else if (TEST_CONSTANT == 5) {
         int n = 960;
+        int ttl_rows = n*3;
+        double weird_necessary_array[n][GLOBAL_DIM];
+        double cluster_initial[num_clusters][GLOBAL_DIM] = {{0.3, 0.3, 0.3}, {0.6, 0.6, 0.6}, {0.9, 0.9, 0.9}};
+        double cluster_final[num_clusters][GLOBAL_DIM];
+        if (OBLIV == 0){
+            kmeans(GLOBAL_DIM, (double*)data_points, ttl_rows, num_clusters, (double*)cluster_initial, (int*) cluster_final);
+        }
+        else{
+            kmeans_obliv(GLOBAL_DIM, (double*)data_points, ttl_rows, num_clusters, (double*)cluster_initial, (int*) cluster_final);
+        }
+    }
+     else if (TEST_CONSTANT == 4) {
+        int n = 480;
+        int ttl_rows = n*3;
+        double weird_necessary_array[n][GLOBAL_DIM];
+        double cluster_initial[num_clusters][GLOBAL_DIM] = {{0.3, 0.3, 0.3}, {0.6, 0.6, 0.6}, {0.9, 0.9, 0.9}};
+        double cluster_final[num_clusters][GLOBAL_DIM];
+        if (OBLIV == 0){
+            kmeans(GLOBAL_DIM, (double*)data_points, ttl_rows, num_clusters, (double*)cluster_initial, (int*) cluster_final);
+        }
+        else{
+            kmeans_obliv(GLOBAL_DIM, (double*)data_points, ttl_rows, num_clusters, (double*)cluster_initial, (int*) cluster_final);
+        }
+    }
+     else if (TEST_CONSTANT == 3) {
+        int n = 360;
+        int ttl_rows = n*3;
+        double weird_necessary_array[n][GLOBAL_DIM];
+        double cluster_initial[num_clusters][GLOBAL_DIM] = {{0.3, 0.3, 0.3}, {0.6, 0.6, 0.6}, {0.9, 0.9, 0.9}};
+        double cluster_final[num_clusters][GLOBAL_DIM];
+        if (OBLIV == 0){
+            kmeans(GLOBAL_DIM, (double*)data_points, ttl_rows, num_clusters, (double*)cluster_initial, (int*) cluster_final);
+        }
+        else{
+            kmeans_obliv(GLOBAL_DIM, (double*)data_points, ttl_rows, num_clusters, (double*)cluster_initial, (int*) cluster_final);
+        }
+    }
+     else if (TEST_CONSTANT == 2) {
+        int n = 180;
+        int ttl_rows = n*3;
+        double weird_necessary_array[n][GLOBAL_DIM];
+        double cluster_initial[num_clusters][GLOBAL_DIM] = {{0.3, 0.3, 0.3}, {0.6, 0.6, 0.6}, {0.9, 0.9, 0.9}};
+        double cluster_final[num_clusters][GLOBAL_DIM];
+        if (OBLIV == 0){
+            kmeans(GLOBAL_DIM, (double*)data_points, ttl_rows, num_clusters, (double*)cluster_initial, (int*) cluster_final);
+        }
+        else{
+            kmeans_obliv(GLOBAL_DIM, (double*)data_points, ttl_rows, num_clusters, (double*)cluster_initial, (int*) cluster_final);
+        }
+    }
+     else if (TEST_CONSTANT == 1) {
+        int n = 60;
+        int ttl_rows = n*3;
+        double weird_necessary_array[n][GLOBAL_DIM];
+        double cluster_initial[num_clusters][GLOBAL_DIM] = {{0.3, 0.3, 0.3}, {0.6, 0.6, 0.6}, {0.9, 0.9, 0.9}};
+        double cluster_final[num_clusters][GLOBAL_DIM];
+        if (OBLIV == 0){
+            kmeans(GLOBAL_DIM, (double*)data_points, ttl_rows, num_clusters, (double*)cluster_initial, (int*) cluster_final);
+        }
+        else{
+            kmeans_obliv(GLOBAL_DIM, (double*)data_points, ttl_rows, num_clusters, (double*)cluster_initial, (int*) cluster_final);
+        }
+    }
+     else if (TEST_CONSTANT == 0) {
+        int n = 30;
         int ttl_rows = n*3;
         double weird_necessary_array[n][GLOBAL_DIM];
         double cluster_initial[num_clusters][GLOBAL_DIM] = {{0.3, 0.3, 0.3}, {0.6, 0.6, 0.6}, {0.9, 0.9, 0.9}};
@@ -108,7 +173,7 @@ int main(int argc, char const *argv[]) {
     char* points_bank2_str = send_data_2(GLOBAL_DIM); 
     char* points_bank3_str = send_data_3(GLOBAL_DIM); 
 
-    if (TEST_CONSTANT == 6) {
+    if (TEST_CONSTANT == 7) {
         int n = 960*4;
         double* bank_1_points = deserialize(n, GLOBAL_DIM, points_bank1_str);
         storeData(bank_1_points, GLOBAL_DIM, n);
@@ -117,7 +182,7 @@ int main(int argc, char const *argv[]) {
         double* bank_3_points = deserialize(n, GLOBAL_DIM, points_bank3_str);
         storeData(bank_3_points, GLOBAL_DIM, n);
     } 
-    else if (TEST_CONSTANT == 5) {
+    else if (TEST_CONSTANT == 6) {
         int n = 1920;
         double* bank_1_points = deserialize(n, GLOBAL_DIM, points_bank1_str);
         storeData(bank_1_points, GLOBAL_DIM, n);
@@ -126,8 +191,53 @@ int main(int argc, char const *argv[]) {
         double* bank_3_points = deserialize(n, GLOBAL_DIM, points_bank3_str);
         storeData(bank_3_points, GLOBAL_DIM, n);
     }
-    else if (TEST_CONSTANT == 4){
+    else if (TEST_CONSTANT == 5){
         int n = 960;
+        double* bank_1_points = deserialize(n, GLOBAL_DIM, points_bank1_str);
+        storeData(bank_1_points, GLOBAL_DIM, n);
+        double* bank_2_points = deserialize(n, GLOBAL_DIM, points_bank2_str);
+        storeData(bank_2_points, GLOBAL_DIM, n);
+        double* bank_3_points = deserialize(n, GLOBAL_DIM, points_bank3_str);
+        storeData(bank_3_points, GLOBAL_DIM, n);
+    }
+    else if (TEST_CONSTANT == 4){
+        int n = 480;
+        double* bank_1_points = deserialize(n, GLOBAL_DIM, points_bank1_str);
+        storeData(bank_1_points, GLOBAL_DIM, n);
+        double* bank_2_points = deserialize(n, GLOBAL_DIM, points_bank2_str);
+        storeData(bank_2_points, GLOBAL_DIM, n);
+        double* bank_3_points = deserialize(n, GLOBAL_DIM, points_bank3_str);
+        storeData(bank_3_points, GLOBAL_DIM, n);
+    }
+    else if (TEST_CONSTANT == 3){
+        int n = 360;
+        double* bank_1_points = deserialize(n, GLOBAL_DIM, points_bank1_str);
+        storeData(bank_1_points, GLOBAL_DIM, n);
+        double* bank_2_points = deserialize(n, GLOBAL_DIM, points_bank2_str);
+        storeData(bank_2_points, GLOBAL_DIM, n);
+        double* bank_3_points = deserialize(n, GLOBAL_DIM, points_bank3_str);
+        storeData(bank_3_points, GLOBAL_DIM, n);
+    }
+    else if (TEST_CONSTANT == 2){
+        int n = 180;
+        double* bank_1_points = deserialize(n, GLOBAL_DIM, points_bank1_str);
+        storeData(bank_1_points, GLOBAL_DIM, n);
+        double* bank_2_points = deserialize(n, GLOBAL_DIM, points_bank2_str);
+        storeData(bank_2_points, GLOBAL_DIM, n);
+        double* bank_3_points = deserialize(n, GLOBAL_DIM, points_bank3_str);
+        storeData(bank_3_points, GLOBAL_DIM, n);
+    }
+    else if (TEST_CONSTANT == 1){
+        int n = 60;
+        double* bank_1_points = deserialize(n, GLOBAL_DIM, points_bank1_str);
+        storeData(bank_1_points, GLOBAL_DIM, n);
+        double* bank_2_points = deserialize(n, GLOBAL_DIM, points_bank2_str);
+        storeData(bank_2_points, GLOBAL_DIM, n);
+        double* bank_3_points = deserialize(n, GLOBAL_DIM, points_bank3_str);
+        storeData(bank_3_points, GLOBAL_DIM, n);
+    }
+    else if (TEST_CONSTANT == 0){
+        int n = 30;
         double* bank_1_points = deserialize(n, GLOBAL_DIM, points_bank1_str);
         storeData(bank_1_points, GLOBAL_DIM, n);
         double* bank_2_points = deserialize(n, GLOBAL_DIM, points_bank2_str);
