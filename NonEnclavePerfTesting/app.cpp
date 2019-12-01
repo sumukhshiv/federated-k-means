@@ -25,7 +25,7 @@ const int NUM_CLUSTERS = 3;
 
 double static data_points[960*12][GLOBAL_DIM]; //TODO HARDCODED
 const int TEST_CONSTANT = 7;
-const int OBLIV = 1;
+const int OBLIV = 0;
 
 int storeData(double* data, int dim, int n) {
     total_rows += n;
@@ -114,7 +114,7 @@ void execute_k_means(int num_clusters) {
         }
     }
      else if (TEST_CONSTANT == 3) {
-        int n = 360;
+        int n = 240;
         int ttl_rows = n*3;
         double weird_necessary_array[n][GLOBAL_DIM];
         double cluster_initial[num_clusters][GLOBAL_DIM] = {{0.3, 0.3, 0.3}, {0.6, 0.6, 0.6}, {0.9, 0.9, 0.9}};
@@ -127,7 +127,7 @@ void execute_k_means(int num_clusters) {
         }
     }
      else if (TEST_CONSTANT == 2) {
-        int n = 180;
+        int n = 120;
         int ttl_rows = n*3;
         double weird_necessary_array[n][GLOBAL_DIM];
         double cluster_initial[num_clusters][GLOBAL_DIM] = {{0.3, 0.3, 0.3}, {0.6, 0.6, 0.6}, {0.9, 0.9, 0.9}};
@@ -210,7 +210,7 @@ int main(int argc, char const *argv[]) {
         storeData(bank_3_points, GLOBAL_DIM, n);
     }
     else if (TEST_CONSTANT == 3){
-        int n = 360;
+        int n = 240;
         double* bank_1_points = deserialize(n, GLOBAL_DIM, points_bank1_str);
         storeData(bank_1_points, GLOBAL_DIM, n);
         double* bank_2_points = deserialize(n, GLOBAL_DIM, points_bank2_str);
@@ -219,7 +219,7 @@ int main(int argc, char const *argv[]) {
         storeData(bank_3_points, GLOBAL_DIM, n);
     }
     else if (TEST_CONSTANT == 2){
-        int n = 180;
+        int n = 120;
         double* bank_1_points = deserialize(n, GLOBAL_DIM, points_bank1_str);
         storeData(bank_1_points, GLOBAL_DIM, n);
         double* bank_2_points = deserialize(n, GLOBAL_DIM, points_bank2_str);
