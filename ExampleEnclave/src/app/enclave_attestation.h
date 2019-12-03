@@ -1,4 +1,4 @@
-const int ENABLE_ENCLAVE_ATTESTATION_PRINT = 1;
+const int ENABLE_ENCLAVE_ATTESTATION_PRINT = 0;
 
 
 struct Enclave_start_attestation_wrapper_arguments {

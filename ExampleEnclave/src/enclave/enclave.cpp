@@ -20,7 +20,7 @@ int global_dim = 0;
 int total_rows = 0;
 int total_calls = 0;
 
-const int TEST_CONSTANT = 1; //TODO if you change this, also change this in app.cpp
+const int TEST_CONSTANT = 7; //TODO if you change this, also change this in app.cpp
 const int OBLIV = 0;
 
 //TODO Double hardcoded
@@ -157,6 +157,20 @@ void execute_k_means(int num_clusters) {
         }
 
     } else if (TEST_CONSTANT == 6) {
+        int n = 960*2;
+        global_dim = 3;   // TODO: HARDCODED dimension of points
+        total_rows = n*3; // TODO: HARDCODED total num of points recieved
+        double weird_necessary_array[2000][3];
+        double cluster_initial[num_clusters][global_dim] = {{0.3, 0.3, 0.3}, {0.6, 0.6, 0.6}, {0.9, 0.9, 0.9}};
+        double cluster_final[num_clusters][global_dim];
+
+        if (OBLIV) {
+            kmeans(global_dim, (double*)data_points, total_rows, num_clusters, (double*)cluster_initial, (int*) cluster_final);
+        } else {
+            kmeans_nonobliv(global_dim, (double*)data_points, total_rows, num_clusters, (double*)cluster_initial, (int*) cluster_final);
+        }
+
+    } else if (TEST_CONSTANT == 7) {
         int n = 960*4;
         global_dim = 3;   // TODO: HARDCODED dimension of points
         total_rows = n*3; // TODO: HARDCODED total num of points recieved
