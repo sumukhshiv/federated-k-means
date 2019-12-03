@@ -1,7 +1,7 @@
 import numpy as np
 from sklearn.cluster import KMeans
 
-num_points = 960*4 # Change this for more/less data points
+num_points = 480 # Change this for more/less data points
 dim = 3
 my_loc = 0.0;
 
@@ -28,12 +28,12 @@ for i in range(3):
         c_array += row_str + ','
     c_array = c_array[:-1]+'}'
 
-    # with open(str(num_points)+"_points.txt", "a") as myfile:
-    #     myfile.write(c_array)
-    #     myfile.write('\n------------------------------\n')
+    with open(str(num_points)+"_points.txt", "a") as myfile:
+        myfile.write(c_array)
+        myfile.write('\n------------------------------\n')
 
-    print(c_array)
-    print('------------------------------')
+    # print(c_array)
+    # print('------------------------------')
 
 
 # kmeans = KMeans(n_clusters=3, random_state=0).fit(test_data2)

@@ -20,8 +20,8 @@ int global_dim = 0;
 int total_rows = 0;
 int total_calls = 0;
 
-const int TEST_CONSTANT = 6; //TODO if you change this, also change this in app.cpp
-const int OBLIV = 1;
+const int TEST_CONSTANT = 1; //TODO if you change this, also change this in app.cpp
+const int OBLIV = 0;
 
 //TODO Double hardcoded
  double static data_points[11520][3];
